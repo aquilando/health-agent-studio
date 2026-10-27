@@ -3,465 +3,928 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habbo Hotel Style AI Office - Health Studio</title>
+  <title>Health Agent 3D Tycoon Studio - Autonomous Multi-Agent AI</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    .pixelated {
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
     }
-    @keyframes habbo-bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
     }
-    .habbo-pill {
-      animation: habbo-bob 2.8s ease-in-out infinite;
-      box-shadow: 0 4px 0px rgba(0, 0, 0, 0.4);
+    .animate-float {
+      animation: floatBob 3s ease-in-out infinite;
     }
+    .animate-pulse-glow {
+      animation: pulseGlow 2s ease-in-out infinite;
+    }
+    /* Custom scrollbar for clean UI */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; }
   </style>
 </head>
-<body class="bg-[#181d26] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
+<body class="bg-[#f1f3f6] dark:bg-[#0f131a] text-slate-800 dark:text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6 transition-colors duration-200">
 
-  <div class="max-w-6xl mx-auto space-y-4">
-    
-    <!-- Retro Header Bar -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#242c38] border-2 border-slate-700 rounded-2xl p-4 shadow-xl">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-amber-500 border-2 border-amber-700 flex items-center justify-center text-xl font-black text-slate-950 shadow-inner">
-          🏨
+  <div class="max-w-7xl mx-auto space-y-4">
+
+    <!-- Top Navigation Bar (Mirip Persis Interface @theresalearns Reel) -->
+    <header class="bg-white/95 dark:bg-[#181e28]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-3 md:p-4 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-3">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3 w-full lg:w-auto">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-xl shadow-md font-bold">
+          🏢
         </div>
         <div>
-          <h1 class="text-base font-bold text-white flex items-center gap-2">
-            Habbo Hotel AI Agent Office
-            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-              Retro Pixel-Art • Gemini 3.8
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold text-slate-900 dark:text-white tracking-tight">
+              Health Agent 3D Tycoon Office
+            </h1>
+            <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Codex 3D Engine • Gemini 3.8
             </span>
-          </h1>
-          <p class="text-xs text-slate-400">Gaya Habbo Hotel: Grid Isometrik 2:1, Loker Besi, Lemari Kayu, Dispenser & Tag Hitam</p>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Simulasi 3D Isometrik 2 Lantai: Meja Kerja, Tangga, Ruang Rapat Konsolidasi, & Phone Carousel Mockup
+          </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 font-mono text-xs">
-        <span class="px-3 py-1.5 rounded-xl bg-[#1c222c] border border-slate-700 text-slate-300 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Runs today: <span class="text-amber-400 font-bold">1</span> | Approvals: <span class="text-cyan-400 font-bold">0</span>
-        </span>
+      <!-- Mode Selector: Tycoon View vs Step Inside (Fitur Khas Reel) -->
+      <div class="flex items-center gap-2 w-full lg:w-auto justify-end">
+        <div class="bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl flex items-center text-xs font-medium border border-slate-200 dark:border-slate-700">
+          <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition">
+            <span>🏰</span> Tycoon view
+          </button>
+          <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition">
+            <span>🚶</span> Step inside
+          </button>
+        </div>
+
+        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold flex items-center gap-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition shadow-sm">
+          <span>📱</span> Tampilan Feed IG
+        </button>
       </div>
+
     </header>
 
-    <!-- Habbo Hotel Pixel-Art Viewport -->
-    <div class="relative bg-[#212936] border-4 border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[580px]">
+    <!-- Room / Zone Tabs (Persis tab di atas pada screenshot Theresa) -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-medium no-scrollbar">
+      <button onclick="focusZone('all')" class="room-tab px-3 py-1.5 rounded-xl bg-white dark:bg-[#181e28] text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>✨</span> Overview Semua Lantai
+      </button>
+      <button onclick="focusZone('workstations')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>💻</span> Lantai 1: Workstations
+      </button>
+      <button onclick="focusZone('meeting')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>🤝</span> Ruang Rapat Pleno
+      </button>
+      <button onclick="focusZone('lounge')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>☕</span> Pantry & Whiteboard
+      </button>
+      <button onclick="focusZone('basement')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>🔐</span> B1: Server & Shiro's Den
+      </button>
+    </div>
+
+    <!-- Main Studio Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
       
-      <!-- Canvas 2D Retro Habbo Pixel Engine -->
-      <canvas id="habbo-canvas" width="980" height="580" class="block pixelated"></canvas>
-
-      <!-- Exact Match Dark Floating Pill Tags (Seperti Screenshot Habbo Hotel) -->
-      <div id="badge-layer" class="absolute inset-0 pointer-events-none">
+      <!-- Left / Center: 3D Isometric Viewport & Agent Controls (8 cols or 12 cols) -->
+      <div id="viewport-container" class="lg:col-span-8 flex flex-col gap-3 transition-all duration-300">
         
-        <!-- Dr. Idea Tag -->
-        <div id="tag-1" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 230px; top: 190px;">
-          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
-            <span class="text-amber-400">#</span>
-            <span>ideator-brief</span>
-            <span id="pill-count-1" class="text-[10px] bg-slate-800 px-1.5 rounded text-amber-300">1</span>
+        <!-- Interactive 3D Canvas Box -->
+        <div class="relative w-full h-[540px] md:h-[600px] bg-gradient-to-b from-[#e8edf4] to-[#f4f7fa] dark:from-[#111620] dark:to-[#171d28] border-2 border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xl select-none">
+          
+          <!-- 3D WebGL / Canvas Engine -->
+          <canvas id="tycoonCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
+
+          <!-- Top Overlay HUD: Camera Orbit & Zoom Controls -->
+          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-white/80 dark:bg-[#1c2331]/80 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-md text-xs font-mono">
+            <span class="text-slate-500 dark:text-slate-400">Angle:</span>
+            <span id="angle-display" class="font-bold text-indigo-600 dark:text-indigo-400">35°</span>
+            <span class="text-slate-300 dark:text-slate-600">|</span>
+            <button onclick="adjustAngle(-15)" title="Putar Kiri" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">↺</button>
+            <button onclick="adjustAngle(15)" title="Putar Kanan" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">↻</button>
+            <span class="text-slate-300 dark:text-slate-600">|</span>
+            <button onclick="adjustZoom(0.1)" title="Zoom In" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">+</button>
+            <button onclick="adjustZoom(-0.1)" title="Zoom Out" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">−</button>
+            <button onclick="resetCamera()" title="Reset Kamera" class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:text-indigo-500">Reset</button>
+          </div>
+
+          <!-- Top Right: Live Meeting Announcement Banner -->
+          <div id="meeting-banner" class="hidden absolute top-4 right-4 z-10 bg-amber-500/90 text-slate-950 font-bold text-xs px-3.5 py-1.5 rounded-2xl shadow-lg border border-amber-300 flex items-center gap-2 animate-bounce">
+            <span class="text-base">📢</span>
+            <span>SIDANG PLENO: Semua agen pindah ke Ruang Rapat!</span>
+          </div>
+
+          <!-- Instruction Footnote (Persis seperti teks di screenshot: 'Left click to orbit - Scroll to zoom') -->
+          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none flex items-center gap-2">
+            <span>🖱️ Geser mouse untuk rotasi 3D</span>
+            <span>•</span>
+            <span>Scroll untuk zoom</span>
+            <span>•</span>
+            <span>Klik avatar untuk detail</span>
+          </div>
+
+          <!-- Bottom Right: Desk Lights Status Legend -->
+          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-white/80 dark:bg-[#1c2331]/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Bekerja</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Rapat Pleno</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Standby</span>
+          </div>
+
+        </div>
+
+        <!-- Topic Trigger & Run Pipeline Bar -->
+        <div class="bg-white dark:bg-[#181e28] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3">
+          <div class="relative flex-1">
+            <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-50 dark:bg-[#111620] border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 transition" placeholder="Masukkan topik / mitos kesehatan yang ingin dibongkar...">
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="setSampleTopic('kolesterol')" class="px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+              🥚 Telur & Kolesterol
+            </button>
+            <button onclick="setSampleTopic('tidur')" class="px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+              💤 Tidur 8 Jam
+            </button>
+            <button id="btn-run-pipeline" onclick="startAutonomousPipeline()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
+              <span>🚀</span> Jalankan Pipeline
+            </button>
           </div>
         </div>
 
-        <!-- Nexus Researcher Tag -->
-        <div id="tag-2" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 450px; top: 170px; animation-delay: 0.4s;">
-          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
-            <span class="text-cyan-400">#</span>
-            <span>kemenkes-who-research</span>
-            <span id="pill-count-2" class="text-[10px] bg-slate-800 px-1.5 rounded text-cyan-300">2</span>
+        <!-- Bottom Agent Dock (Persis tombol status di screenshot reel) -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+          
+          <!-- Agent 1: Rian (Idea Hunter) -->
+          <div id="dock-agent-1" onclick="focusAgent(1)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-amber-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-base shrink-0 font-bold border border-amber-500/20">
+              💡
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 dark:text-white truncate">Rian (Trend)</div>
+              <div id="dock-status-1" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Standby di Meja</div>
+            </div>
           </div>
-        </div>
 
-        <!-- Canvas Creator Tag -->
-        <div id="tag-3" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 710px; top: 220px; animation-delay: 0.8s;">
-          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
-            <span class="text-purple-400">#</span>
-            <span>visual-prompt-copy</span>
-            <span id="pill-count-3" class="text-[10px] bg-slate-800 px-1.5 rounded text-purple-300">1</span>
+          <!-- Agent 2: Dr. Sarah (Fact Checker) -->
+          <div id="dock-agent-2" onclick="focusAgent(2)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-cyan-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-base shrink-0 font-bold border border-cyan-500/20">
+              🔬
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 dark:text-white truncate">Dr. Sarah (Riset)</div>
+              <div id="dock-status-2" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Kemenkes / WHO</div>
+            </div>
           </div>
-        </div>
 
-        <!-- Dr. Verif Fact-Checker Tag -->
-        <div id="tag-4" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 270px; top: 340px; animation-delay: 1.2s;">
-          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
-            <span class="text-rose-400">#</span>
-            <span>medical-audit-factcheck</span>
-            <span id="pill-count-4" class="text-[10px] bg-slate-800 px-1.5 rounded text-rose-300">0</span>
+          <!-- Agent 3: Maya (Copywriter) -->
+          <div id="dock-agent-3" onclick="focusAgent(3)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-purple-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-base shrink-0 font-bold border border-purple-500/20">
+              ✍️
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 dark:text-white truncate">Maya (Copy)</div>
+              <div id="dock-status-3" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Hook & Slide</div>
+            </div>
           </div>
-        </div>
 
-        <!-- Ical Tag (Pimpinan) -->
-        <div id="tag-user" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 510px; top: 390px; animation-delay: 1.6s;">
-          <div class="bg-indigo-950/90 backdrop-blur-sm text-indigo-200 px-3 py-0.5 rounded-full border border-indigo-500 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
-            <span class="text-indigo-400">👑</span>
-            <span>ical-lead (kamu)</span>
+          <!-- Agent 4: Leo (Visual Director) -->
+          <div id="dock-agent-4" onclick="focusAgent(4)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-rose-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-base shrink-0 font-bold border border-rose-500/20">
+              🎨
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 dark:text-white truncate">Leo (Visual)</div>
+              <div id="dock-status-4" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Prompt Midjourney</div>
+            </div>
           </div>
+
+          <!-- Agent 5: Budi (Chief Editor) -->
+          <div id="dock-agent-5" onclick="focusAgent(5)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-emerald-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5 col-span-2 sm:col-span-1">
+            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-base shrink-0 font-bold border border-emerald-500/20">
+              ⚖️
+            </div>
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900 dark:text-white truncate">Budi (Editor)</div>
+              <div id="dock-status-5" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Pleno & Approval</div>
+            </div>
+          </div>
+
         </div>
 
       </div>
 
-      <!-- Quick Floating Control Box at Bottom of Office -->
-      <div class="absolute bottom-3 left-4 right-4 bg-[#1f2733]/95 border-2 border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
-        <input 
-          id="topic-input" 
-          type="text" 
-          placeholder="Ketik topik edukasi kesehatan (misal: Bahaya gula kemasan anak, ISPA polusi udara, garam & hipertensi)..."
-          class="flex-1 bg-[#151a22] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-full font-mono"
-        />
-        <button 
-          id="btn-run" 
-          onclick="runHabboPipeline()" 
-          class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-mono font-bold px-6 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-orange-600/30 whitespace-nowrap w-full md:w-auto">
-          <span>🚀 Rapat Pleno & Produksi</span>
-        </button>
+      <!-- Right: Realistic Social Media Instagram Feed Mockup (4 cols) -->
+      <div id="phone-container" class="lg:col-span-4 flex flex-col gap-3">
+        
+        <!-- Smartphone Chassis -->
+        <div class="bg-slate-900 border-4 border-slate-800 rounded-[38px] p-3 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col">
+          
+          <!-- Phone Speaker & Dynamic Island -->
+          <div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center gap-1.5">
+            <div class="w-2 h-2 rounded-full bg-slate-800"></div>
+            <div class="w-2 h-2 rounded-full bg-indigo-900/40"></div>
+          </div>
+
+          <!-- Social Header -->
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs">
+            <div class="flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-500 p-0.5">
+                <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-[10px]">
+                  🩺
+                </div>
+              </div>
+              <div>
+                <div class="font-bold flex items-center gap-1 text-[11px] leading-tight">
+                  klinik.edukasi.ai
+                  <svg class="w-3 h-3 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI</div>
+              </div>
+            </div>
+            <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950 px-2 py-0.5 rounded-full border border-indigo-800">
+              Mengikuti
+            </span>
+          </div>
+
+          <!-- Carousel Slide Card Display (Aspect Square 1:1) -->
+          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-inner flex flex-col justify-between p-4 transition-all duration-300" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
+            
+            <!-- Slide Top Badge -->
+            <div class="flex items-center justify-between z-10">
+              <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
+                SLIDE 1 • HOOK UTAMA
+              </span>
+              <span id="slide-index-counter" class="text-[10px] font-mono bg-black/40 px-2 py-0.5 rounded-full text-slate-200">
+                1 / 5
+              </span>
+            </div>
+
+            <!-- Slide Main Content Text -->
+            <div class="my-auto z-10 space-y-2">
+              <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-tight drop-shadow-md">
+                Bener Nggak Sih Minum Air Es Bikin Lemak Perut Menggumpal? 🧊
+              </h2>
+              <p id="slide-body" class="text-xs text-indigo-100 font-medium leading-relaxed drop-shadow">
+                Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!
+              </p>
+              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/30 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/20">
+                🔍 Sumber: Kemenkes RI & Clinical Endocrinology
+              </div>
+            </div>
+
+            <!-- Slide Bottom Prompt / AI Visual Note -->
+            <div class="z-10 bg-black/40 backdrop-blur-md rounded-xl p-2 border border-white/10 text-[9px] text-slate-300">
+              <span class="text-amber-400 font-bold block mb-0.5">🎨 AI Image Prompt (Leo):</span>
+              <p id="slide-prompt" class="italic line-clamp-2">
+                "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render."
+              </p>
+            </div>
+
+            <!-- Carousel Slide Navigation Arrows -->
+            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
+              ‹
+            </button>
+            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
+              ›
+            </button>
+
+          </div>
+
+          <!-- Social Engagement Action Bar -->
+          <div class="flex items-center justify-between text-sm py-1 px-1">
+            <div class="flex items-center gap-3">
+              <button class="hover:text-rose-500 transition flex items-center gap-1 text-xs">
+                ❤️ <span class="font-bold">2.4k</span>
+              </button>
+              <button class="hover:text-cyan-400 transition flex items-center gap-1 text-xs">
+                💬 <span class="font-bold">184</span>
+              </button>
+              <button class="hover:text-amber-400 transition flex items-center gap-1 text-xs">
+                ✈️
+              </button>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
+              <button onclick="copyCaption()" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+                📋 Salin Caption
+              </button>
+            </div>
+          </div>
+
+          <!-- Carousel Pagination Dots -->
+          <div class="flex items-center justify-center gap-1 py-1.5" id="carousel-dots">
+            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+          </div>
+
+          <!-- Caption Preview -->
+          <div class="text-[11px] text-slate-300 space-y-1 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 max-h-36 overflow-y-auto">
+            <p>
+              <strong class="text-white">klinik.edukasi.ai</strong>
+              <span id="caption-body">
+                Sering dilarang minum es sehabis makan karena takut lemak beku di lambung? Faktanya, tubuh kita adalah mesin homeostatis yang mempertahankan suhu inti di ~37°C. Air es langsung disesuaikan suhunya sebelum mencapai usus! 🧊✨
+              </span>
+            </p>
+            <p id="caption-hashtags" class="text-indigo-400 text-[10px]">
+              #MitosKesehatan #FaktaMedis #KemenkesRI #DietSehat #EdukasiDokter
+            </p>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-    <!-- Final Result Interactive Presentation Section -->
-    <section id="result-section" class="hidden bg-[#242c38] border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-6">
-      
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-4">
-        <div>
-          <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5 mb-1">
-            ✓ HASIL SIDANG PLENO DISETUJUI & SIAP PUBLIKASI
-          </span>
-          <h2 id="res-topic" class="text-xl font-bold text-white mt-1">Judul Konten Final</h2>
-          <p id="res-audience" class="text-xs text-slate-400 font-mono">Target Audiens: -</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-center">
-            <span class="text-[10px] text-slate-400 block font-mono">Uji Medis</span>
-            <span id="score-medical" class="text-sm font-bold text-cyan-400 font-mono">98/100</span>
-          </div>
-          <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-center">
-            <span class="text-[10px] text-slate-400 block font-mono">Virality</span>
-            <span id="score-virality" class="text-sm font-bold text-emerald-400 font-mono">95/100</span>
-          </div>
-          <button onclick="copyFullContent()" class="ml-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
-            📋 Salin Naskah
-          </button>
-        </div>
-      </div>
-
-      <!-- 2-Column: Live Phone Simulator vs Script Details -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <!-- Left Column: Smartphone Carousel Simulator -->
-        <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="text-xs font-mono font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
-            📱 Preview Postingan Instagram (Carousel):
-          </div>
-
-          <div class="w-[290px] h-[500px] bg-slate-950 border-4 border-slate-800 rounded-[36px] p-3 flex flex-col justify-between shadow-2xl relative overflow-hidden">
-            <div class="w-20 h-3.5 bg-slate-800 rounded-full mx-auto mb-2"></div>
-
-            <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
-              <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-bold">🩺</div>
-                <div>
-                  <span class="text-[11px] font-bold text-white block leading-none">kemenkes.edukasi</span>
-                  <span class="text-[9px] text-slate-400">Official Health Post</span>
-                </div>
-              </div>
-              <span id="carousel-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">
-                1 / 4
-              </span>
-            </div>
-
-            <div id="phone-slide-body" class="flex-1 my-2 rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 border border-slate-800 p-4 flex flex-col justify-center text-center space-y-2 relative">
-              <div id="phone-slide-icon" class="text-3xl">🍭</div>
-              <h4 id="phone-slide-title" class="text-xs font-bold text-white">Headline Slide</h4>
-              <p id="phone-slide-text" class="text-[11px] text-slate-300 leading-relaxed"></p>
-              
-              <div class="mt-2 pt-2 border-t border-slate-800/60 text-[9px] text-purple-300 font-mono italic text-left">
-                🎨 Prompt: <span id="phone-slide-prompt"></span>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between pt-1">
-              <button onclick="prevSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
-                ◀ Prev
-              </button>
-              <div id="dots-container" class="flex gap-1.5"></div>
-              <button onclick="nextSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
-                Next ▶
-              </button>
-            </div>
-
-            <div class="w-24 h-1 bg-slate-700 rounded-full mx-auto mt-2"></div>
-          </div>
-        </div>
-
-        <!-- Right Column: Full Script, Captions, Citations -->
-        <div class="lg:col-span-7 space-y-4 text-xs font-mono">
-          
-          <div class="p-4 rounded-2xl bg-[#1b212b] border border-amber-500/30 space-y-1">
-            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5 font-sans">
-              🎯 Hook 3 Detik Pertama (Membongkar Mitos):
-            </span>
-            <p id="res-hook" class="text-sm text-slate-100 font-medium leading-relaxed font-sans"></p>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-[#1b212b] border border-slate-700 space-y-2">
-            <span class="text-xs font-bold text-purple-400 block font-sans">📝 Caption Naskah Medsos:</span>
-            <p id="res-caption" class="text-slate-300 whitespace-pre-line leading-relaxed font-sans"></p>
-            <div class="pt-2 text-slate-400 border-t border-slate-800 font-sans">
-              <span class="font-semibold text-slate-200">Call to Action (CTA):</span> <span id="res-cta"></span>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-[#1b212b] border border-slate-700 space-y-3 font-sans">
-            <div>
-              <span class="text-xs font-bold text-cyan-400 block mb-1">📚 Sitasi Ilmiah Sah (Kemenkes & WHO):</span>
-              <ul id="res-sources" class="text-slate-300 space-y-1 list-disc list-inside text-xs"></ul>
-            </div>
-
-            <div class="pt-3 border-t border-slate-800 font-sans">
-              <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Catatan Konsensus Dewan Pleno:</span>
-              <p id="res-notes" class="text-slate-400 italic text-[11px]"></p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
   </div>
 
   <script>
-    const canvas = document.getElementById('habbo-canvas');
+    /* ========================================================================
+       3D ISOMETRIC TYCOON ENGINE (Pure Canvas 2D with 3D Matrix Projection)
+       Matches the multi-floor aesthetic from @theresalearns Instagram reel:
+       - Upper floor: Warm tech office with cubicles, conference room & plants
+       - Lower floor: Sleek basement lab with open stairs and steel railing
+       - 5 Stylized Humanoid Avatars with idle & walking animations
+       ======================================================================== */
+
+    const canvas = document.getElementById('tycoonCanvas');
     const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
 
-    let eventSource = null;
-    let fullOutputMarkdown = "";
-    let carouselSlides = [];
-    let currentSlideIdx = 0;
+    let camera = {
+      angle: 0.65,    // Y rotation (~37 degrees)
+      tilt: 0.52,     // X pitch (~30 degrees isometric angle)
+      zoom: 1.15,
+      cx: 0,
+      cy: 0,
+      isDragging: false,
+      lastMouseX: 0,
+      lastMouseY: 0,
+      viewMode: 'tycoon'
+    };
 
-    const ORIGIN_X = 510;
-    const ORIGIN_Y = 170;
-    const TILE_W = 48;
-    const TILE_H = 24;
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      camera.cx = canvas.width / 2;
+      camera.cy = canvas.height / 2 + 30 * dpr;
+    }
+    window.addEventListener('resize', resizeCanvas);
 
-    function toIso(x, y, z = 0) {
+    function project(x, y, z) {
+      const cosA = Math.cos(camera.angle);
+      const sinA = Math.sin(camera.angle);
+      const xRot = x * cosA - y * sinA;
+      const yRot = x * sinA + y * cosA;
+
+      const cosT = Math.cos(camera.tilt);
+      const sinT = Math.sin(camera.tilt);
+      const zRot = z * cosT - yRot * sinT;
+      const yProj = z * sinT + yRot * cosT;
+
+      const dpr = window.devicePixelRatio || 1;
       return {
-        x: Math.round(ORIGIN_X + (x - y) * (TILE_W / 2)),
-        y: Math.round(ORIGIN_Y + (x + y) * (TILE_H / 2) - z * 1.4)
+        x: camera.cx + xRot * camera.zoom * dpr,
+        y: camera.cy - yProj * camera.zoom * dpr,
+        depth: yRot
       };
     }
 
-    function drawHabboBlock(x, y, z, wx, wy, wz, topCol, leftCol, rightCol, strokeCol = '#1e293b') {
-      const p = toIso(x, y, z);
-      const isoDx = Math.round((TILE_W / 2) * wx);
-      const isoDy = Math.round((TILE_H / 2) * wx);
-      const isoDxY = Math.round((TILE_W / 2) * wy);
-      const isoDyY = Math.round((TILE_H / 2) * wy);
-      const h = Math.round(wz * 1.4);
-
-      ctx.fillStyle = topCol;
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y - h);
-      ctx.lineTo(p.x + isoDx, p.y + isoDy - h);
-      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY - h);
-      ctx.lineTo(p.x - isoDxY, p.y + isoDyY - h);
-      ctx.closePath();
-      ctx.fill();
-      if (strokeCol) {
-        ctx.strokeStyle = strokeCol;
-        ctx.lineWidth = 1;
-        ctx.stroke();
+    const agents = [
+      {
+        id: 1,
+        name: "Rian",
+        role: "Trend Ideator",
+        color: "#f59e0b",
+        hairColor: "#d97706",
+        shirtColor: "#fbbf24",
+        deskPos: { x: -160, y: -70, z: 0 },
+        meetingPos: { x: 30, y: -60, z: 0 },
+        currentPos: { x: -160, y: -70, z: 0 },
+        status: "idle"
+      },
+      {
+        id: 2,
+        name: "Dr. Sarah",
+        role: "Fact Checker",
+        color: "#06b6d4",
+        hairColor: "#475569",
+        shirtColor: "#ffffff",
+        accessory: "stethoscope",
+        deskPos: { x: -160, y: 50, z: 0 },
+        meetingPos: { x: 90, y: -40, z: 0 },
+        currentPos: { x: -160, y: 50, z: 0 },
+        status: "idle"
+      },
+      {
+        id: 3,
+        name: "Maya",
+        role: "Copywriter",
+        color: "#a855f7",
+        hairColor: "#e11d48",
+        shirtColor: "#c084fc",
+        deskPos: { x: -60, y: -70, z: 0 },
+        meetingPos: { x: 90, y: 40, z: 0 },
+        currentPos: { x: -60, y: -70, z: 0 },
+        status: "idle"
+      },
+      {
+        id: 4,
+        name: "Leo",
+        role: "Visual Director",
+        color: "#f43f5e",
+        hairColor: "#0f172a",
+        shirtColor: "#fb7185",
+        deskPos: { x: -60, y: 50, z: 0 },
+        meetingPos: { x: 30, y: 60, z: 0 },
+        currentPos: { x: -60, y: 50, z: 0 },
+        status: "idle"
+      },
+      {
+        id: 5,
+        name: "Budi",
+        role: "Chief Editor",
+        color: "#10b981",
+        hairColor: "#1e293b",
+        shirtColor: "#0f766e",
+        deskPos: { x: 60, y: 0, z: 0 },
+        meetingPos: { x: 60, y: 0, z: 0 },
+        currentPos: { x: 60, y: 0, z: 0 },
+        status: "idle"
       }
+    ];
 
-      ctx.fillStyle = leftCol;
-      ctx.beginPath();
-      ctx.moveTo(p.x - isoDxY, p.y + isoDyY - h);
-      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY - h);
-      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY);
-      ctx.lineTo(p.x - isoDxY, p.y + isoDyY);
-      ctx.closePath();
-      ctx.fill();
-      if (strokeCol) {
-        ctx.strokeStyle = strokeCol;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
+    let animTime = 0;
+    let isMeetingPhase = false;
+    let eventSource = null;
 
-      ctx.fillStyle = rightCol;
+    function draw3DQuad(p1, p2, p3, p4, fillColor, strokeColor = null) {
+      const pt1 = project(p1.x, p1.y, p1.z);
+      const pt2 = project(p2.x, p2.y, p2.z);
+      const pt3 = project(p3.x, p3.y, p3.z);
+      const pt4 = project(p4.x, p4.y, p4.z);
+
       ctx.beginPath();
-      ctx.moveTo(p.x, p.y - h);
-      ctx.lineTo(p.x - isoDxY, p.y + isoDyY - h);
-      ctx.lineTo(p.x - isoDxY, p.y + isoDyY);
-      ctx.lineTo(p.x, p.y);
+      ctx.moveTo(pt1.x, pt1.y);
+      ctx.lineTo(pt2.x, pt2.y);
+      ctx.lineTo(pt3.x, pt3.y);
+      ctx.lineTo(pt4.x, pt4.y);
       ctx.closePath();
+
+      ctx.fillStyle = fillColor;
       ctx.fill();
-      if (strokeCol) {
-        ctx.strokeStyle = strokeCol;
+
+      if (strokeColor) {
+        ctx.strokeStyle = strokeColor;
         ctx.lineWidth = 1;
         ctx.stroke();
       }
     }
 
-    const state = {
-      time: 0,
-      activeAgent: null,
-      chars: {
-        1: { name: "Dr. Idea", x: 2.2, y: 3.4, hair: '#8d5b4c', shirt: '#ea580c', typing: false },
-        2: { name: "Nexus", x: 5.2, y: 2.8, hair: '#1e293b', shirt: '#0284c7', typing: false },
-        3: { name: "Canvas", x: 8.2, y: 3.6, hair: '#c2410c', shirt: '#9333ea', typing: false },
-        4: { name: "Dr. Verif", x: 3.2, y: 6.6, hair: '#e2e8f0', shirt: '#dc2626', typing: false },
-        5: { name: "Ical", x: 6.2, y: 7.0, hair: '#0f172a', shirt: '#059669', typing: false }
-      }
-    };
-
-    function drawHabboAvatar(c, isAct = false) {
-      const p = toIso(c.x, c.y, 0);
-      const bob = Math.sin(state.time * 4) * 1.5;
-
-      drawHabboBlock(c.x, c.y, 0, 0.8, 0.8, 7, '#334155', '#1e293b', '#0f172a');
-      drawHabboBlock(c.x + 0.1, c.y + 0.1, 7 + bob, 0.6, 0.6, 8, c.shirt, '#475569', '#334155');
-      drawHabboBlock(c.x, c.y, 15 + bob, 0.8, 0.8, 8, '#fed7aa', '#fba86c', '#ea7b3c');
-      drawHabboBlock(c.x - 0.05, c.y - 0.05, 21 + bob, 0.9, 0.9, 4, c.hair, '#3e2723', '#271711');
-
-      const ptHead = toIso(c.x, c.y, 18 + bob);
-      ctx.fillStyle = '#1e293b';
-      ctx.fillRect(ptHead.x - 3, ptHead.y - 2, 2, 3);
-      ctx.fillRect(ptHead.x + 2, ptHead.y - 2, 2, 3);
-
-      if (c.typing) {
-        const pHand = toIso(c.x + 0.5, c.y + 0.5, 10);
-        ctx.fillStyle = '#fed7aa';
-        ctx.fillRect(pHand.x - 4, pHand.y + Math.sin(state.time * 25) * 2, 3, 3);
-        ctx.fillRect(pHand.x + 2, pHand.y - Math.sin(state.time * 25) * 2, 3, 3);
-      }
+    function draw3DBox(x, y, z, w, h, d, topColor, side1Color, side2Color) {
+      draw3DQuad(
+        { x: x - w/2, y: y - h/2, z: z + d },
+        { x: x + w/2, y: y - h/2, z: z + d },
+        { x: x + w/2, y: y + h/2, z: z + d },
+        { x: x - w/2, y: y + h/2, z: z + d },
+        topColor
+      );
+      draw3DQuad(
+        { x: x - w/2, y: y + h/2, z: z },
+        { x: x + w/2, y: y + h/2, z: z },
+        { x: x + w/2, y: y + h/2, z: z + d },
+        { x: x - w/2, y: y + h/2, z: z + d },
+        side1Color
+      );
+      draw3DQuad(
+        { x: x + w/2, y: y - h/2, z: z },
+        { x: x + w/2, y: y + h/2, z: z },
+        { x: x + w/2, y: y + h/2, z: z + d },
+        { x: x + w/2, y: y - h/2, z: z + d },
+        side2Color
+      );
     }
 
-    function drawHabboDesk(x, y, isScreenActive = false) {
-      drawHabboBlock(x, y, 9, 2.0, 1.2, 1.5, '#ea580c', '#c2410c', '#9a3412');
-      drawHabboBlock(x, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#000000');
-      drawHabboBlock(x + 1.8, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#000000');
-
-      const scrColor = isScreenActive ? '#38bdf8' : '#22d3ee';
-      drawHabboBlock(x + 0.5, y + 0.2, 11, 0.9, 0.2, 5, scrColor, '#0369a1', '#075985');
-      drawHabboBlock(x + 1.4, y + 0.6, 0, 0.4, 0.6, 6, '#475569', '#334155', '#1e293b');
-      drawHabboBlock(x - 0.5, y + 0.8, 0, 0.5, 0.5, 4, '#cbd5e1', '#94a3b8', '#64748b');
-    }
-
-    function renderHabboScene() {
+    function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animTime += 0.04;
 
-      for (let x = 0; x < 12; x++) {
-        for (let y = 0; y < 10; y++) {
-          const isAisle = (x >= 2 && x <= 9 && y >= 2 && y <= 8);
-          const topCol = isAisle ? '#94a3b8' : '#cbd5e1';
-          const leftCol = isAisle ? '#64748b' : '#94a3b8';
-          const rightCol = isAisle ? '#475569' : '#64748b';
-          drawHabboBlock(x, y, 0, 1, 1, 0.5, topCol, leftCol, rightCol, '#334155');
-        }
+      // 1. BASEMENT FLOOR (Floor B1 / Server Lab)
+      const bz = -110;
+      draw3DBox(0, 40, bz - 15, 340, 260, 15, '#1e2430', '#131822', '#0e121a');
+
+      // Basement Grid Lines
+      for (let gx = -140; gx <= 140; gx += 40) {
+        const pt1 = project(gx, -70, bz);
+        const pt2 = project(gx, 150, bz);
+        ctx.beginPath();
+        ctx.moveTo(pt1.x, pt1.y);
+        ctx.lineTo(pt2.x, pt2.y);
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
 
-      // Back Wall
-      drawHabboBlock(0, 0, 0, 11, 0.5, 30, '#f1f5f9', '#cbd5e1', '#94a3b8', '#475569');
+      // Server Racks & Blinker
+      draw3DBox(-90, 100, bz, 30, 60, 40, '#2d3748', '#1a202c', '#171923');
+      draw3DBox(-40, 100, bz, 30, 60, 40, '#2d3748', '#1a202c', '#171923');
+      const blinkPt = project(-90, 125, bz + 30);
+      ctx.fillStyle = (Math.sin(animTime * 6) > 0) ? '#38bdf8' : '#0369a1';
+      ctx.fillRect(blinkPt.x - 3, blinkPt.y - 2, 6, 4);
 
-      // Window
-      const pWin = toIso(1, 0.5, 20);
-      ctx.fillStyle = '#bae6fd';
-      ctx.fillRect(pWin.x - 30, pWin.y - 18, 60, 32);
-      ctx.strokeStyle = '#475569';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(pWin.x - 30, pWin.y - 18, 60, 32);
+      // 2. CONNECTING OPEN STAIRCASE
+      const numSteps = 8;
+      for (let s = 0; s < numSteps; s++) {
+        const stepZ = bz + (s / numSteps) * 110;
+        const stepX = 140 + s * 4;
+        const stepY = 120 - s * 16;
+        draw3DBox(stepX, stepY, stepZ, 34, 18, 5, '#cbd5e1', '#94a3b8', '#64748b');
+      }
 
-      // Wall Clock
-      const pClock = toIso(5, 0.5, 24);
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath(); ctx.arc(pClock.x, pClock.y, 8, 0, Math.PI*2); ctx.fill();
-      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2; ctx.stroke();
+      // 3. UPPER FLOOR SLAB (Floor 1: Workstations & Conference)
+      draw3DBox(0, 0, -20, 440, 320, 20, '#f8fafc', '#cbd5e1', '#94a3b8');
 
-      // Notice Board
-      const pNotice = toIso(6.5, 0.5, 18);
-      ctx.fillStyle = '#fef08a';
-      ctx.fillRect(pNotice.x - 20, pNotice.y - 14, 40, 24);
-      ctx.strokeStyle = '#854d0e'; ctx.lineWidth = 1.5; ctx.strokeRect(pNotice.x - 20, pNotice.y - 14, 40, 24);
+      // Carpet in Conference Zone
+      draw3DQuad(
+        { x: 0, y: -90, z: 0.5 },
+        { x: 190, y: -90, z: 0.5 },
+        { x: 190, y: 120, z: 0.5 },
+        { x: 0, y: 120, z: 0.5 },
+        'rgba(224, 231, 255, 0.45)',
+        'rgba(165, 180, 252, 0.3)'
+      );
 
-      // Wooden Wardrobe / Cabinet
-      drawHabboBlock(3, 0.5, 0, 2.4, 0.8, 24, '#ea580c', '#c2410c', '#9a3412', '#7c2d12');
-      const pHandle = toIso(3.8, 0.8, 12);
-      ctx.fillStyle = '#fde047'; ctx.fillRect(pHandle.x - 2, pHandle.y - 2, 4, 4);
-
-      // Metal Lockers
-      drawHabboBlock(5.8, 0.5, 0, 2.0, 0.8, 22, '#64748b', '#475569', '#334155', '#1e293b');
-
-      // Water Cooler Dispenser
-      drawHabboBlock(10.2, 0.5, 0, 0.8, 0.8, 12, '#f8fafc', '#cbd5e1', '#94a3b8');
-      drawHabboBlock(10.3, 0.6, 12, 0.6, 0.6, 7, '#38bdf8', '#0284c7', '#0369a1');
-
-      // Whiteboard
-      const pBoard = toIso(9, 3, 14);
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(pBoard.x - 22, pBoard.y - 18, 44, 30);
-      ctx.strokeStyle = '#334155'; ctx.lineWidth = 2; ctx.strokeRect(pBoard.x - 22, pBoard.y - 18, 44, 30);
-
-      // Workstations
-      drawHabboDesk(1.6, 2.4, state.activeAgent === 1);
-      drawHabboDesk(4.6, 1.8, state.activeAgent === 2);
-      drawHabboDesk(7.6, 2.6, state.activeAgent === 3);
-      drawHabboDesk(2.6, 5.6, state.activeAgent === 4);
-      drawHabboDesk(5.6, 6.0, false);
-
-      // Characters
-      Object.keys(state.chars).forEach(key => {
-        const c = state.chars[key];
-        const isAct = (key == state.activeAgent);
-        drawHabboAvatar(c, isAct);
-      });
-
-      // Glass Partition
-      ctx.strokeStyle = '#38bdf888';
-      ctx.fillStyle = '#38bdf818';
-      ctx.lineWidth = 2;
-      const g1 = toIso(0, 6, 0);
-      const g2 = toIso(2, 6, 0);
-      const g1Top = toIso(0, 6, 22);
-      const g2Top = toIso(2, 6, 22);
-
+      // Glass Balustrade on the edge
+      const bEdge1 = project(-210, 155, 0);
+      const bEdge2 = project(130, 155, 0);
+      const bEdge1Top = project(-210, 155, 24);
+      const bEdge2Top = project(130, 155, 24);
+      ctx.fillStyle = 'rgba(186, 230, 253, 0.25)';
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.5)';
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(g1.x, g1.y);
-      ctx.lineTo(g2.x, g2.y);
-      ctx.lineTo(g2Top.x, g2Top.y);
-      ctx.lineTo(g1Top.x, g1Top.y);
+      ctx.moveTo(bEdge1.x, bEdge1.y);
+      ctx.lineTo(bEdge2.x, bEdge2.y);
+      ctx.lineTo(bEdge2Top.x, bEdge2Top.y);
+      ctx.lineTo(bEdge1Top.x, bEdge1Top.y);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
-      state.time += 0.04;
-      requestAnimationFrame(renderHabboScene);
-    }
+      // 4. FURNITURE & DECORATIONS
+      // Conference Table (Mahogany)
+      draw3DBox(60, 0, 0, 110, 70, 24, '#d97706', '#b45309', '#92400e');
+      draw3DBox(60, 0, 24, 16, 12, 2, '#475569', '#334155', '#1e293b');
 
-    renderHabboScene();
+      // Whiteboard Easel
+      draw3DBox(160, -20, 0, 8, 80, 70, '#f1f5f9', '#e2e8f0', '#cbd5e1');
+      const wbPt = project(155, -20, 45);
+      ctx.fillStyle = '#10b981';
+      ctx.fillRect(wbPt.x - 12, wbPt.y - 8, 6, 16);
+      ctx.fillStyle = '#6366f1';
+      ctx.fillRect(wbPt.x - 4, wbPt.y - 14, 6, 22);
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(wbPt.x + 4, wbPt.y - 20, 6, 28);
 
-    function resetHabboOffice() {
-      for (let i = 1; i <= 4; i++) {
-        state.chars[i].typing = false;
+      // Desks for Individual Agents
+      const deskColor = '#ffffff';
+      const deskSide = '#e2e8f0';
+      draw3DBox(-160, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-160, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-60, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-60, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
+
+      // Glowing Monitors
+      function drawMonitor(dx, dy, dz, glowColor) {
+        draw3DBox(dx, dy - 10, dz + 22, 22, 4, 16, '#334155', '#1e293b', '#0f172a');
+        const screenPt = project(dx, dy - 8, dz + 30);
+        ctx.fillStyle = glowColor;
+        ctx.fillRect(screenPt.x - 7, screenPt.y - 5, 14, 10);
       }
-      state.activeAgent = null;
-      document.getElementById('result-section').classList.add('hidden');
+      drawMonitor(-160, -70, 0, '#fbbf24');
+      drawMonitor(-160, 50, 0, '#38bdf8');
+      drawMonitor(-60, -70, 0, '#c084fc');
+      drawMonitor(-60, 50, 0, '#fb7185');
+
+      // Plants
+      function drawPlant(px, py, pz) {
+        draw3DBox(px, py, pz, 16, 16, 14, '#b45309', '#92400e', '#78350f');
+        const leafPt = project(px, py, pz + 24);
+        ctx.beginPath();
+        ctx.arc(leafPt.x, leafPt.y, 11 * camera.zoom, 0, Math.PI * 2);
+        ctx.fillStyle = '#22c55e';
+        ctx.fill();
+      }
+      drawPlant(-200, -130, 0);
+      drawPlant(-10, 130, 0);
+      drawPlant(180, 130, 0);
+
+      // Coffee Counter
+      draw3DBox(-170, -135, 0, 36, 24, 20, '#e2e8f0', '#cbd5e1', '#94a3b8');
+      const coffeePt = project(-170, -135, 22);
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(coffeePt.x - 4, coffeePt.y - 6, 8, 8);
+
+      // 5. UPDATE AGENTS & RENDER HUMANOIDS
+      agents.forEach((agent) => {
+        const target = (isMeetingPhase || agent.id === 5) ? agent.meetingPos : agent.deskPos;
+
+        agent.currentPos.x += (target.x - agent.currentPos.x) * 0.08;
+        agent.currentPos.y += (target.y - agent.currentPos.y) * 0.08;
+        agent.currentPos.z += (target.z - agent.currentPos.z) * 0.08;
+
+        const isWalking = Math.hypot(target.x - agent.currentPos.x, target.y - agent.currentPos.y) > 2;
+        const bob = isWalking ? Math.sin(animTime * 12) * 3 : Math.sin(animTime * 3 + agent.id) * 1.5;
+
+        const basePt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z);
+        const headPt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z + 32 + bob);
+
+        // Shadow
+        ctx.beginPath();
+        ctx.ellipse(basePt.x, basePt.y, 9 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.fill();
+
+        // Body
+        const bodyHeight = 16 * camera.zoom;
+        const bodyWidth = 10 * camera.zoom;
+        ctx.beginPath();
+        ctx.roundRect(headPt.x - bodyWidth/2, headPt.y + 10 * camera.zoom, bodyWidth, bodyHeight, 4);
+        ctx.fillStyle = agent.shirtColor;
+        ctx.fill();
+        ctx.strokeStyle = '#0f172a';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Head
+        const headRadius = 7.5 * camera.zoom;
+        ctx.beginPath();
+        ctx.arc(headPt.x, headPt.y + 4 * camera.zoom, headRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#fde047';
+        ctx.fill();
+        ctx.stroke();
+
+        // Hair
+        ctx.beginPath();
+        ctx.arc(headPt.x, headPt.y + 2 * camera.zoom, headRadius * 1.05, Math.PI, Math.PI * 2);
+        ctx.fillStyle = agent.hairColor;
+        ctx.fill();
+
+        if (agent.accessory === 'stethoscope') {
+          ctx.beginPath();
+          ctx.arc(headPt.x, headPt.y + 14 * camera.zoom, 4 * camera.zoom, 0, Math.PI);
+          ctx.strokeStyle = '#06b6d4';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        // Floating Status Pill Tag
+        const tagY = headPt.y - 18 * camera.zoom;
+        const pillText = `${agent.name} (${agent.status.toUpperCase()})`;
+        ctx.font = 'bold 10px monospace';
+        const textWidth = ctx.measureText(pillText).width;
+
+        const pillBg = (agent.status === 'working') ? '#10b981' : (agent.status === 'meeting') ? '#f59e0b' : '#1e293b';
+        ctx.fillStyle = pillBg;
+        ctx.beginPath();
+        ctx.roundRect(headPt.x - textWidth/2 - 7, tagY - 8, textWidth + 14, 16, 8);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(pillText, headPt.x, tagY);
+
+        if (agent.status === 'working') {
+          const deskPt = project(agent.deskPos.x, agent.deskPos.y, 48);
+          ctx.beginPath();
+          ctx.arc(deskPt.x, deskPt.y, 5 * camera.zoom, 0, Math.PI * 2);
+          ctx.fillStyle = '#22c55e';
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(deskPt.x, deskPt.y, 12 * camera.zoom, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(34, 197, 94, 0.3)';
+          ctx.fill();
+        }
+      });
+
+      requestAnimationFrame(render);
     }
 
-    function runHabboPipeline() {
+    // Camera Orbit & Controls
+    canvas.addEventListener('mousedown', (e) => {
+      camera.isDragging = true;
+      camera.lastMouseX = e.clientX;
+      camera.lastMouseY = e.clientY;
+    });
+
+    window.addEventListener('mouseup', () => {
+      camera.isDragging = false;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!camera.isDragging) return;
+      const dx = e.clientX - camera.lastMouseX;
+      const dy = e.clientY - camera.lastMouseY;
+
+      camera.angle += dx * 0.008;
+      camera.tilt = Math.max(0.2, Math.min(1.2, camera.tilt + dy * 0.006));
+
+      document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
+      camera.lastMouseX = e.clientX;
+      camera.lastMouseY = e.clientY;
+    });
+
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomFactor = e.deltaY < 0 ? 1.05 : 0.95;
+      camera.zoom = Math.max(0.6, Math.min(2.5, camera.zoom * zoomFactor));
+    });
+
+    function adjustAngle(degrees) {
+      camera.angle += degrees * (Math.PI / 180);
+      document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
+    }
+
+    function adjustZoom(delta) {
+      camera.zoom = Math.max(0.6, Math.min(2.5, camera.zoom + delta));
+    }
+
+    function resetCamera() {
+      camera.angle = 0.65;
+      camera.tilt = 0.52;
+      camera.zoom = 1.15;
+      resizeCanvas();
+      document.getElementById('angle-display').textContent = '35°';
+    }
+
+    function setViewMode(mode) {
+      camera.viewMode = mode;
+      const btnTycoon = document.getElementById('btn-view-tycoon');
+      const btnInside = document.getElementById('btn-view-inside');
+
+      if (mode === 'tycoon') {
+        btnTycoon.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
+        btnInside.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition';
+        camera.zoom = 1.15;
+        camera.tilt = 0.52;
+      } else {
+        btnInside.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
+        btnTycoon.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition';
+        camera.zoom = 1.85;
+        camera.tilt = 0.35;
+      }
+    }
+
+    function focusZone(zone) {
+      if (zone === 'all') resetCamera();
+      else if (zone === 'workstations') { camera.angle = 0.4; camera.zoom = 1.5; }
+      else if (zone === 'meeting') { camera.angle = 0.9; camera.zoom = 1.6; }
+      else if (zone === 'lounge') { camera.angle = 1.4; camera.zoom = 1.4; }
+      else if (zone === 'basement') { camera.angle = 0.6; camera.tilt = 0.7; camera.zoom = 1.3; }
+      document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
+    }
+
+    function focusAgent(id) {
+      camera.zoom = 1.8;
+      camera.angle = 0.7;
+    }
+
+    function togglePhonePreview() {
+      const phone = document.getElementById('phone-container');
+      const viewport = document.getElementById('viewport-container');
+      if (phone.classList.contains('hidden')) {
+        phone.classList.remove('hidden');
+        viewport.className = 'lg:col-span-8 flex flex-col gap-3 transition-all duration-300';
+      } else {
+        phone.classList.add('hidden');
+        viewport.className = 'lg:col-span-12 flex flex-col gap-3 transition-all duration-300';
+      }
+      setTimeout(resizeCanvas, 320);
+    }
+
+    /* ========================================================================
+       SOCIAL MEDIA CAROUSEL POST DISPLAY & CONTROLS
+       ======================================================================== */
+    let currentSlide = 0;
+    let slidesData = [
+      {
+        badge: "SLIDE 1 • HOOK UTAMA",
+        title: "Bener Nggak Sih Minum Air Es Bikin Lemak Perut Menggumpal? 🧊",
+        body: "Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!",
+        source: "🔍 Sumber: Kemenkes RI & Clinical Endocrinology",
+        prompt: "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render.",
+        bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)"
+      },
+      {
+        badge: "SLIDE 2 • MITOS YANG BEREDAR",
+        title: "❌ MITOS: 'Air dingin langsung membekukan lemak jadi gumpalan'",
+        body: "Mitos ini mengklaim lemak yang membeku akan menempel di usus dan memicu kanker atau perut buncit. Ini mitos keliru yang tidak memiliki dasar biokimia!",
+        source: "❌ Ditepis oleh IDAI & Perhimpunan Dokter Spesialis Penyakit Dalam",
+        prompt: "Cross-section 3D glass cup filled with ice cubes melting instantly into body temperature water, clean scientific laboratory aesthetic.",
+        bg: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)"
+      },
+      {
+        badge: "SLIDE 3 • FAKTA ILMIAH",
+        title: "✅ FAKTA: Suhu Tubuh Selalu ~37°C (Homeostasis)",
+        body: "Air es apapun yang diminum langsung dihangatkan oleh pembuluh darah di kerongkongan & lambung dalam hitungan detik. Lemak dicerna oleh enzim Lipase & Empedu, bukan oleh suhu air!",
+        source: "✅ Validasi Ilmiah: Pedoman Gizi Seimbang Kemenkes RI",
+        prompt: "Infographic 3D human body silhouette glowing with warm 37C internal core temperature, scientific biological homeostasis diagram.",
+        bg: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)"
+      },
+      {
+        badge: "SLIDE 4 • TIPS PRAKTIS",
+        title: "📋 Kapan Sebaiknya Waspada Minum Air Dingin?",
+        body: "1. Yang bikin gemuk bukan suhu es-nya, melainkan sirup/gula tambahannya!\n2. Hindari air es berlebihan jika sedang migrain aktif atau radang tenggorokan akut.\n3. Air putih dingin 0 kalori aman untuk metabolisme.",
+        source: "💡 Rekomendasi Ahli Gizi Klinis",
+        prompt: "Modern minimal healthy hydration lifestyle flatlay, clean tumbler, sliced lemon, fresh mint, pastel aesthetic lighting.",
+        bg: "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)"
+      },
+      {
+        badge: "SLIDE 5 • KESIMPULAN & CTA",
+        title: "🔔 Kesimpulan: Air Es 0 Kalori Tidak Bikin Gemuk!",
+        body: "Jadi jangan takut minum air putih dingin saat cuaca terik. Simpan & share postingan ini ke grup keluarga yang masih sering sebar mitos air es! 💬",
+        source: "🏥 Divalidasi oleh Tim Editorial Health Agent Studio",
+        prompt: "High aesthetic bookmark save and share ribbon icon, 3D clay pastel badge, verified medical tick symbol.",
+        bg: "linear-gradient(135deg, #31104b 0%, #581c87 50%, #7e22ce 100%)"
+      }
+    ];
+
+    function updateSlideUI() {
+      if (!slidesData || slidesData.length === 0) return;
+      const s = slidesData[currentSlide];
+      document.getElementById('slide-badge').textContent = s.badge || `SLIDE ${currentSlide + 1}`;
+      document.getElementById('slide-index-counter').textContent = `${currentSlide + 1} / ${slidesData.length}`;
+      document.getElementById('slide-title').textContent = s.title;
+      document.getElementById('slide-body').textContent = s.body;
+      document.getElementById('slide-source-tag').textContent = s.source;
+      document.getElementById('slide-prompt').textContent = `"${s.prompt}"`;
+      document.getElementById('slide-background').style.background = s.bg || 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)';
+
+      const dotsContainer = document.getElementById('carousel-dots');
+      dotsContainer.innerHTML = slidesData.map((_, i) => 
+        `<span class="${i === currentSlide ? 'w-2.5 h-2.5 bg-indigo-500' : 'w-1.5 h-1.5 bg-slate-700'} rounded-full transition-all"></span>`
+      ).join('');
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slidesData.length;
+      updateSlideUI();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slidesData.length) % slidesData.length;
+      updateSlideUI();
+    }
+
+    function copyCaption() {
+      const caption = document.getElementById('caption-body').innerText + "\n\n" + document.getElementById('caption-hashtags').innerText;
+      navigator.clipboard.writeText(caption).then(() => {
+        alert("✅ Caption Instagram berhasil disalin ke clipboard!");
+      });
+    }
+
+    function setSampleTopic(type) {
+      if (type === 'kolesterol') {
+        document.getElementById('topic-input').value = "Mitos: Makan Telur Setiap Hari Bikin Kolesterol Meledak";
+      } else if (type === 'tidur') {
+        document.getElementById('topic-input').value = "Fakta: Apakah Benar Kita Wajib Tidur Tepat 8 Jam Tiap Malam?";
+      }
+      startAutonomousPipeline();
+    }
+
+    /* ========================================================================
+       LIVE REAL-TIME PYTHON BACKEND INTEGRATION (SSE VIA FastAPI)
+       ======================================================================== */
+    function startAutonomousPipeline() {
       const topic = document.getElementById('topic-input').value.trim();
       if (!topic) {
-        alert("Silakan masukkan topik edukasi kesehatan terlebih dahulu!");
+        alert("Silakan masukkan topik terlebih dahulu!");
         return;
       }
 
-      resetHabboOffice();
-      const btn = document.getElementById('btn-run');
-      btn.disabled = true;
+      const btnRun = document.getElementById('btn-run-pipeline');
+      btnRun.disabled = true;
+      btnRun.innerHTML = '<span>⏳</span> Pipeline Berjalan...';
+
+      // Reset state
+      isMeetingPhase = false;
+      document.getElementById('meeting-banner').classList.add('hidden');
+      agents.forEach(a => a.status = 'idle');
 
       const url = `/api/stream-pipeline?topic=${encodeURIComponent(topic)}`;
       if (eventSource) eventSource.close();
@@ -471,114 +934,91 @@
         const msg = JSON.parse(event.data);
 
         if (msg.type === 'agent_start') {
-          state.activeAgent = msg.agent_id;
-          if (msg.agent_id <= 4) {
-            state.chars[msg.agent_id].typing = true;
+          const aid = msg.agent_id;
+          if (aid <= 4) {
+            agents[aid - 1].status = 'working';
+            updateDockStatus(aid, `🟢 ${msg.status_badge}`);
+            focusAgent(aid);
+          } else if (aid === 5) {
+            // TAHAP 5: RUANG RAPAT PLENO (Semua agen berjalan ke Ruang Rapat)
+            isMeetingPhase = true;
+            document.getElementById('meeting-banner').classList.remove('hidden');
+            agents.forEach(a => a.status = 'meeting');
+            focusZone('meeting');
+            updateDockStatus(5, '🟡 Sidang Pleno Berlangsung');
           }
         }
         else if (msg.type === 'agent_complete') {
-          if (msg.agent_id <= 4) {
-            state.chars[msg.agent_id].typing = false;
-            const countEl = document.getElementById(`pill-count-${msg.agent_id}`);
-            if (countEl) countEl.innerText = '✓';
+          const aid = msg.agent_id;
+          if (aid <= 4) {
+            agents[aid - 1].status = 'idle';
+            updateDockStatus(aid, '✅ Selesai');
+          } else if (aid === 5) {
+            document.getElementById('meeting-banner').classList.add('hidden');
+            agents.forEach(a => a.status = 'idle');
+            updateDockStatus(5, '✅ Approved & Disahkan');
           }
         }
         else if (msg.type === 'pipeline_finished') {
           eventSource.close();
-          btn.disabled = false;
-          state.activeAgent = null;
+          btnRun.disabled = false;
+          btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
+          resetCamera();
 
-          renderFinalResult(msg.data);
+          // Render live AI-generated content into Instagram carousel
+          populateGeneratedContent(msg.data);
         }
         else if (msg.type === 'error') {
           eventSource.close();
-          btn.disabled = false;
+          btnRun.disabled = false;
+          btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
           alert('Error: ' + msg.message);
         }
       };
 
       eventSource.onerror = function() {
         eventSource.close();
-        btn.disabled = false;
+        btnRun.disabled = false;
+        btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
       };
     }
 
-    function renderFinalResult(data) {
-      const resSection = document.getElementById('result-section');
-      resSection.classList.remove('hidden');
-
-      document.getElementById('res-topic').innerText = data.idea.topic;
-      document.getElementById('res-audience').innerText = `Target Audiens: ${data.idea.target_audience} | Angle: ${data.idea.angle}`;
-      document.getElementById('score-medical').innerText = `${data.pleno.medical_score}/100`;
-      document.getElementById('score-virality').innerText = `${data.pleno.engagement_score}/100`;
-
+    function populateGeneratedContent(data) {
       const content = data.pleno.final_content || data.draft;
-      document.getElementById('res-hook').innerText = content.hook;
-      document.getElementById('res-caption').innerText = content.caption;
-      document.getElementById('res-cta').innerText = content.call_to_action;
-      document.getElementById('res-notes').innerText = data.pleno.editorial_consensus_notes;
+      const slides = content.slides || [];
 
-      const sourcesUl = document.getElementById('res-sources');
-      sourcesUl.innerHTML = '';
-      (data.audit.approved_citations || []).forEach(src => {
-        const li = document.createElement('li');
-        li.innerText = src;
-        sourcesUl.appendChild(li);
-      });
-
-      carouselSlides = content.slides || [];
-      currentSlideIdx = 0;
-      updatePhoneCarousel();
-
-      fullOutputMarkdown = `# ${data.idea.topic}\n\n**Hook:** ${content.hook}\n\n## Slide Content:\n` +
-        carouselSlides.map(s => `### Slide ${s.slide_number}: ${s.headline}\n${s.body_text}\n*Prompt Visual:* ${s.image_prompt}`).join('\n\n') +
-        `\n\n## Caption:\n${content.caption}\n\n**CTA:** ${content.call_to_action}\n\n## Sumber:\n` +
-        data.audit.approved_citations.map(c => `- ${c}`).join('\n');
-
-      resSection.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function updatePhoneCarousel() {
-      if (!carouselSlides || carouselSlides.length === 0) return;
-      const s = carouselSlides[currentSlideIdx];
-
-      document.getElementById('carousel-indicator').innerText = `${currentSlideIdx + 1} / ${carouselSlides.length}`;
-      document.getElementById('phone-slide-title').innerText = s.headline;
-      document.getElementById('phone-slide-text').innerText = s.body_text;
-      document.getElementById('phone-slide-prompt').innerText = s.image_prompt;
-
-      const icons = ['🍭', '📊', '⚠️', '🩺', '💡', '🛡️'];
-      document.getElementById('phone-slide-icon').innerText = icons[currentSlideIdx % icons.length];
-
-      const dotsContainer = document.getElementById('dots-container');
-      dotsContainer.innerHTML = '';
-      carouselSlides.forEach((_, idx) => {
-        const dot = document.createElement('div');
-        dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-amber-400 w-4' : 'bg-slate-700'}`;
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    function prevSlide() {
-      if (currentSlideIdx > 0) {
-        currentSlideIdx--;
-        updatePhoneCarousel();
+      if (slides.length > 0) {
+        slidesData = slides.map((s, idx) => ({
+          badge: `SLIDE ${s.slide_number} • ${idx === 0 ? 'HOOK UTAMA' : idx === 1 ? 'MITOS' : idx === 2 ? 'FAKTA MEDIS' : idx === 3 ? 'TIPS' : 'KESIMPULAN'}`,
+          title: s.headline,
+          body: s.body_text,
+          source: (data.audit.approved_citations && data.audit.approved_citations[0]) ? `🔍 ${data.audit.approved_citations[0]}` : '🔍 Validasi Kemenkes RI',
+          prompt: s.image_prompt,
+          bg: idx === 0 ? "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)" :
+              idx === 1 ? "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)" :
+              idx === 2 ? "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)" :
+              idx === 3 ? "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)" :
+                          "linear-gradient(135deg, #31104b 0%, #581c87 50%, #7e22ce 100%)"
+        }));
       }
+
+      document.getElementById('caption-body').innerText = content.caption;
+      document.getElementById('caption-hashtags').innerText = content.call_to_action || "#KesehatanMasyarakat #KemenkesRI #FaktaMedis";
+
+      currentSlide = 0;
+      updateSlideUI();
     }
 
-    function nextSlide() {
-      if (currentSlideIdx < carouselSlides.length - 1) {
-        currentSlideIdx++;
-        updatePhoneCarousel();
-      }
+    function updateDockStatus(id, text) {
+      const el = document.getElementById(`dock-status-${id}`);
+      if (el) el.textContent = text;
     }
 
-    function copyFullContent() {
-      if (!fullOutputMarkdown) return;
-      navigator.clipboard.writeText(fullOutputMarkdown).then(() => {
-        alert("✓ Paket naskah carousel berhasil disalin!");
-      });
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      resizeCanvas();
+      updateSlideUI();
+      render();
+    });
   </script>
 </body>
 </html>

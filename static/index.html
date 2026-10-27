@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Agent 3D Tycoon Studio - Autonomous Multi-Agent AI</title>
+  <title>🏢 Health Agent Office 3D - Multi-Agent Studio</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     @keyframes floatBob {
@@ -20,8 +20,8 @@
     .animate-pulse-glow {
       animation: pulseGlow 2s ease-in-out infinite;
     }
-    /* Custom scrollbar for clean UI */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    /* Clean custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     .dark ::-webkit-scrollbar-thumb { background: #334155; }
@@ -29,84 +29,77 @@
 </head>
 <body class="bg-[#f1f3f6] dark:bg-[#0f131a] text-slate-800 dark:text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6 transition-colors duration-200">
 
-  <div class="max-w-7xl mx-auto space-y-4">
+  <div class="max-w-7xl mx-auto space-y-6">
 
-    <!-- Top Navigation Bar (Mirip Persis Interface @theresalearns Reel) -->
-    <header class="bg-white/95 dark:bg-[#181e28]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-2xl p-3 md:p-4 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-3">
-      
-      <!-- Brand & Title -->
-      <div class="flex items-center gap-3 w-full lg:w-auto">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center text-white text-xl shadow-md font-bold">
-          🏢
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-              Health Agent 3D Tycoon Office
-            </h1>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Codex 3D Engine • Gemini 3.5 / 3.8
-            </span>
+    <!-- Top Header: Persis Format Spesifikasi User -->
+    <header class="bg-white/95 dark:bg-[#181e28]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-3xl p-4 md:p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl shadow-md font-bold">
+            🏢
           </div>
-          <p class="text-xs text-slate-500 dark:text-slate-400">
-            Simulasi 3D Isometrik 2 Lantai: Meja Kerja, Tangga, Ruang Rapat Konsolidasi, & Phone Carousel Mockup
-          </p>
+          <div>
+            <h1 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+              Health Agent Office 3D
+              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                Lantai 1 Workstation ➔ Tangga ➔ Lantai 2 Rapat Finalisasi
+              </span>
+            </h1>
+            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+              Kantor 3D 2 lantai. Geser untuk memutar, scroll untuk zoom. Agen estafet laporan, lalu naik tangga untuk rapat finalisasi.
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- Mode Selector: Tycoon View vs Step Inside (Fitur Khas Reel) -->
-      <div class="flex items-center gap-2 w-full lg:w-auto justify-end">
+      <!-- Controls & Toggle Phone Preview -->
+      <div class="flex items-center gap-2 self-end md:self-center">
         <div class="bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl flex items-center text-xs font-medium border border-slate-200 dark:border-slate-700">
           <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition">
-            <span>🏰</span> Tycoon view
+            <span>🏰</span> Tycoon View
           </button>
           <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition">
-            <span>🚶</span> Step inside
+            <span>🚶</span> Step Inside
           </button>
         </div>
 
-        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold flex items-center gap-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition shadow-sm">
+        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold flex items-center gap-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition shadow-sm">
           <span>📱</span> Tampilan Feed IG
         </button>
       </div>
-
     </header>
 
-    <!-- Room / Zone Tabs (Persis tab di atas pada screenshot Theresa) -->
+    <!-- Zone Quick Navigation Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-medium no-scrollbar">
-      <button onclick="focusZone('all')" class="room-tab px-3 py-1.5 rounded-xl bg-white dark:bg-[#181e28] text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5">
-        <span>✨</span> Overview Semua Lantai
+      <button onclick="focusZone('all')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#181e28] text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>✨</span> Semua Lantai (Overview)
       </button>
-      <button onclick="focusZone('workstations')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
-        <span>💻</span> Lantai 1: Workstations
+      <button onclick="focusZone('floor1')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>💻</span> Lantai 1: Workstations (Estafet Laporan)
       </button>
-      <button onclick="focusZone('meeting')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
-        <span>🤝</span> Ruang Rapat Pleno
+      <button onclick="focusZone('stairs')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>🪜</span> Tangga Penghubung
       </button>
-      <button onclick="focusZone('lounge')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
-        <span>☕</span> Pantry & Whiteboard
-      </button>
-      <button onclick="focusZone('basement')" class="room-tab px-3 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
-        <span>🔐</span> B1: Server & Shiro's Den
+      <button onclick="focusZone('floor2')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+        <span>🤝</span> Lantai 2: Ruang Rapat Finalisasi (Pleno)
       </button>
     </div>
 
-    <!-- Main Studio Workspace Grid -->
+    <!-- Main Workspace Grid: 3D Canvas + Phone Preview -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
       
-      <!-- Left / Center: 3D Isometric Viewport & Agent Controls (8 cols or 12 cols) -->
+      <!-- 3D Canvas & Top Input Controls (8 cols or 12 cols) -->
       <div id="viewport-container" class="lg:col-span-8 flex flex-col gap-3 transition-all duration-300">
         
-        <!-- Interactive 3D Canvas Box -->
-        <div class="relative w-full h-[540px] md:h-[600px] bg-gradient-to-b from-[#e8edf4] to-[#f4f7fa] dark:from-[#111620] dark:to-[#171d28] border-2 border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xl select-none">
+        <!-- 3D Interactive Viewport Box -->
+        <div class="relative w-full h-[540px] md:h-[620px] bg-gradient-to-b from-[#e8edf4] to-[#f4f7fa] dark:from-[#111620] dark:to-[#171d28] border-2 border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xl select-none">
           
-          <!-- 3D WebGL / Canvas Engine -->
+          <!-- Canvas Engine -->
           <canvas id="tycoonCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
 
-          <!-- Top Overlay HUD: Camera Orbit & Zoom Controls -->
-          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-white/80 dark:bg-[#1c2331]/80 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-md text-xs font-mono">
-            <span class="text-slate-500 dark:text-slate-400">Angle:</span>
+          <!-- Top Left: Camera Angle & Zoom HUD -->
+          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-white/85 dark:bg-[#1c2331]/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-md text-xs font-mono">
+            <span class="text-slate-500 dark:text-slate-400">Rotasi:</span>
             <span id="angle-display" class="font-bold text-indigo-600 dark:text-indigo-400">35°</span>
             <span class="text-slate-300 dark:text-slate-600">|</span>
             <button onclick="adjustAngle(-15)" title="Putar Kiri" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">↺</button>
@@ -117,13 +110,29 @@
             <button onclick="resetCamera()" title="Reset Kamera" class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:text-indigo-500">Reset</button>
           </div>
 
-          <!-- Top Right: Live Meeting Announcement Banner -->
-          <div id="meeting-banner" class="hidden absolute top-4 right-4 z-10 bg-amber-500/90 text-slate-950 font-bold text-xs px-3.5 py-1.5 rounded-2xl shadow-lg border border-amber-300 flex items-center gap-2 animate-bounce">
-            <span class="text-base">📢</span>
-            <span>SIDANG PLENO: Semua agen pindah ke Ruang Rapat!</span>
+          <!-- Top Right: Live Phase Notification Banner -->
+          <div id="phase-banner" class="absolute top-4 right-4 z-10 bg-white/90 dark:bg-[#1c2331]/90 backdrop-blur-md text-slate-800 dark:text-slate-100 font-semibold text-xs px-3.5 py-1.5 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 flex items-center gap-2">
+            <span id="phase-badge-icon" class="text-base">💡</span>
+            <span id="phase-badge-text">Tahap 1: Dr. Idea merumuskan gagasan mitos...</span>
           </div>
 
-          <!-- Error Alert Toast Notification -->
+          <!-- Bottom Left Instructions -->
+          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none flex items-center gap-2">
+            <span>🖱️ Geser mouse untuk memutar</span>
+            <span>•</span>
+            <span>Scroll untuk zoom</span>
+            <span>•</span>
+            <span>Estafet laporan di Lantai 1 ➔ Naik tangga ke Lantai 2</span>
+          </div>
+
+          <!-- Bottom Right Status Legend -->
+          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-white/85 dark:bg-[#1c2331]/85 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] font-medium text-slate-600 dark:text-slate-300">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Sedang Bekerja</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Estafet / Naik Tangga</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Rapat Finalisasi</span>
+          </div>
+
+          <!-- Toast Alert Notification -->
           <div id="error-toast" class="hidden absolute top-16 right-4 z-20 max-w-sm bg-rose-950/95 border-2 border-rose-500/80 text-rose-100 p-3.5 rounded-2xl shadow-2xl backdrop-blur-md text-xs space-y-2">
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-2 font-bold text-rose-300">
@@ -140,28 +149,12 @@
             </div>
           </div>
 
-          <!-- Instruction Footnote (Persis seperti teks di screenshot: 'Left click to orbit - Scroll to zoom') -->
-          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none flex items-center gap-2">
-            <span>🖱️ Geser mouse untuk rotasi 3D</span>
-            <span>•</span>
-            <span>Scroll untuk zoom</span>
-            <span>•</span>
-            <span>Klik avatar untuk detail</span>
-          </div>
-
-          <!-- Bottom Right: Desk Lights Status Legend -->
-          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-white/80 dark:bg-[#1c2331]/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] font-medium text-slate-600 dark:text-slate-300">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Bekerja</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Rapat Pleno</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-slate-400"></span> Standby</span>
-          </div>
-
         </div>
 
-        <!-- Topic Trigger & Run Pipeline Bar -->
+        <!-- Topic Trigger Input Bar -->
         <div class="bg-white dark:bg-[#181e28] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3">
           <div class="relative flex-1">
-            <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-50 dark:bg-[#111620] border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 transition" placeholder="Masukkan topik / mitos kesehatan yang ingin dibongkar...">
+            <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-50 dark:bg-[#111620] border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 transition" placeholder="Masukkan topik kesehatan yang ingin dieksekusi tim agen...">
           </div>
           <div class="flex items-center gap-2">
             <button onclick="setSampleTopic('kolesterol')" class="px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition">
@@ -176,75 +169,15 @@
           </div>
         </div>
 
-        <!-- Bottom Agent Dock (Persis tombol status di screenshot reel) -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-          
-          <!-- Agent 1: Rian (Idea Hunter) -->
-          <div id="dock-agent-1" onclick="focusAgent(1)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-amber-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-base shrink-0 font-bold border border-amber-500/20">
-              💡
-            </div>
-            <div class="min-w-0">
-              <div class="font-bold text-slate-900 dark:text-white truncate">Rian (Trend)</div>
-              <div id="dock-status-1" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Standby di Meja</div>
-            </div>
-          </div>
-
-          <!-- Agent 2: Dr. Sarah (Fact Checker) -->
-          <div id="dock-agent-2" onclick="focusAgent(2)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-cyan-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-base shrink-0 font-bold border border-cyan-500/20">
-              🔬
-            </div>
-            <div class="min-w-0">
-              <div class="font-bold text-slate-900 dark:text-white truncate">Dr. Sarah (Riset)</div>
-              <div id="dock-status-2" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Kemenkes / WHO</div>
-            </div>
-          </div>
-
-          <!-- Agent 3: Maya (Copywriter) -->
-          <div id="dock-agent-3" onclick="focusAgent(3)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-purple-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-base shrink-0 font-bold border border-purple-500/20">
-              ✍️
-            </div>
-            <div class="min-w-0">
-              <div class="font-bold text-slate-900 dark:text-white truncate">Maya (Copy)</div>
-              <div id="dock-status-3" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Hook & Slide</div>
-            </div>
-          </div>
-
-          <!-- Agent 4: Leo (Visual Director) -->
-          <div id="dock-agent-4" onclick="focusAgent(4)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-rose-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-base shrink-0 font-bold border border-rose-500/20">
-              🎨
-            </div>
-            <div class="min-w-0">
-              <div class="font-bold text-slate-900 dark:text-white truncate">Leo (Visual)</div>
-              <div id="dock-status-4" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Prompt Midjourney</div>
-            </div>
-          </div>
-
-          <!-- Agent 5: Budi (Chief Editor) -->
-          <div id="dock-agent-5" onclick="focusAgent(5)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-emerald-400 p-2.5 rounded-2xl shadow-sm transition flex items-center gap-2.5 col-span-2 sm:col-span-1">
-            <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-base shrink-0 font-bold border border-emerald-500/20">
-              ⚖️
-            </div>
-            <div class="min-w-0">
-              <div class="font-bold text-slate-900 dark:text-white truncate">Budi (Editor)</div>
-              <div id="dock-status-5" class="text-[11px] text-slate-400 dark:text-slate-500 truncate">Pleno & Approval</div>
-            </div>
-          </div>
-
-        </div>
-
       </div>
 
-      <!-- Right: Realistic Social Media Instagram Feed Mockup (4 cols) -->
+      <!-- Right: Phone Carousel Simulator & Copy Export (4 cols) -->
       <div id="phone-container" class="lg:col-span-4 flex flex-col gap-3">
         
         <!-- Smartphone Chassis -->
         <div class="bg-slate-900 border-4 border-slate-800 rounded-[38px] p-3 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col">
           
-          <!-- Phone Speaker & Dynamic Island -->
+          <!-- Dynamic Island -->
           <div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center gap-1.5">
             <div class="w-2 h-2 rounded-full bg-slate-800"></div>
             <div class="w-2 h-2 rounded-full bg-indigo-900/40"></div>
@@ -271,10 +204,10 @@
             </span>
           </div>
 
-          <!-- Carousel Slide Card Display (Aspect Square 1:1) -->
+          <!-- Carousel Slide Card Display (1:1) -->
           <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-inner flex flex-col justify-between p-4 transition-all duration-300" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
             
-            <!-- Slide Top Badge -->
+            <!-- Top Slide Badge -->
             <div class="flex items-center justify-between z-10">
               <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
                 SLIDE 1 • HOOK UTAMA
@@ -284,7 +217,7 @@
               </span>
             </div>
 
-            <!-- Slide Main Content Text -->
+            <!-- Slide Main Text -->
             <div class="my-auto z-10 space-y-2">
               <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-tight drop-shadow-md">
                 Bener Nggak Sih Minum Air Es Bikin Lemak Perut Menggumpal? 🧊
@@ -297,7 +230,7 @@
               </div>
             </div>
 
-            <!-- Slide Bottom Prompt / AI Visual Note -->
+            <!-- Bottom Prompt Box -->
             <div class="z-10 bg-black/50 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
               <div class="flex items-center justify-between">
                 <span class="text-amber-400 font-bold flex items-center gap-1">
@@ -312,17 +245,16 @@
               </p>
             </div>
 
-            <!-- Carousel Slide Navigation Arrows -->
+            <!-- Slide Nav Arrows -->
             <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
               ‹
             </button>
             <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
               ›
             </button>
-
           </div>
 
-          <!-- Social Engagement Action Bar -->
+          <!-- Action Bar -->
           <div class="flex items-center justify-between text-sm py-1 px-1">
             <div class="flex items-center gap-3">
               <button class="hover:text-rose-500 transition flex items-center gap-1 text-xs">
@@ -335,17 +267,17 @@
                 ✈️
               </button>
             </div>
-              <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
-                <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
-                  📄 Teks Slide
-                </button>
-                <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
-                  📋 Caption
-                </button>
-              </div>
+            <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
+              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+                📄 Teks Slide
+              </button>
+              <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+                📋 Caption
+              </button>
+            </div>
           </div>
 
-          <!-- Carousel Pagination Dots -->
+          <!-- Dots Indicator -->
           <div class="flex items-center justify-center gap-1 py-1.5" id="carousel-dots">
             <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
@@ -369,7 +301,7 @@
 
         </div>
 
-        <!-- Quick Export Action Buttons below Phone Mockup -->
+        <!-- Quick Copy Buttons -->
         <div class="space-y-2">
           <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
             <span>📦</span> Salin Paket Lengkap (Semua Slide + Prompt AI)
@@ -388,6 +320,158 @@
       </div>
 
     </div>
+
+    <!-- ## Tim agen (Bagian yang Diminta Pengguna) -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+        <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <span>👥</span> Tim agen
+          <span class="text-xs font-normal text-slate-500 font-mono">5 Agen Kolaboratif Estafet Laporan</span>
+        </h2>
+        <span class="text-xs text-slate-500 font-mono">Lantai 1: Workstations | Lantai 2: Dewan Redaksi</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        
+        <!-- Agen 1: Dr. Idea -->
+        <div id="card-agent-1" onclick="focusAgent(1)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-amber-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl font-bold border border-amber-500/20">
+              💡
+            </div>
+            <span id="badge-agent-1" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+              Standby di Meja
+            </span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Dr. Idea</div>
+            <div class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">Trend Ideator (Lantai 1)</div>
+          </div>
+          <p id="desc-agent-1" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Merumuskan gagasan utama, angle pemecah mitos, dan target pembaca.
+          </p>
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+            <span>Berkas:</span>
+            <span id="doc-agent-1" class="text-amber-500 font-bold">Draf Ide #1</span>
+          </div>
+        </div>
+
+        <!-- Agen 2: Nexus Researcher -->
+        <div id="card-agent-2" onclick="focusAgent(2)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-cyan-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl font-bold border border-cyan-500/20">
+              🌐
+            </div>
+            <span id="badge-agent-2" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+              Menunggu Estafet
+            </span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Nexus</div>
+            <div class="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">Medical Researcher (Lantai 1)</div>
+          </div>
+          <p id="desc-agent-2" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Menelusuri data resmi Kemenkes RI, WHO, dan statistik epidemiologi.
+          </p>
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+            <span>Berkas:</span>
+            <span id="doc-agent-2" class="text-cyan-500 font-bold">Kemenkes Validasi #2</span>
+          </div>
+        </div>
+
+        <!-- Agen 3: Canvas Creator -->
+        <div id="card-agent-3" onclick="focusAgent(3)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-purple-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl font-bold border border-purple-500/20">
+              ✍️
+            </div>
+            <span id="badge-agent-3" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+              Menunggu Estafet
+            </span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Canvas</div>
+            <div class="text-[11px] text-purple-600 dark:text-purple-400 font-medium">Copy & Visual Creator (Lantai 1)</div>
+          </div>
+          <p id="desc-agent-3" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Meracik hook 3 detik, naskah carousel 5 slide, dan prompt AI Midjourney.
+          </p>
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+            <span>Berkas:</span>
+            <span id="doc-agent-3" class="text-purple-500 font-bold">Draf Carousel #3</span>
+          </div>
+        </div>
+
+        <!-- Agen 4: Dr. Verif Fact-Checker -->
+        <div id="card-agent-4" onclick="focusAgent(4)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-rose-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-xl font-bold border border-rose-500/20">
+              🩺
+            </div>
+            <span id="badge-agent-4" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+              Menunggu Estafet
+            </span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Dr. Verif</div>
+            <div class="text-[11px] text-rose-600 dark:text-rose-400 font-medium">Fact-Checker (Lantai 1)</div>
+          </div>
+          <p id="desc-agent-4" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Audit klinis ketat: menyaring klaim overclaim dan memberi skor akurasi.
+          </p>
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+            <span>Berkas:</span>
+            <span id="doc-agent-4" class="text-rose-500 font-bold">Audit Klinis #4</span>
+          </div>
+        </div>
+
+        <!-- Agen 5: Chief Budi (Editor-in-Chief di Lantai 2) -->
+        <div id="card-agent-5" onclick="focusAgent(5)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-emerald-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl font-bold border border-emerald-500/20">
+              ⚖️
+            </div>
+            <span id="badge-agent-5" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+              Siap di Lantai 2
+            </span>
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Chief Budi</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Pimpinan Rapat (Lantai 2)</div>
+          </div>
+          <p id="desc-agent-5" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Menanti tim naik tangga ke Ruang Rapat Pleno untuk pengesahan final.
+          </p>
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+            <span>Konsensus:</span>
+            <span id="doc-agent-5" class="text-emerald-500 font-bold">Siap Disahkan</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ## Log aktivitas (Bagian yang Diminta Pengguna) -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+        <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+          <span>📜</span> Log aktivitas
+          <span class="text-xs font-normal text-slate-500 font-mono">Kronologi Estafet & Perpindahan Tangga 3D</span>
+        </h2>
+        <button onclick="clearActivityLogs()" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-mono">
+          Bersihkan Log
+        </button>
+      </div>
+
+      <!-- Live Terminal Log Box -->
+      <div class="bg-[#141822] border-2 border-slate-800 rounded-2xl p-4 shadow-inner text-xs font-mono space-y-2 max-h-60 overflow-y-auto" id="activity-log-container">
+        <div class="text-slate-400 flex items-center gap-2">
+          <span class="text-emerald-400">●</span>
+          <span class="text-slate-500">[00:00]</span>
+          <span>Sistem kantor 3D siap. Masukkan topik edukasi kesehatan dan klik 'Jalankan Pipeline'.</span>
+        </div>
+      </div>
+    </section>
 
   </div>
 
@@ -435,11 +519,11 @@
 
   <script>
     /* ========================================================================
-       3D ISOMETRIC TYCOON ENGINE (Pure Canvas 2D with 3D Matrix Projection)
-       Matches the multi-floor aesthetic from @theresalearns Instagram reel:
-       - Upper floor: Warm tech office with cubicles, conference room & plants
-       - Lower floor: Sleek basement lab with open stairs and steel railing
-       - 5 Stylized Humanoid Avatars with idle & walking animations
+       3D MULTI-FLOOR ISOMETRIC ENGINE (Canvas 2D + 3D Matrix Projection)
+       - Lantai 1 (Workstation): Agen bekerja di meja masing-masing & estafet laporan
+       - Tangga Penghubung: Menghubungkan Lantai 1 ke Lantai 2
+       - Lantai 2 (Ruang Rapat Finalisasi): Mezanin kaca & meja rapat pleno
+       - Animasi: Agen estafet berkas laporan, lalu berjalan naik tangga ke Lantai 2
        ======================================================================== */
 
     const canvas = document.getElementById('tycoonCanvas');
@@ -463,7 +547,7 @@
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       camera.cx = canvas.width / 2;
-      camera.cy = canvas.height / 2 + 30 * dpr;
+      camera.cy = canvas.height / 2 + 35 * dpr;
     }
     window.addEventListener('resize', resizeCanvas);
 
@@ -486,69 +570,98 @@
       };
     }
 
+    // Agent Team Data & Coordinates
     const agents = [
       {
         id: 1,
-        name: "Rian",
-        role: "Trend Ideator",
+        name: "Dr. Idea",
+        role: "Ideator",
         color: "#f59e0b",
         hairColor: "#d97706",
         shirtColor: "#fbbf24",
         deskPos: { x: -160, y: -70, z: 0 },
-        meetingPos: { x: 30, y: -60, z: 0 },
+        // Waypoints to climb stairs to Floor 2
+        stairEntrance: { x: 30, y: 90, z: 0 },
+        stairTop: { x: 30, y: -30, z: 95 },
+        meetingPos: { x: 80, y: -80, z: 95 },
         currentPos: { x: -160, y: -70, z: 0 },
-        status: "idle"
+        status: "idle",
+        walkPhase: 0
       },
       {
         id: 2,
-        name: "Dr. Sarah",
-        role: "Fact Checker",
+        name: "Nexus",
+        role: "Researcher",
         color: "#06b6d4",
         hairColor: "#475569",
         shirtColor: "#ffffff",
-        accessory: "stethoscope",
+        accessory: "glasses",
         deskPos: { x: -160, y: 50, z: 0 },
-        meetingPos: { x: 90, y: -40, z: 0 },
+        stairEntrance: { x: 40, y: 90, z: 0 },
+        stairTop: { x: 40, y: -30, z: 95 },
+        meetingPos: { x: 80, y: -45, z: 95 },
         currentPos: { x: -160, y: 50, z: 0 },
-        status: "idle"
+        status: "idle",
+        walkPhase: 0
       },
       {
         id: 3,
-        name: "Maya",
-        role: "Copywriter",
+        name: "Canvas",
+        role: "Creator",
         color: "#a855f7",
         hairColor: "#e11d48",
         shirtColor: "#c084fc",
         deskPos: { x: -60, y: -70, z: 0 },
-        meetingPos: { x: 90, y: 40, z: 0 },
+        stairEntrance: { x: 50, y: 90, z: 0 },
+        stairTop: { x: 50, y: -30, z: 95 },
+        meetingPos: { x: 160, y: -80, z: 95 },
         currentPos: { x: -60, y: -70, z: 0 },
-        status: "idle"
+        status: "idle",
+        walkPhase: 0
       },
       {
         id: 4,
-        name: "Leo",
-        role: "Visual Director",
+        name: "Dr. Verif",
+        role: "Fact-Checker",
         color: "#f43f5e",
         hairColor: "#0f172a",
         shirtColor: "#fb7185",
+        accessory: "stethoscope",
         deskPos: { x: -60, y: 50, z: 0 },
-        meetingPos: { x: 30, y: 60, z: 0 },
+        stairEntrance: { x: 60, y: 90, z: 0 },
+        stairTop: { x: 60, y: -30, z: 95 },
+        meetingPos: { x: 160, y: -45, z: 95 },
         currentPos: { x: -60, y: 50, z: 0 },
-        status: "idle"
+        status: "idle",
+        walkPhase: 0
       },
       {
         id: 5,
-        name: "Budi",
-        role: "Chief Editor",
+        name: "Chief Budi",
+        role: "Editor-in-Chief",
         color: "#10b981",
         hairColor: "#1e293b",
         shirtColor: "#0f766e",
-        deskPos: { x: 60, y: 0, z: 0 },
-        meetingPos: { x: 60, y: 0, z: 0 },
-        currentPos: { x: 60, y: 0, z: 0 },
-        status: "idle"
+        // Budi sits in Executive Boardroom on Floor 2 (z = 95)
+        deskPos: { x: 120, y: -110, z: 95 },
+        meetingPos: { x: 120, y: -110, z: 95 },
+        currentPos: { x: 120, y: -110, z: 95 },
+        status: "idle",
+        walkPhase: 3
       }
     ];
+
+    // Estafet Report Dossier (Floating glowing file)
+    let dossier = {
+      x: -160,
+      y: -70,
+      z: 22,
+      targetX: -160,
+      targetY: -70,
+      targetZ: 22,
+      visible: true,
+      currentOwner: 1
+    };
 
     let animTime = 0;
     let isMeetingPhase = false;
@@ -605,92 +718,32 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       animTime += 0.04;
 
-      // 1. BASEMENT FLOOR (Floor B1 / Server Lab)
-      const bz = -110;
-      draw3DBox(0, 40, bz - 15, 340, 260, 15, '#1e2430', '#131822', '#0e121a');
+      // ==========================================
+      // 1. LANTAI 1 (LANTAI BAWAH: WORKSTATIONS)
+      // ==========================================
+      draw3DBox(-40, 0, -18, 420, 300, 18, '#f8fafc', '#cbd5e1', '#94a3b8');
 
-      // Basement Grid Lines
-      for (let gx = -140; gx <= 140; gx += 40) {
-        const pt1 = project(gx, -70, bz);
-        const pt2 = project(gx, 150, bz);
+      // Grid lines Lantai 1
+      for (let gx = -220; gx <= 140; gx += 40) {
+        const pt1 = project(gx, -130, 0);
+        const pt2 = project(gx, 130, 0);
         ctx.beginPath();
         ctx.moveTo(pt1.x, pt1.y);
         ctx.lineTo(pt2.x, pt2.y);
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
-      // Server Racks & Blinker
-      draw3DBox(-90, 100, bz, 30, 60, 40, '#2d3748', '#1a202c', '#171923');
-      draw3DBox(-40, 100, bz, 30, 60, 40, '#2d3748', '#1a202c', '#171923');
-      const blinkPt = project(-90, 125, bz + 30);
-      ctx.fillStyle = (Math.sin(animTime * 6) > 0) ? '#38bdf8' : '#0369a1';
-      ctx.fillRect(blinkPt.x - 3, blinkPt.y - 2, 6, 4);
-
-      // 2. CONNECTING OPEN STAIRCASE
-      const numSteps = 8;
-      for (let s = 0; s < numSteps; s++) {
-        const stepZ = bz + (s / numSteps) * 110;
-        const stepX = 140 + s * 4;
-        const stepY = 120 - s * 16;
-        draw3DBox(stepX, stepY, stepZ, 34, 18, 5, '#cbd5e1', '#94a3b8', '#64748b');
-      }
-
-      // 3. UPPER FLOOR SLAB (Floor 1: Workstations & Conference)
-      draw3DBox(0, 0, -20, 440, 320, 20, '#f8fafc', '#cbd5e1', '#94a3b8');
-
-      // Carpet in Conference Zone
-      draw3DQuad(
-        { x: 0, y: -90, z: 0.5 },
-        { x: 190, y: -90, z: 0.5 },
-        { x: 190, y: 120, z: 0.5 },
-        { x: 0, y: 120, z: 0.5 },
-        'rgba(224, 231, 255, 0.45)',
-        'rgba(165, 180, 252, 0.3)'
-      );
-
-      // Glass Balustrade on the edge
-      const bEdge1 = project(-210, 155, 0);
-      const bEdge2 = project(130, 155, 0);
-      const bEdge1Top = project(-210, 155, 24);
-      const bEdge2Top = project(130, 155, 24);
-      ctx.fillStyle = 'rgba(186, 230, 253, 0.25)';
-      ctx.strokeStyle = 'rgba(14, 165, 233, 0.5)';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(bEdge1.x, bEdge1.y);
-      ctx.lineTo(bEdge2.x, bEdge2.y);
-      ctx.lineTo(bEdge2Top.x, bEdge2Top.y);
-      ctx.lineTo(bEdge1Top.x, bEdge1Top.y);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // 4. FURNITURE & DECORATIONS
-      // Conference Table (Mahogany)
-      draw3DBox(60, 0, 0, 110, 70, 24, '#d97706', '#b45309', '#92400e');
-      draw3DBox(60, 0, 24, 16, 12, 2, '#475569', '#334155', '#1e293b');
-
-      // Whiteboard Easel
-      draw3DBox(160, -20, 0, 8, 80, 70, '#f1f5f9', '#e2e8f0', '#cbd5e1');
-      const wbPt = project(155, -20, 45);
-      ctx.fillStyle = '#10b981';
-      ctx.fillRect(wbPt.x - 12, wbPt.y - 8, 6, 16);
-      ctx.fillStyle = '#6366f1';
-      ctx.fillRect(wbPt.x - 4, wbPt.y - 14, 6, 22);
-      ctx.fillStyle = '#f43f5e';
-      ctx.fillRect(wbPt.x + 4, wbPt.y - 20, 6, 28);
-
-      // Desks for Individual Agents
+      // Desks Lantai 1
       const deskColor = '#ffffff';
       const deskSide = '#e2e8f0';
-      draw3DBox(-160, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
-      draw3DBox(-160, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
-      draw3DBox(-60, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
-      draw3DBox(-60, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-160, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1'); // Meja Dr. Idea
+      draw3DBox(-160, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');  // Meja Nexus
+      draw3DBox(-60, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');  // Meja Canvas
+      draw3DBox(-60, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');   // Meja Dr. Verif
 
-      // Glowing Monitors
+      // Monitors Lantai 1
       function drawMonitor(dx, dy, dz, glowColor) {
         draw3DBox(dx, dy - 10, dz + 22, 22, 4, 16, '#334155', '#1e293b', '#0f172a');
         const screenPt = project(dx, dy - 8, dz + 30);
@@ -702,7 +755,7 @@
       drawMonitor(-60, -70, 0, '#c084fc');
       drawMonitor(-60, 50, 0, '#fb7185');
 
-      // Plants
+      // Plants & Coffee Counter Lantai 1
       function drawPlant(px, py, pz) {
         draw3DBox(px, py, pz, 16, 16, 14, '#b45309', '#92400e', '#78350f');
         const leafPt = project(px, py, pz + 24);
@@ -711,38 +764,152 @@
         ctx.fillStyle = '#22c55e';
         ctx.fill();
       }
-      drawPlant(-200, -130, 0);
-      drawPlant(-10, 130, 0);
-      drawPlant(180, 130, 0);
+      drawPlant(-210, -120, 0);
+      drawPlant(-210, 110, 0);
 
-      // Coffee Counter
-      draw3DBox(-170, -135, 0, 36, 24, 20, '#e2e8f0', '#cbd5e1', '#94a3b8');
-      const coffeePt = project(-170, -135, 22);
-      ctx.fillStyle = '#dc2626';
-      ctx.fillRect(coffeePt.x - 4, coffeePt.y - 6, 8, 8);
+      // Whiteboard Riset Lantai 1
+      draw3DBox(-230, 0, 0, 8, 80, 50, '#f1f5f9', '#e2e8f0', '#cbd5e1');
 
-      // 5. UPDATE AGENTS & RENDER HUMANOIDS
+      // ==========================================
+      // 2. TANGGA PENGHUBUNG (LANTAI 1 KE LANTAI 2)
+      // ==========================================
+      const numSteps = 10;
+      for (let s = 0; s < numSteps; s++) {
+        const stepZ = (s / numSteps) * 95;
+        const stepX = 45;
+        const stepY = 90 - s * 12;
+        draw3DBox(stepX, stepY, stepZ, 46, 14, 8, '#e2e8f0', '#cbd5e1', '#94a3b8');
+      }
+
+      // Pegangan Tangga (Silver Handrail)
+      const rBottom = project(68, 95, 15);
+      const rTop = project(68, -30, 115);
+      ctx.beginPath();
+      ctx.moveTo(rBottom.x, rBottom.y);
+      ctx.lineTo(rTop.x, rTop.y);
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // ==========================================
+      // 3. LANTAI 2 (RUANG RAPAT FINALISASI / MEZZANINE)
+      // ==========================================
+      // Elevated slab at z = 95
+      draw3DBox(120, -60, 95 - 16, 230, 190, 16, '#fbf7ee', '#d4a373', '#b45309');
+
+      // Karpet Ruang Rapat Lantai 2
+      draw3DQuad(
+        { x: 30, y: -130, z: 95.5 },
+        { x: 210, y: -130, z: 95.5 },
+        { x: 210, y: 10, z: 95.5 },
+        { x: 30, y: 10, z: 95.5 },
+        'rgba(99, 102, 241, 0.28)',
+        'rgba(129, 140, 248, 0.4)'
+      );
+
+      // Meja Konferensi Besar di Lantai 2
+      draw3DBox(120, -60, 95, 95, 65, 22, '#92400e', '#78350f', '#451a03'); // Meja Kayu Mewah
+      draw3DBox(120, -60, 95 + 22, 18, 12, 3, '#1e293b', '#0f172a', '#020617'); // Laptop Pimpinan
+
+      // Whiteboard Pengesahan Lantai 2
+      draw3DBox(220, -60, 95, 6, 70, 55, '#ffffff', '#e2e8f0', '#cbd5e1');
+      const wbPt = project(215, -60, 95 + 32);
+      ctx.fillStyle = '#10b981';
+      ctx.fillRect(wbPt.x - 10, wbPt.y - 8, 5, 16);
+      ctx.fillStyle = '#6366f1';
+      ctx.fillRect(wbPt.x - 2, wbPt.y - 14, 5, 22);
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillRect(wbPt.x + 6, wbPt.y - 20, 5, 28);
+
+      // Dinding Kaca Balustrade Lantai 2
+      const gEdge1 = project(15, -145, 95);
+      const gEdge2 = project(15, 25, 95);
+      const gEdge1Top = project(15, -145, 95 + 24);
+      const gEdge2Top = project(15, 25, 95 + 24);
+      ctx.fillStyle = 'rgba(186, 230, 253, 0.35)';
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.6)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(gEdge1.x, gEdge1.y);
+      ctx.lineTo(gEdge2.x, gEdge2.y);
+      ctx.lineTo(gEdge2Top.x, gEdge2Top.y);
+      ctx.lineTo(gEdge1Top.x, gEdge1Top.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // ==========================================
+      // 4. ANIMASI ESTAFET BERKAS LAPORAN (DOSSIER)
+      // ==========================================
+      dossier.x += (dossier.targetX - dossier.x) * 0.08;
+      dossier.y += (dossier.targetY - dossier.y) * 0.08;
+      dossier.z += (dossier.targetZ - dossier.z) * 0.08;
+
+      const dPt = project(dossier.x, dossier.y, dossier.z + Math.sin(animTime * 8) * 3);
+      // Glowing file folder
+      ctx.beginPath();
+      ctx.arc(dPt.x, dPt.y, 8 * camera.zoom, 0, Math.PI * 2);
+      ctx.fillStyle = '#fbbf24';
+      ctx.fill();
+      ctx.strokeStyle = '#d97706';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 9px monospace';
+      ctx.fillText('📜', dPt.x - 5, dPt.y + 3);
+
+      // ==========================================
+      // 5. UPDATE POSISI AGEN & NAIK TANGGA
+      // ==========================================
       agents.forEach((agent) => {
-        const target = (isMeetingPhase || agent.id === 5) ? agent.meetingPos : agent.deskPos;
+        let target;
 
-        agent.currentPos.x += (target.x - agent.currentPos.x) * 0.08;
-        agent.currentPos.y += (target.y - agent.currentPos.y) * 0.08;
-        agent.currentPos.z += (target.z - agent.currentPos.z) * 0.08;
+        if (!isMeetingPhase && agent.id < 5) {
+          // Fase 1-4: Agen berada di meja masing-masing di Lantai 1
+          target = agent.deskPos;
+          agent.walkPhase = 0;
+        } else if (isMeetingPhase && agent.id < 5) {
+          // Fase 5: Estafet selesai, agen berjalan naik tangga ke Lantai 2!
+          if (agent.walkPhase === 0) {
+            // Berjalan ke depan tangga di Lantai 1
+            target = agent.stairEntrance;
+            if (Math.hypot(agent.stairEntrance.x - agent.currentPos.x, agent.stairEntrance.y - agent.currentPos.y) < 8) {
+              agent.walkPhase = 1;
+            }
+          } else if (agent.walkPhase === 1) {
+            // Berjalan naik tangga menuju Lantai 2
+            target = agent.stairTop;
+            if (Math.hypot(agent.stairTop.y - agent.currentPos.y, agent.stairTop.z - agent.currentPos.z) < 8) {
+              agent.walkPhase = 2;
+            }
+          } else {
+            // Tiba di Lantai 2 dan duduk di Ruang Rapat Finalisasi
+            target = agent.meetingPos;
+          }
+        } else {
+          // Chief Budi selalu memimpin di Lantai 2
+          target = agent.meetingPos;
+        }
+
+        // Interpolasi perpindahan
+        agent.currentPos.x += (target.x - agent.currentPos.x) * 0.06;
+        agent.currentPos.y += (target.y - agent.currentPos.y) * 0.06;
+        agent.currentPos.z += (target.z - agent.currentPos.z) * 0.06;
 
         const isWalking = Math.hypot(target.x - agent.currentPos.x, target.y - agent.currentPos.y) > 2;
-        const bob = isWalking ? Math.sin(animTime * 12) * 3 : Math.sin(animTime * 3 + agent.id) * 1.5;
+        const bob = isWalking ? Math.sin(animTime * 14) * 3 : Math.sin(animTime * 3 + agent.id) * 1.5;
 
         const basePt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z);
         const headPt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z + 32 + bob);
 
-        // Shadow
+        // Bayangan di lantai
         ctx.beginPath();
-        ctx.ellipse(basePt.x, basePt.y, 9 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+        ctx.ellipse(basePt.x, basePt.y, 8 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
         ctx.fill();
 
-        // Body
-        const bodyHeight = 16 * camera.zoom;
+        // Badan
+        const bodyHeight = 15 * camera.zoom;
         const bodyWidth = 10 * camera.zoom;
         ctx.beginPath();
         ctx.roundRect(headPt.x - bodyWidth/2, headPt.y + 10 * camera.zoom, bodyWidth, bodyHeight, 4);
@@ -752,7 +919,7 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Head
+        // Kepala
         const headRadius = 7.5 * camera.zoom;
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 4 * camera.zoom, headRadius, 0, Math.PI * 2);
@@ -760,7 +927,7 @@
         ctx.fill();
         ctx.stroke();
 
-        // Hair
+        // Rambut
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 2 * camera.zoom, headRadius * 1.05, Math.PI, Math.PI * 2);
         ctx.fillStyle = agent.hairColor;
@@ -774,16 +941,16 @@
           ctx.stroke();
         }
 
-        // Floating Status Pill Tag
+        // Balon Status Tag
         const tagY = headPt.y - 18 * camera.zoom;
-        const pillText = `${agent.name} (${agent.status.toUpperCase()})`;
+        const pillText = `${agent.name}`;
         ctx.font = 'bold 10px monospace';
         const textWidth = ctx.measureText(pillText).width;
 
-        const pillBg = (agent.status === 'working') ? '#10b981' : (agent.status === 'meeting') ? '#f59e0b' : '#1e293b';
+        const pillBg = (agent.status === 'working') ? '#10b981' : (isMeetingPhase) ? '#6366f1' : '#1e293b';
         ctx.fillStyle = pillBg;
         ctx.beginPath();
-        ctx.roundRect(headPt.x - textWidth/2 - 7, tagY - 8, textWidth + 14, 16, 8);
+        ctx.roundRect(headPt.x - textWidth/2 - 6, tagY - 8, textWidth + 12, 16, 8);
         ctx.fill();
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
         ctx.lineWidth = 1;
@@ -794,14 +961,15 @@
         ctx.textBaseline = 'middle';
         ctx.fillText(pillText, headPt.x, tagY);
 
-        if (agent.status === 'working') {
-          const deskPt = project(agent.deskPos.x, agent.deskPos.y, 48);
+        // Lampu Meja Menyala saat Aktif
+        if (agent.status === 'working' && agent.id < 5) {
+          const deskLightPt = project(agent.deskPos.x, agent.deskPos.y, 44);
           ctx.beginPath();
-          ctx.arc(deskPt.x, deskPt.y, 5 * camera.zoom, 0, Math.PI * 2);
+          ctx.arc(deskLightPt.x, deskLightPt.y, 5 * camera.zoom, 0, Math.PI * 2);
           ctx.fillStyle = '#22c55e';
           ctx.fill();
           ctx.beginPath();
-          ctx.arc(deskPt.x, deskPt.y, 12 * camera.zoom, 0, Math.PI * 2);
+          ctx.arc(deskLightPt.x, deskLightPt.y, 12 * camera.zoom, 0, Math.PI * 2);
           ctx.fillStyle = 'rgba(34, 197, 94, 0.3)';
           ctx.fill();
         }
@@ -810,7 +978,7 @@
       requestAnimationFrame(render);
     }
 
-    // Camera Orbit & Controls
+    // Camera Orbit & Zoom Interactions
     canvas.addEventListener('mousedown', (e) => {
       camera.isDragging = true;
       camera.lastMouseX = e.clientX;
@@ -877,16 +1045,18 @@
 
     function focusZone(zone) {
       if (zone === 'all') resetCamera();
-      else if (zone === 'workstations') { camera.angle = 0.4; camera.zoom = 1.5; }
-      else if (zone === 'meeting') { camera.angle = 0.9; camera.zoom = 1.6; }
-      else if (zone === 'lounge') { camera.angle = 1.4; camera.zoom = 1.4; }
-      else if (zone === 'basement') { camera.angle = 0.6; camera.tilt = 0.7; camera.zoom = 1.3; }
+      else if (zone === 'floor1') { camera.angle = 0.4; camera.zoom = 1.5; }
+      else if (zone === 'stairs') { camera.angle = 0.8; camera.zoom = 1.6; }
+      else if (zone === 'floor2') { camera.angle = 1.1; camera.zoom = 1.55; }
       document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
     }
 
     function focusAgent(id) {
-      camera.zoom = 1.8;
-      camera.angle = 0.7;
+      const ag = agents.find(a => a.id === id);
+      if (ag) {
+        camera.zoom = 1.7;
+        camera.angle = (id === 5) ? 1.1 : 0.6;
+      }
     }
 
     function togglePhonePreview() {
@@ -900,6 +1070,43 @@
         viewport.className = 'lg:col-span-12 flex flex-col gap-3 transition-all duration-300';
       }
       setTimeout(resizeCanvas, 320);
+    }
+
+    /* ========================================================================
+       ACTIVITY LOG & AGENT TEAM HELPERS
+       ======================================================================== */
+    function addActivityLog(badge, text) {
+      const container = document.getElementById('activity-log-container');
+      if (!container) return;
+
+      const now = new Date();
+      const timeStr = `[${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
+
+      const row = document.createElement('div');
+      row.className = 'text-slate-300 flex items-start gap-2 animate-fadeIn';
+      row.innerHTML = `<span class="shrink-0">${badge}</span> <span class="text-slate-500 shrink-0 font-mono">${timeStr}</span> <span class="leading-relaxed">${text}</span>`;
+
+      container.appendChild(row);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function clearActivityLogs() {
+      const container = document.getElementById('activity-log-container');
+      if (container) {
+        container.innerHTML = `<div class="text-slate-400 flex items-center gap-2"><span class="text-emerald-400">●</span> <span class="text-slate-500">[00:00]</span> <span>Log aktivitas dibersihkan.</span></div>`;
+      }
+    }
+
+    function updateAgentTeamCard(id, statusText, isWorking) {
+      const badge = document.getElementById(`badge-agent-${id}`);
+      if (badge) {
+        badge.textContent = statusText;
+        if (isWorking) {
+          badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse';
+        } else {
+          badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400';
+        }
+      }
     }
 
     /* ========================================================================
@@ -1044,7 +1251,6 @@
     }
 
     function showCopyNotification(msg) {
-      // Re-use or show subtle alert toast
       const toast = document.getElementById('error-toast');
       const text = document.getElementById('error-toast-text');
       if (toast && text) {
@@ -1095,7 +1301,6 @@
             ${s.source}
           </div>
 
-          <!-- Prompt Box in Modal -->
           <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 space-y-1.5">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
@@ -1138,7 +1343,7 @@
     }
 
     /* ========================================================================
-       LIVE REAL-TIME PYTHON BACKEND INTEGRATION (SSE VIA FastAPI)
+       LIVE REAL-TIME BACKEND INTEGRATION & ESTAFET WORKFLOW
        ======================================================================== */
     function startAutonomousPipeline() {
       const topic = document.getElementById('topic-input').value.trim();
@@ -1153,8 +1358,16 @@
 
       // Reset state
       isMeetingPhase = false;
-      document.getElementById('meeting-banner').classList.add('hidden');
-      agents.forEach(a => a.status = 'idle');
+      agents.forEach(a => {
+        a.status = 'idle';
+        a.walkPhase = 0;
+      });
+      // Dossier begins at Dr. Idea's desk
+      dossier.targetX = -160;
+      dossier.targetY = -70;
+      dossier.targetZ = 22;
+
+      addActivityLog('🚀', `<strong>Mulai Pipeline Baru:</strong> "${topic}"`);
 
       const url = `/api/stream-pipeline?topic=${encodeURIComponent(topic)}`;
       if (eventSource) eventSource.close();
@@ -1165,37 +1378,91 @@
 
         if (msg.type === 'agent_start') {
           const aid = msg.agent_id;
-          if (aid <= 4) {
-            agents[aid - 1].status = 'working';
-            updateDockStatus(aid, `🟢 ${msg.status_badge}`);
-            focusAgent(aid);
-          } else if (aid === 5) {
-            // TAHAP 5: RUANG RAPAT PLENO (Semua agen berjalan ke Ruang Rapat)
+          
+          if (aid === 1) {
+            agents[0].status = 'working';
+            updateAgentTeamCard(1, '🟢 Merumuskan Ide', true);
+            focusAgent(1);
+            updatePhaseHUD('💡', 'Tahap 1: Dr. Idea merumuskan angle pemecah mitos...');
+            addActivityLog('💡', `<strong>Dr. Idea (Ideator):</strong> Mulai merumuskan sudut pandang unik di Lantai 1.`);
+            // Move dossier to Agent 1
+            dossier.targetX = -160;
+            dossier.targetY = -70;
+            dossier.targetZ = 24;
+          } 
+          else if (aid === 2) {
+            agents[0].status = 'idle';
+            agents[1].status = 'working';
+            updateAgentTeamCard(1, '✅ Selesai', false);
+            updateAgentTeamCard(2, '🟢 Validasi Kemenkes', true);
+            focusAgent(2);
+            updatePhaseHUD('📜➔🌐', 'Estafet #1: Berkas diserahkan ke Nexus Researcher...');
+            addActivityLog('📜', `<strong>Estafet #1:</strong> Dr. Idea menyerahkan Berkas Gagasan ke meja Nexus Researcher.`);
+            addActivityLog('🌐', `<strong>Nexus (Researcher):</strong> Meneliti data Kemenkes RI & standar WHO via Google Search Grounding.`);
+            // Move dossier to Agent 2
+            dossier.targetX = -160;
+            dossier.targetY = 50;
+            dossier.targetZ = 24;
+          }
+          else if (aid === 3) {
+            agents[1].status = 'idle';
+            agents[2].status = 'working';
+            updateAgentTeamCard(2, '✅ Selesai', false);
+            updateAgentTeamCard(3, '🟢 Menulis Naskah & Visual', true);
+            focusAgent(3);
+            updatePhaseHUD('📜➔✍️', 'Estafet #2: Berkas riset diserahkan ke Canvas Creator...');
+            addActivityLog('📜', `<strong>Estafet #2:</strong> Nexus menyerahkan Rujukan Valid ke meja Canvas Creator.`);
+            addActivityLog('✍️', `<strong>Canvas (Creator):</strong> Menulis hook 3 detik, naskah 5 slide & prompt Midjourney 8K.`);
+            // Move dossier to Agent 3
+            dossier.targetX = -60;
+            dossier.targetY = -70;
+            dossier.targetZ = 24;
+          }
+          else if (aid === 4) {
+            agents[2].status = 'idle';
+            agents[3].status = 'working';
+            updateAgentTeamCard(3, '✅ Selesai', false);
+            updateAgentTeamCard(4, '🟢 Audit Klinis Medis', true);
+            focusAgent(4);
+            updatePhaseHUD('📜➔🩺', 'Estafet #3: Draf diserahkan ke Dr. Verif Fact-Checker...');
+            addActivityLog('📜', `<strong>Estafet #3:</strong> Canvas menyerahkan Draf Naskah ke meja Dr. Verif Fact-Checker.`);
+            addActivityLog('🩺', `<strong>Dr. Verif (Fact-Checker):</strong> Memeriksa keakuratan klinis, menyaring hoaks & overclaim.`);
+            // Move dossier to Agent 4
+            dossier.targetX = -60;
+            dossier.targetY = 50;
+            dossier.targetZ = 24;
+          }
+          else if (aid === 5) {
+            // TAHAP 5: NAIK TANGGA UNTUK RAPAT FINALISASI DI LANTAI 2
+            agents[3].status = 'idle';
+            updateAgentTeamCard(4, '✅ Audit Lolos', false);
+            updateAgentTeamCard(5, '🟢 Memimpin Rapat', true);
+
             isMeetingPhase = true;
-            document.getElementById('meeting-banner').classList.remove('hidden');
-            agents.forEach(a => a.status = 'meeting');
-            focusZone('meeting');
-            updateDockStatus(5, '🟡 Sidang Pleno Berlangsung');
+            focusZone('floor2');
+            updatePhaseHUD('🪜➔🤝', 'Tahap 5: Semua agen naik tangga ke Lantai 2 untuk Rapat Finalisasi!');
+            addActivityLog('📢', `<strong>PANGGILAN RAPAT:</strong> Berkas audit dinyatakan sah! Semua agen diminta naik ke Lantai 2.`);
+            addActivityLog('🪜', `<strong>Naik Tangga:</strong> Dr. Idea, Nexus, Canvas, dan Dr. Verif berbaris menaiki anak tangga menuju Ruang Rapat Finalisasi di Lantai 2!`);
+            
+            // Move dossier to Meeting Table on Floor 2
+            dossier.targetX = 120;
+            dossier.targetY = -60;
+            dossier.targetZ = 118;
           }
         }
         else if (msg.type === 'agent_complete') {
-          const aid = msg.agent_id;
-          if (aid <= 4) {
-            agents[aid - 1].status = 'idle';
-            updateDockStatus(aid, '✅ Selesai');
-          } else if (aid === 5) {
-            document.getElementById('meeting-banner').classList.add('hidden');
-            agents.forEach(a => a.status = 'idle');
-            updateDockStatus(5, '✅ Approved & Disahkan');
+          if (msg.agent_id === 5) {
+            updateAgentTeamCard(5, '✅ Konsensus Disahkan', false);
+            updatePhaseHUD('✅', 'Rapat Finalisasi Selesai: Konten Disetujui (Status: PUBLISHED)!');
+            addActivityLog('🤝', `<strong>Rapat Finalisasi Selesai:</strong> Chief Budi dan dewan redaksi mencapai konsensus disetujui.`);
           }
         }
         else if (msg.type === 'pipeline_finished') {
           eventSource.close();
           btnRun.disabled = false;
           btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
-          resetCamera();
-
-          // Render live AI-generated content into Instagram carousel
+          addActivityLog('🎉', `<strong>Pipeline Sukses:</strong> Naskah carousel 5 slide dan seluruh prompt visual siap digunakan!`);
+          
           populateGeneratedContent(msg.data);
         }
         else if (msg.type === 'error') {
@@ -1203,6 +1470,7 @@
           btnRun.disabled = false;
           btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
           showToastError(msg.message);
+          addActivityLog('⚠️', `<span class="text-rose-400">Error: ${msg.message}</span>`);
         }
       };
 
@@ -1211,6 +1479,11 @@
         btnRun.disabled = false;
         btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
       };
+    }
+
+    function updatePhaseHUD(icon, text) {
+      document.getElementById('phase-badge-icon').textContent = icon;
+      document.getElementById('phase-badge-text').textContent = text;
     }
 
     function populateGeneratedContent(data) {
@@ -1253,11 +1526,6 @@
     function closeToastError() {
       const toast = document.getElementById('error-toast');
       if (toast) toast.classList.add('hidden');
-    }
-
-    function updateDockStatus(id, text) {
-      const el = document.getElementById(`dock-status-${id}`);
-      if (el) el.textContent = text;
     }
 
     window.addEventListener('DOMContentLoaded', () => {

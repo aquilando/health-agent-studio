@@ -83,12 +83,12 @@
               <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
                 Grounding Kemenkes & WHO
               </span>
-              <span class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-rose-500/20 text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
-                <span>🎬</span> Google Flow & Imagen 3
+              <span class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                <span>📋</span> Naskah Siap Salin
               </span>
             </div>
             <p class="text-xs md:text-sm text-slate-400 font-medium mt-0.5">
-              Kantor 3D 2 lantai. Agen berkolaborasi estafet riset & rapat konsensus untuk menghasilkan 5 naskah slide carousel, prompt visual Google Flow, dan render Google Imagen 3!
+              Kantor 3D 2 lantai. Agen berkolaborasi estafet riset & rapat konsensus untuk merumuskan 5 naskah slide carousel siap posting!
             </p>
           </div>
         </div>
@@ -285,81 +285,47 @@
                 <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI • Naskah Siap Salin</div>
               </div>
             </div>
-            <div class="flex items-center gap-1.5">
-              <button onclick="openFlowModal()" title="Buka Google Flow Scene Board (flow.google)" class="flex items-center gap-1 bg-gradient-to-r from-blue-600/30 via-indigo-600/30 to-rose-600/30 hover:from-blue-600/50 hover:to-rose-600/50 px-2 py-0.5 rounded-xl border border-indigo-400/40 text-[10px] text-white font-bold transition shadow-sm active:scale-95">
-                <span>🎬</span> Google Flow
-              </button>
-              <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950/80 px-2.5 py-0.5 rounded-full border border-indigo-800/80">
-                Mengikuti
-              </span>
-            </div>
+            <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950/80 px-2.5 py-0.5 rounded-full border border-indigo-800/80">
+              Mengikuti
+            </span>
           </div>
 
-          <!-- Carousel Slide Card Display (1:1 Ratio - High Contrast & Copy-Friendly) -->
-          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 transition-all duration-300 ring-1 ring-white/10 select-text" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
+          <!-- Carousel Slide Card Display (1:1 Ratio - High Contrast & Clean Typography) -->
+          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-5 transition-all duration-300 ring-1 ring-white/10 select-text" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
             
-            <!-- Real Rendered Google Imagen 3 Layer (Optional) -->
-            <img id="slide-imagen-img" crossorigin="anonymous" src="" class="hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-0" alt="Visual Google Imagen 3">
-            
-            <!-- Contrast Scrim for Text Readability -->
-            <div id="slide-scrim" class="hidden absolute inset-0 bg-gradient-to-t from-black/95 via-black/65 to-black/35 z-1"></div>
-
             <!-- Top Slide Badge & Quick Copy Button -->
             <div class="flex items-center justify-between z-10 select-none">
-              <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
+              <span id="slide-badge" class="px-3 py-1 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
                 SLIDE 1 • HOOK UTAMA
               </span>
-              <div class="flex items-center gap-1.5">
-                <button id="btn-toggle-img" onclick="toggleImageOverlay()" title="Alihkan Gambar / Teks Saja" class="hidden text-[10px] font-mono bg-black/60 hover:bg-black/90 px-2 py-0.5 rounded-full text-amber-300 border border-white/20 transition active:scale-95 items-center gap-1 shadow-sm">
-                  <span>👁️</span> Gambar
-                </button>
-                <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini" class="text-[10px] font-mono bg-black/60 hover:bg-black/90 px-2.5 py-0.5 rounded-full text-indigo-300 border border-white/20 transition active:scale-95 flex items-center gap-1 shadow-sm">
+              <div class="flex items-center gap-2">
+                <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini" class="text-[11px] font-mono bg-black/60 hover:bg-black/90 px-3 py-1 rounded-full text-indigo-300 border border-white/20 transition active:scale-95 flex items-center gap-1 shadow-sm font-semibold">
                   <span>📄</span> Salin Slide
                 </button>
-                <span id="slide-index-counter" class="text-[10px] font-mono bg-black/50 px-2 py-0.5 rounded-full text-slate-200">
+                <span id="slide-index-counter" class="text-[11px] font-mono bg-black/50 px-2.5 py-1 rounded-full text-slate-200">
                   1 / 5
                 </span>
               </div>
             </div>
 
             <!-- Slide Main Text (Selectable & High Legibility) -->
-            <div class="my-auto z-10 space-y-2 select-text cursor-text">
-              <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-tight drop-shadow-md selection:bg-indigo-500 selection:text-white">
+            <div class="my-auto z-10 space-y-3 select-text cursor-text py-2">
+              <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-snug drop-shadow-md selection:bg-indigo-500 selection:text-white">
                 Bener Nggak Sih Minum Air Es Bikin Lemak Perut Menggumpal? 🧊
               </h2>
-              <p id="slide-body" class="text-xs text-indigo-100 font-medium leading-relaxed drop-shadow selection:bg-indigo-500 selection:text-white">
+              <p id="slide-body" class="text-xs sm:text-[13px] text-indigo-100 font-medium leading-relaxed drop-shadow selection:bg-indigo-500 selection:text-white">
                 Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!
               </p>
-              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/25 selection:bg-cyan-500 selection:text-black">
+              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/40 text-cyan-300 px-2.5 py-1 rounded-lg border border-cyan-500/25 selection:bg-cyan-500 selection:text-black">
                 🔍 Sumber: Kemenkes RI & Clinical Endocrinology
               </div>
             </div>
 
-            <!-- Bottom Visual Prompt Box (Google Flow & Imagen 3) -->
-            <div class="z-10 bg-black/70 backdrop-blur-md rounded-xl p-2.5 border border-white/15 text-[9px] text-slate-300 space-y-1.5 select-text shadow-lg">
-              <div class="flex items-center justify-between select-none">
-                <span class="text-amber-400 font-bold flex items-center gap-1 text-[10px]">
-                  <span>🎬</span> Google Flow & Imagen 3:
-                </span>
-                <div class="flex items-center gap-1">
-                  <button id="btn-render-imagen-card" onclick="renderCurrentSlideImagen()" title="Generate Visual Menggunakan Google Imagen 3 Resmi" class="px-2 py-0.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold border border-blue-400/40 transition flex items-center gap-1 active:scale-95 shadow-sm">
-                    <span id="card-imagen-icon">✨</span> <span id="card-imagen-text">Render Imagen 3</span>
-                  </button>
-                  <button id="btn-copy-prompt-card" onclick="copyCurrentPrompt()" title="Salin Prompt Scene untuk Google Flow (flow.google)" class="px-2 py-0.5 rounded-lg bg-amber-500/25 hover:bg-amber-500/40 text-amber-300 font-bold border border-amber-500/40 transition flex items-center gap-1 active:scale-95">
-                    <span id="copy-prompt-icon">📋</span> <span id="copy-prompt-text">Salin Scene</span>
-                  </button>
-                </div>
-              </div>
-              <p id="slide-prompt" class="italic line-clamp-2 text-slate-200 font-mono selection:bg-amber-500 selection:text-slate-900 cursor-text">
-                "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render."
-              </p>
-            </div>
-
             <!-- Slide Nav Arrows -->
-            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90 select-none">
+            <button onclick="prevSlide()" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-sm backdrop-blur-sm z-20 transition border border-white/10 active:scale-90 select-none shadow-md">
               ‹
             </button>
-            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90 select-none">
+            <button onclick="nextSlide()" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-sm backdrop-blur-sm z-20 transition border border-white/10 active:scale-90 select-none shadow-md">
               ›
             </button>
           </div>
@@ -377,15 +343,12 @@
                 ✈️
               </button>
             </div>
-            <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
-              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
-                📄 Salin Teks
+            <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
+              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
+                📄 Salin Slide Ini
               </button>
-              <button onclick="copyCurrentPrompt()" title="Salin Prompt Visual Slide Ini" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
-                🎬 Scene
-              </button>
-              <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
-                📋 Caption
+              <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
+                📋 Salin Caption
               </button>
             </div>
           </div>
@@ -410,31 +373,26 @@
 
         </div>
 
-        <!-- Quick Copy & Google Flow Action Hub -->
+        <!-- Quick Copy Action Hub -->
         <div class="space-y-2">
           
-          <!-- Primary 1: Google Flow Scene Board Modal -->
-          <button onclick="openFlowModal()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 text-white font-black text-xs sm:text-sm shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2 transition active:scale-95">
-            <span>🎬</span> Google Flow Scene Board (flow.google)
-          </button>
-
-          <!-- Primary 2: Render All with Google Imagen 3 -->
-          <button id="btn-render-all-imagen" onclick="renderAllSlidesImagen()" class="w-full py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border-2 border-indigo-500/40 hover:border-indigo-400 text-indigo-300 font-black text-xs flex items-center justify-center gap-2 transition active:scale-95 shadow-md">
-            <span id="btn-all-imagen-icon">✨</span> <span id="btn-all-imagen-text">Render 5 Slide dengan Google Imagen 3</span>
+          <!-- Primary 1: Salin Naskah Semua 5 Slide (Teks Saja) -->
+          <button onclick="copyAllSlidesTextOnly()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-black text-xs sm:text-sm shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 transition active:scale-95">
+            <span>📄</span> Salin Naskah 5 Slide (Teks Lengkap)
           </button>
           
-          <!-- Copy Buttons Grid -->
+          <!-- Grid 2: Salin Paket Lengkap (Naskah + Caption) & Buka Daftar Slide -->
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <button onclick="copyAllSlidesAndPrompts()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
-              <span>📦</span> Salin Paket Lengkap
+            <button onclick="copyAllSlidesAndCaption()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+              <span>📋</span> Naskah + Caption
             </button>
-            <button onclick="copyAllSlidesTextOnly()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-indigo-500/30 text-indigo-300 font-bold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
-              <span>📄</span> Salin Naskah 5 Slide
+            <button onclick="openExportModal()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-indigo-500/30 text-indigo-300 font-bold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+              <span>📑</span> Buka Daftar Slide
             </button>
           </div>
 
-          <button onclick="openExportModal()" class="w-full py-2 px-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition active:scale-95">
-            <span>📑</span> Buka Daftar Naskah & Ekspor Markdown
+          <button onclick="downloadMarkdownFile()" class="w-full py-2 px-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition active:scale-95">
+            <span>💾</span> Unduh Berkas Naskah (.MD)
           </button>
 
         </div>
@@ -617,7 +575,7 @@
 
   </div>
 
-  <!-- Fullscreen Modal: Daftar Naskah Slide & Semua Prompt AI -->
+  <!-- Fullscreen Modal: Daftar Naskah Slide Carousel -->
   <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
     <div class="relative w-full max-w-3xl bg-[#121622] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
       
@@ -628,20 +586,17 @@
             📑
           </div>
           <div>
-            <h2 class="text-sm md:text-base font-bold text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
+            <h2 class="text-sm md:text-base font-bold text-white">Daftar Naskah Carousel Instagram</h2>
             <p class="text-xs text-slate-400">Salin naskah per slide atau unduh seluruh naskah Markdown</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="copyAllSlidesTextOnly()" class="hidden sm:flex px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/30 rounded-xl text-xs font-bold transition items-center gap-1 shadow-md active:scale-95">
-            <span>📄</span> Salin Naskah
+          <button onclick="copyAllSlidesTextOnly()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
+            <span>📄</span> Salin Semua Naskah
           </button>
           <button onclick="downloadMarkdownFile()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
             <span>💾</span> Unduh .MD
-          </button>
-          <button onclick="copyAllSlidesAndPrompts()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
-            <span>📦</span> Salin Semua
           </button>
           <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition text-sm">
             ✕
@@ -649,95 +604,15 @@
         </div>
       </div>
 
-      <!-- Modal Body (List of Slides & Prompts) -->
+      <!-- Modal Body (List of Slides) -->
       <div id="modal-slides-list" class="p-4 md:p-6 space-y-4 overflow-y-auto">
         <!-- Rendered dynamically -->
       </div>
 
       <!-- Modal Footer -->
       <div class="p-4 border-t border-slate-800 bg-[#0e121c] flex items-center justify-between text-xs">
-        <span class="text-slate-400 font-mono">Format Instagram & Midjourney / Flux Ready</span>
+        <span class="text-slate-400 font-mono">Format Carousel Instagram Siap Posting • Grounding Kemenkes RI & WHO</span>
         <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 transition">
-          Tutup
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Fullscreen Modal: Google Flow Scene Board (Veo & Imagen 3 Studio) -->
-  <div id="flow-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-    <div class="relative w-full max-w-4xl bg-[#101420] border-2 border-indigo-500/40 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
-      
-      <!-- Modal Header -->
-      <div class="p-4 md:p-5 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-slate-950 via-[#131929] to-slate-950">
-        <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-rose-600 p-0.5 shadow-lg shadow-indigo-500/20 shrink-0">
-            <div class="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center text-xl font-bold">
-              🎬
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-base md:text-lg font-black text-white">Google Flow Scene Board</h2>
-              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-rose-500/20 text-indigo-300 border border-indigo-500/30">
-                Veo & Imagen 3 Ready
-              </span>
-            </div>
-            <p class="text-xs text-slate-400">Format adegan & visual ingredients berstandar Google Labs Flow (flow.google)</p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <a href="https://flow.google" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-rose-600 hover:from-blue-500 hover:to-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md active:scale-95">
-            <span>🚀</span> Buka flow.google ↗
-          </a>
-          <button onclick="copyGoogleFlowBoard()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/40 rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
-            <span>📋</span> Salin Semua Scene
-          </button>
-          <button onclick="downloadGoogleFlowText()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
-            <span>💾</span> .TXT
-          </button>
-          <button onclick="closeFlowModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition text-sm">
-            ✕
-          </button>
-        </div>
-      </div>
-
-      <!-- Modal Body -->
-      <div class="p-4 md:p-6 space-y-4 overflow-y-auto">
-        
-        <!-- Google Flow Ingredients & Directives Banner -->
-        <div class="bg-gradient-to-r from-indigo-950/60 via-slate-900 to-slate-900/90 border border-indigo-500/30 rounded-2xl p-4 space-y-2 select-text">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-indigo-300 flex items-center gap-1.5">
-              <span>🧬</span> Visual Ingredients (Style Reference):
-            </span>
-            <button onclick="copyFlowIngredients()" class="text-[10px] text-amber-300 hover:text-amber-200 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-lg transition active:scale-95">
-              📋 Salin Ingredients
-            </button>
-          </div>
-          <p id="flow-ingredients-text" class="text-xs text-slate-300 font-mono leading-relaxed bg-black/40 p-2.5 rounded-xl border border-white/5 cursor-text selection:bg-indigo-500 selection:text-white">
-            Cinematic medical 3D photorealism, medical-grade anatomical precision, soft biological studio illumination, subsurface scattering, 8k resolution, clean minimalist clinical background, professional color grade, 1:1 aspect ratio.
-          </p>
-          <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-slate-400">
-            <span class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono">📐 Rasio: 1:1 (Post) / 9:16 (Story)</span>
-            <span class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono">🎨 Engine: Google Imagen 3</span>
-            <span class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-mono">🎥 Video: Google Veo</span>
-          </div>
-        </div>
-
-        <!-- 5 Scene Sequential Cards -->
-        <div id="flow-scenes-container" class="space-y-3">
-          <!-- Rendered dynamically -->
-        </div>
-
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="p-4 border-t border-slate-800 bg-[#0e121c] flex flex-wrap items-center justify-between gap-2 text-xs">
-        <span class="text-slate-400 font-mono">Tip: Buka flow.google, klik "New Project", lalu paste prompt scene di atas untuk visual kelas dunia.</span>
-        <button onclick="closeFlowModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 transition">
           Tutup
         </button>
       </div>
@@ -1597,44 +1472,12 @@
       document.getElementById('slide-title').textContent = s.title;
       document.getElementById('slide-body').textContent = s.body;
       document.getElementById('slide-source-tag').textContent = s.source;
-      document.getElementById('slide-prompt').textContent = `"${s.prompt}"`;
       document.getElementById('slide-background').style.background = s.bg || 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)';
-
-      // Imagen 3 Image display handling
-      const imgEl = document.getElementById('slide-imagen-img');
-      const scrimEl = document.getElementById('slide-scrim');
-      const toggleBtn = document.getElementById('btn-toggle-img');
-
-      if (imgEl && scrimEl && toggleBtn) {
-        if (s.imagen_image && showImageOverlay) {
-          imgEl.src = s.imagen_image;
-          imgEl.classList.remove('hidden');
-          scrimEl.classList.remove('hidden');
-          toggleBtn.classList.remove('hidden');
-          toggleBtn.innerHTML = '<span>👁️</span> Gambar ON';
-          toggleBtn.className = 'text-[10px] font-mono bg-indigo-600/90 hover:bg-indigo-700 px-2.5 py-0.5 rounded-full text-white border border-white/30 transition active:scale-95 flex items-center gap-1 shadow-sm';
-        } else if (s.imagen_image && !showImageOverlay) {
-          imgEl.classList.add('hidden');
-          scrimEl.classList.add('hidden');
-          toggleBtn.classList.remove('hidden');
-          toggleBtn.innerHTML = '<span>📄</span> Naskah Saja';
-          toggleBtn.className = 'text-[10px] font-mono bg-black/60 hover:bg-black/90 px-2.5 py-0.5 rounded-full text-slate-300 border border-white/20 transition active:scale-95 flex items-center gap-1 shadow-sm';
-        } else {
-          imgEl.classList.add('hidden');
-          scrimEl.classList.add('hidden');
-          toggleBtn.classList.add('hidden');
-        }
-      }
 
       const dotsContainer = document.getElementById('carousel-dots');
       dotsContainer.innerHTML = slidesData.map((_, i) => 
         `<button onclick="goToSlide(${i})" class="${i === currentSlide ? 'w-3 h-2 bg-indigo-400 rounded-full' : 'w-1.5 h-1.5 bg-slate-700 hover:bg-slate-500 rounded-full'} transition-all"></button>`
       ).join('');
-    }
-
-    function toggleImageOverlay() {
-      showImageOverlay = !showImageOverlay;
-      updateSlideUI();
     }
 
     function nextSlide() {
@@ -1692,24 +1535,6 @@
       });
     }
 
-    function copyCurrentPrompt() {
-      if (!slidesData || slidesData.length === 0) return;
-      const s = slidesData[currentSlide];
-      navigator.clipboard.writeText(s.prompt).then(() => {
-        const btnText = document.getElementById('copy-prompt-text');
-        const btnIcon = document.getElementById('copy-prompt-icon');
-        if (btnText && btnIcon) {
-          btnText.textContent = "Tersalin!";
-          btnIcon.textContent = "✓";
-          setTimeout(() => {
-            btnText.textContent = "Salin Prompt";
-            btnIcon.textContent = "📋";
-          }, 2000);
-        }
-        showCopyNotification(`✅ Prompt Visual Slide ${currentSlide + 1} berhasil disalin!`);
-      });
-    }
-
     function copyCurrentSlideText() {
       if (!slidesData || slidesData.length === 0) return;
       const s = slidesData[currentSlide];
@@ -1732,18 +1557,7 @@
       });
     }
 
-    function copyAllPromptsOnly() {
-      if (!slidesData || slidesData.length === 0) return;
-      const output = slidesData.map((s, idx) => 
-        `// SLIDE ${idx + 1}: ${s.title}\n${s.prompt}`
-      ).join('\n\n');
-
-      navigator.clipboard.writeText(output).then(() => {
-        showCopyNotification("✅ Semua prompt visual AI (5 Slide) berhasil disalin!");
-      });
-    }
-
-    function copyAllSlidesAndPrompts() {
+    function copyAllSlidesAndCaption() {
       if (!slidesData || slidesData.length === 0) return;
       const topic = document.getElementById('topic-input') ? document.getElementById('topic-input').value : 'Edukasi Kesehatan';
       const caption = document.getElementById('caption-body') ? document.getElementById('caption-body').innerText : '';
@@ -1755,13 +1569,12 @@
       doc += `====================================================\n\n`;
 
       doc += `📱 NASKAH LENGKAP CAROUSEL INSTAGRAM:\n`;
-      doc += `----------------------------------------------------\n`;
+      doc += `----------------------------------------------------\n\n`;
       slidesData.forEach((s, idx) => {
         doc += `[SLIDE ${idx + 1}] ${s.badge || ''}\n`;
         doc += `Judul  : ${s.title}\n`;
         doc += `Naskah : ${s.body}\n`;
-        doc += `Sumber : ${s.source}\n`;
-        doc += `🎨 AI Image Prompt:\n"${s.prompt}"\n\n`;
+        doc += `Sumber : ${s.source}\n\n`;
       });
 
       doc += `----------------------------------------------------\n`;
@@ -1771,7 +1584,7 @@
       doc += `====================================================\n`;
 
       navigator.clipboard.writeText(doc).then(() => {
-        showCopyNotification("✅ Paket lengkap (5 Slide, Prompt Visual & Caption) berhasil disalin!");
+        showCopyNotification("✅ Paket naskah 5 slide & caption berhasil disalin!");
       });
     }
 
@@ -1788,8 +1601,7 @@
       slidesData.forEach((s, idx) => {
         doc += `### Slide ${idx + 1}: ${s.title}\n\n`;
         doc += `${s.body}\n\n`;
-        doc += `*${s.source}*\n\n`;
-        doc += `**🎨 AI Visual Prompt (Midjourney / Flux):**\n\`\`\`\n${s.prompt}\n\`\`\`\n\n---\n\n`;
+        doc += `*${s.source}*\n\n---\n\n`;
       });
 
       doc += `## 📝 Caption & Hashtags\n\n${caption}\n\n${hashtags}\n`;
@@ -1833,7 +1645,7 @@
       if (!container) return;
 
       container.innerHTML = slidesData.map((s, idx) => `
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3 select-text">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-2.5 select-text">
           <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
             <div class="flex items-center gap-2">
               <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-600 text-white font-mono">
@@ -1843,7 +1655,7 @@
                 ${s.title}
               </span>
             </div>
-            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700 active:scale-95 shrink-0">
+            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-indigo-300 transition flex items-center gap-1 border border-slate-700 active:scale-95 shrink-0">
               <span>📄</span> Salin Naskah
             </button>
           </div>
@@ -1853,20 +1665,6 @@
           </p>
           <div class="text-[10px] text-cyan-400 font-mono select-text">
             ${s.source}
-          </div>
-
-          <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 space-y-1.5 select-text">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1 select-none">
-                <span>🎨</span> AI Visual Prompt (Midjourney / Flux / DALL-E):
-              </span>
-              <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm active:scale-95">
-                <span>📋</span> Salin Prompt
-              </button>
-            </div>
-            <p class="text-xs italic text-amber-200/90 font-mono cursor-text selection:bg-amber-500 selection:text-slate-900">
-              "${s.prompt}"
-            </p>
           </div>
         </div>
       `).join('');
@@ -1878,237 +1676,6 @@
       navigator.clipboard.writeText(text).then(() => {
         showCopyNotification(`✅ Naskah Slide ${idx + 1} disalin!`);
       });
-    }
-
-    function copySinglePrompt(idx) {
-      const s = slidesData[idx];
-      navigator.clipboard.writeText(s.prompt).then(() => {
-        showCopyNotification(`✅ Prompt visual Slide ${idx + 1} disalin!`);
-      });
-    }
-
-    /* ========================================================================
-       GOOGLE FLOW (flow.google) & GOOGLE IMAGEN 3 ENGINE
-       ======================================================================== */
-    function openFlowModal() {
-      renderFlowModal();
-      document.getElementById('flow-modal').classList.remove('hidden');
-      playChime(550, 'sine', 0.1);
-    }
-
-    function closeFlowModal() {
-      document.getElementById('flow-modal').classList.add('hidden');
-    }
-
-    function copyFlowIngredients() {
-      const text = document.getElementById('flow-ingredients-text').innerText.trim();
-      navigator.clipboard.writeText(text).then(() => {
-        showCopyNotification("✅ Visual Ingredients Google Flow berhasil disalin!");
-      });
-    }
-
-    function copySingleScene(idx) {
-      if (!slidesData || !slidesData[idx]) return;
-      const s = slidesData[idx];
-      const ingredients = document.getElementById('flow-ingredients-text') ? document.getElementById('flow-ingredients-text').innerText.trim() : '';
-      const text = `// GOOGLE FLOW SCENE ${idx + 1} (${s.badge})\n// Style Ingredients: ${ingredients}\n\nPrompt:\n${s.prompt}`;
-      navigator.clipboard.writeText(text).then(() => {
-        showCopyNotification(`✅ Scene ${idx + 1} Google Flow berhasil disalin!`);
-      });
-    }
-
-    function copyGoogleFlowBoard() {
-      if (!slidesData || slidesData.length === 0) return;
-      const topic = document.getElementById('topic-input') ? document.getElementById('topic-input').value : 'Edukasi Kesehatan';
-      const ingredients = document.getElementById('flow-ingredients-text') ? document.getElementById('flow-ingredients-text').innerText.trim() : '';
-
-      let doc = `====================================================\n`;
-      doc += `🎬 GOOGLE FLOW SCENE BOARD (Veo & Imagen 3 Studio)\n`;
-      doc += `📌 TOPIK: ${topic}\n`;
-      doc += `🌐 STUDIO: https://flow.google\n`;
-      doc += `====================================================\n\n`;
-
-      doc += `🧬 VISUAL INGREDIENTS / STYLE REFERENCE:\n`;
-      doc += `${ingredients}\n\n`;
-      doc += `----------------------------------------------------\n`;
-      doc += `SEQUENTIAL SCENE PROMPTS (1:1 Aspect Ratio):\n`;
-      doc += `----------------------------------------------------\n\n`;
-
-      slidesData.forEach((s, idx) => {
-        doc += `[SCENE ${idx + 1}] ${s.badge}\n`;
-        doc += `Judul  : ${s.title}\n`;
-        doc += `Prompt :\n"${s.prompt}"\n\n`;
-      });
-
-      doc += `====================================================\n`;
-      doc += `💡 Petunjuk Penggunaan di flow.google:\n`;
-      doc += `1. Buka https://flow.google lalu masuk dengan Akun Google Anda.\n`;
-      doc += `2. Buat Project Baru, masukkan 'Visual Ingredients' sebagai referensi gaya.\n`;
-      doc += `3. Masukkan Scene 1 sampai Scene 5 berurutan untuk hasil visual/video sinematik berkualitas tinggi!\n`;
-      doc += `====================================================\n`;
-
-      navigator.clipboard.writeText(doc).then(() => {
-        showCopyNotification("✅ Google Flow Scene Board berhasil disalin!");
-      });
-    }
-
-    function downloadGoogleFlowText() {
-      if (!slidesData || slidesData.length === 0) return;
-      const topic = document.getElementById('topic-input') ? document.getElementById('topic-input').value : 'Edukasi Kesehatan';
-      const ingredients = document.getElementById('flow-ingredients-text') ? document.getElementById('flow-ingredients-text').innerText.trim() : '';
-
-      let doc = `====================================================\n`;
-      doc += `🎬 GOOGLE FLOW SCENE BOARD (Veo & Imagen 3 Studio)\n`;
-      doc += `📌 TOPIK: ${topic}\n`;
-      doc += `🌐 STUDIO: https://flow.google\n`;
-      doc += `====================================================\n\n`;
-
-      doc += `🧬 VISUAL INGREDIENTS / STYLE REFERENCE:\n`;
-      doc += `${ingredients}\n\n`;
-      doc += `----------------------------------------------------\n`;
-      doc += `SEQUENTIAL SCENE PROMPTS (1:1 Aspect Ratio):\n`;
-      doc += `----------------------------------------------------\n\n`;
-
-      slidesData.forEach((s, idx) => {
-        doc += `[SCENE ${idx + 1}] ${s.badge}\n`;
-        doc += `Judul  : ${s.title}\n`;
-        doc += `Prompt :\n"${s.prompt}"\n\n`;
-      });
-
-      const blob = new Blob([doc], { type: 'text/plain;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `google_flow_board_${Date.now()}.txt`;
-      link.click();
-      URL.revokeObjectURL(url);
-      showCopyNotification("✅ File Google Flow Board (.txt) berhasil diunduh!");
-    }
-
-    function renderFlowModal() {
-      const container = document.getElementById('flow-scenes-container');
-      if (!container) return;
-
-      container.innerHTML = slidesData.map((s, idx) => `
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3 select-text">
-          <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-mono">
-                SCENE ${idx + 1}
-              </span>
-              <span class="text-xs font-bold text-slate-100 truncate max-w-xs sm:max-w-md cursor-text selection:bg-indigo-500 selection:text-white">
-                ${s.title}
-              </span>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              <button onclick="renderSingleSlideImagen(${idx})" class="px-2.5 py-1 rounded-lg bg-blue-600/80 hover:bg-blue-600 text-[11px] font-bold text-white transition flex items-center gap-1 shadow-sm active:scale-95">
-                <span>✨</span> Imagen 3
-              </button>
-              <button onclick="copySingleScene(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700 active:scale-95">
-                <span>📋</span> Salin Scene
-              </button>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="text-[10px] font-mono text-amber-400 font-bold flex items-center gap-1">
-              <span>🎬</span> Google Flow Prompt:
-            </div>
-            <p class="text-xs font-mono text-slate-200 leading-relaxed bg-black/40 p-2.5 rounded-xl border border-white/5 cursor-text selection:bg-amber-500 selection:text-slate-900">
-              "${s.prompt}"
-            </p>
-          </div>
-
-          ${s.imagen_image ? `
-            <div class="flex items-center gap-3 bg-emerald-950/40 border border-emerald-500/30 p-2 rounded-xl">
-              <img src="${s.imagen_image}" class="w-12 h-12 rounded-lg object-cover border border-emerald-500/50 shadow" alt="Thumbnail Imagen 3">
-              <div class="flex-1 text-[11px]">
-                <div class="font-bold text-emerald-300">✅ Gambar Google Imagen 3 Tersedia</div>
-                <div class="text-slate-400 text-[10px]">Telah dirender dengan model resmi Google Imagen 3</div>
-              </div>
-              <a href="${s.imagen_image}" download="imagen3_slide_${idx + 1}.jpg" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition active:scale-95">
-                📥 Unduh
-              </a>
-            </div>
-          ` : ''}
-
-        </div>
-      `).join('');
-    }
-
-    async function renderCurrentSlideImagen() {
-      await renderSingleSlideImagen(currentSlide);
-    }
-
-    async function renderSingleSlideImagen(idx) {
-      if (!slidesData || !slidesData[idx]) return;
-      const s = slidesData[idx];
-
-      const btnCard = document.getElementById('btn-render-imagen-card');
-      const textCard = document.getElementById('card-imagen-text');
-      const iconCard = document.getElementById('card-imagen-icon');
-
-      if (btnCard && textCard && idx === currentSlide) {
-        btnCard.disabled = true;
-        textCard.textContent = "Merender...";
-        iconCard.textContent = "⏳";
-      }
-
-      showCopyNotification(`⏳ Menghubungi Google Imagen 3 untuk Slide ${idx + 1}...`);
-
-      try {
-        const res = await fetch('/api/generate-imagen', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: s.prompt })
-        });
-        const data = await res.json();
-
-        if (data.success && data.image_data) {
-          s.imagen_image = data.image_data;
-          showImageOverlay = true;
-          updateSlideUI();
-          if (!document.getElementById('flow-modal').classList.contains('hidden')) {
-            renderFlowModal();
-          }
-          showCopyNotification(`✅ Gambar Google Imagen 3 untuk Slide ${idx + 1} berhasil dirender!`);
-          playChime(700, 'triangle', 0.15);
-        } else {
-          showCopyNotification(`💡 Info: ${data.error || 'Gagal merender'}. ${data.hint || ''}`);
-        }
-      } catch (err) {
-        showCopyNotification(`⚠️ Kendala koneksi Imagen 3: ${err.message}. Gunakan flow.google untuk generate langsung.`);
-      } finally {
-        if (btnCard && textCard && idx === currentSlide) {
-          btnCard.disabled = false;
-          textCard.textContent = "Render Imagen 3";
-          iconCard.textContent = "✨";
-        }
-      }
-    }
-
-    async function renderAllSlidesImagen() {
-      if (!slidesData || slidesData.length === 0) return;
-      const btn = document.getElementById('btn-render-all-imagen');
-      const text = document.getElementById('btn-all-imagen-text');
-      const icon = document.getElementById('btn-all-imagen-icon');
-
-      if (btn && text) {
-        btn.disabled = true;
-      }
-
-      for (let i = 0; i < slidesData.length; i++) {
-        if (text) text.textContent = `Merender Slide ${i + 1} / ${slidesData.length} dengan Imagen 3...`;
-        await renderSingleSlideImagen(i);
-        await new Promise(r => setTimeout(r, 600));
-      }
-
-      if (btn && text) {
-        btn.disabled = false;
-        text.textContent = "Render 5 Slide dengan Google Imagen 3";
-        if (icon) icon.textContent = "✨";
-      }
-      showCopyNotification("🎉 Seluruh slide selesai diproses!");
     }
 
     const mythPool = [

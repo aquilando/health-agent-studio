@@ -123,6 +123,23 @@
             <span>SIDANG PLENO: Semua agen pindah ke Ruang Rapat!</span>
           </div>
 
+          <!-- Error Alert Toast Notification -->
+          <div id="error-toast" class="hidden absolute top-16 right-4 z-20 max-w-sm bg-rose-950/95 border-2 border-rose-500/80 text-rose-100 p-3.5 rounded-2xl shadow-2xl backdrop-blur-md text-xs space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2 font-bold text-rose-300">
+                <span class="text-base">⚠️</span>
+                <span>Pemberitahuan Sistem</span>
+              </div>
+              <button onclick="closeToastError()" class="text-rose-400 hover:text-white font-bold text-sm">✕</button>
+            </div>
+            <p id="error-toast-text" class="text-[11px] leading-relaxed text-rose-200"></p>
+            <div class="pt-1 flex justify-end">
+              <button onclick="closeToastError(); startAutonomousPipeline();" class="px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-lg transition text-[11px]">
+                🔄 Coba Lagi
+              </button>
+            </div>
+          </div>
+
           <!-- Instruction Footnote (Persis seperti teks di screenshot: 'Left click to orbit - Scroll to zoom') -->
           <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none flex items-center gap-2">
             <span>🖱️ Geser mouse untuk rotasi 3D</span>
@@ -972,7 +989,7 @@
           eventSource.close();
           btnRun.disabled = false;
           btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
-          alert('Error: ' + msg.message);
+          showToastError(msg.message);
         }
       };
 
@@ -1007,6 +1024,22 @@
 
       currentSlide = 0;
       updateSlideUI();
+    }
+
+    function showToastError(msg) {
+      const toast = document.getElementById('error-toast');
+      const text = document.getElementById('error-toast-text');
+      if (toast && text) {
+        text.textContent = msg;
+        toast.classList.remove('hidden');
+      } else {
+        alert(msg);
+      }
+    }
+
+    function closeToastError() {
+      const toast = document.getElementById('error-toast');
+      if (toast) toast.classList.add('hidden');
     }
 
     function updateDockStatus(id, text) {

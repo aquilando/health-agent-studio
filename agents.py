@@ -1,14 +1,21 @@
 import json
 import os
-from typing import Dict, Any, Optional
+import time
+import logging
+from typing import Dict, Any, Optional, List
 from google import genai
 from google.genai import types
 from models import IdeaOutput, ResearchOutput, ContentDraft, FactCheckAudit, PlenoDecision
+
+logger = logging.getLogger("health_agents")
+logger.setLevel(logging.INFO)
 
 class HealthAgentsPipeline:
     def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
         """
         Inisialisasi pipeline agen edukasi kesehatan menggunakan Google Gemini API.
+        Dilengkapi sistem Auto-Retry (Exponential Backoff) dan Cascading Model Fallback
+        untuk mengatasi lonjakan trafik Google (503 UNAVAILABLE / 429).
         """
         api_key = api_key or os.environ.get("GEMINI_API_KEY")
         if not api_key:
@@ -16,7 +23,76 @@ class HealthAgentsPipeline:
                 "GEMINI_API_KEY tidak ditemukan! Set env variable GEMINI_API_KEY atau masukkan saat inisialisasi."
             )
         self.client = genai.Client(api_key=api_key)
-        self.model_name = model_name or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+        
+        # Model primer dan daftar model cadangan
+        self.primary_model = model_name or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+        
+        # Daftar urutan model fallback jika model primer mengalami 503 High Demand atau 404
+        fallback_candidates = [
+            self.primary_model,
+            "gemini-2.5-flash",
+            "gemini-2.0-flash",
+            "gemini-1.5-flash",
+            "gemini-2.5-pro"
+        ]
+        # Hapus duplikat sambil mempertahankan urutan prioritas
+        self.model_candidates = list(dict.fromkeys(fallback_candidates))
+        self.active_model = self.primary_model
+
+    def _generate_with_retry_and_fallback(
+        self,
+        contents: str,
+        config: types.GenerateContentConfig,
+        task_name: str = "Agent Task",
+        max_retries_per_model: int = 3
+    ) -> Any:
+        """
+        Menjalankan permintaan generate_content dengan perlindungan terhadap:
+        - 503 UNAVAILABLE (Model experiencing high demand) -> Retry dengan backoff
+        - 429 RESOURCE_EXHAUSTED (Rate limit) -> Retry dengan backoff
+        - 404 NOT_FOUND (Model deprecated) -> Beralih ke model cadangan
+        """
+        last_exception = None
+
+        for model in self.model_candidates:
+            for attempt in range(1, max_retries_per_model + 1):
+                try:
+                    logger.info(f"[{task_name}] Menjalankan model '{model}' (Percobaan {attempt}/{max_retries_per_model})...")
+                    response = self.client.models.generate_content(
+                        model=model,
+                        contents=contents,
+                        config=config
+                    )
+                    self.active_model = model
+                    return response
+                except Exception as e:
+                    err_str = str(e)
+                    last_exception = e
+                    logger.warning(f"[{task_name}] Gagal pada model '{model}': {err_str}")
+
+                    # Kasus 1: 503 UNAVAILABLE atau 429 (Trafik tinggi sementara)
+                    if "503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str or "429" in err_str:
+                        if attempt < max_retries_per_model:
+                            wait_time = (2 ** attempt) + 1  # 3 detik, 5 detik, dll.
+                            logger.info(f"[{task_name}] Server Google sibuk (503/429). Menunggu {wait_time} detik sebelum mencoba lagi...")
+                            time.sleep(wait_time)
+                            continue
+                        else:
+                            # Jika sudah 3 kali retry di model ini masih 503, switch ke model cadangan berikutnya
+                            logger.info(f"[{task_name}] Model '{model}' terus sibuk. Beralih ke model cadangan...")
+                            break
+
+                    # Kasus 2: 404 NOT_FOUND (Model tidak tersedia di region ini)
+                    elif "404" in err_str or "NOT_FOUND" in err_str:
+                        logger.info(f"[{task_name}] Model '{model}' tidak ditemukan (404). Langsung coba model alternatif.")
+                        break
+
+                    # Kasus 3: Error lain (misal invalid argument / format)
+                    else:
+                        raise e
+
+        # Jika seluruh model dalam daftar fallback gagal
+        raise last_exception
 
     def run_ideator(self, raw_input: str) -> IdeaOutput:
         """Agen 1: Merumuskan gagasan pokok, angle unik, dan target audiens."""
@@ -32,14 +108,15 @@ class HealthAgentsPipeline:
         - angle: Sudut pandang unik (contoh: mitos vs fakta, kebiasaan sehari-hari yang salah)
         - core_premise: Gagasan utama yang ingin disampaikan agar audiens tercerahkan
         """
-        response = self.client.models.generate_content(
-            model=self.model_name,
+        config = types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=IdeaOutput,
+            temperature=0.7
+        )
+        response = self._generate_with_retry_and_fallback(
             contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=IdeaOutput,
-                temperature=0.7
-            )
+            config=config,
+            task_name="Agen 1: Ideator"
         )
         return IdeaOutput.model_validate_json(response.text)
 
@@ -58,18 +135,34 @@ class HealthAgentsPipeline:
         2. Cari data/standar internasional dari WHO atau CDC.
         3. Berikan data statistik angka konkret yang valid dan sebutkan nama lembaga rujukan resmi. Dilarang mengarang angka!
         """
-        # Aktifkan Google Search Grounding untuk riset fakta terkini
-        response = self.client.models.generate_content(
-            model=self.model_name,
-            contents=prompt,
-            config=types.GenerateContentConfig(
+        # Coba jalankan dengan Google Search Grounding terlebih dahulu
+        try:
+            config = types.GenerateContentConfig(
                 tools=[types.Tool(google_search=types.GoogleSearch())],
                 response_mime_type="application/json",
                 response_schema=ResearchOutput,
                 temperature=0.2
             )
-        )
-        return ResearchOutput.model_validate_json(response.text)
+            response = self._generate_with_retry_and_fallback(
+                contents=prompt,
+                config=config,
+                task_name="Agen 2: Researcher (Google Grounded)"
+            )
+            return ResearchOutput.model_validate_json(response.text)
+        except Exception as e:
+            # Jika Search Tool mengalami kendala kuota, fallback ke knowledge base medis model
+            logger.warning(f"[Agen 2: Researcher] Grounding search gagal ({e}), menggunakan knowledge medis internal.")
+            fallback_config = types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=ResearchOutput,
+                temperature=0.2
+            )
+            response = self._generate_with_retry_and_fallback(
+                contents=prompt + "\n\nGunakan referensi literatur medis standar Kemenkes RI dan WHO.",
+                config=fallback_config,
+                task_name="Agen 2: Researcher (Internal Medical Knowledge)"
+            )
+            return ResearchOutput.model_validate_json(response.text)
 
     def run_creator(self, idea: IdeaOutput, research: ResearchOutput) -> ContentDraft:
         """Agen 3: Meracik copywriting medsos (hook, slide carousel) & prompt visual AI (Midjourney/Flux)."""
@@ -93,14 +186,15 @@ class HealthAgentsPipeline:
         3. Buat prompt visual AI spesifik (estetika medis 3D/ilustrasi profesional) untuk setiap slide.
         4. Tulis caption ramah pembaca dan Call-to-Action (CTA).
         """
-        response = self.client.models.generate_content(
-            model=self.model_name,
+        config = types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=ContentDraft,
+            temperature=0.6
+        )
+        response = self._generate_with_retry_and_fallback(
             contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=ContentDraft,
-                temperature=0.6
-            )
+            config=config,
+            task_name="Agen 3: Creator"
         )
         return ContentDraft.model_validate_json(response.text)
 
@@ -125,14 +219,15 @@ class HealthAgentsPipeline:
         3. Jika ada informasi yang keliru secara medis, sebutkan di revision_feedback dan beri prohibited_claims_found.
         4. Berikan nilai akurasi medis (1-100).
         """
-        response = self.client.models.generate_content(
-            model=self.model_name,
+        config = types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=FactCheckAudit,
+            temperature=0.1
+        )
+        response = self._generate_with_retry_and_fallback(
             contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=FactCheckAudit,
-                temperature=0.1
-            )
+            config=config,
+            task_name="Agen 4: Fact-Checker"
         )
         return FactCheckAudit.model_validate_json(response.text)
 
@@ -164,13 +259,14 @@ class HealthAgentsPipeline:
         3. Tuliskan ringkasan konsensus editorial.
         4. Terbitkan naskah final yang telah disempurnakan (perbaiki teks jika ada teguran dari dokter).
         """
-        response = self.client.models.generate_content(
-            model=self.model_name,
+        config = types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=PlenoDecision,
+            temperature=0.4
+        )
+        response = self._generate_with_retry_and_fallback(
             contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=PlenoDecision,
-                temperature=0.4
-            )
+            config=config,
+            task_name="Agen 5: Pleno Council"
         )
         return PlenoDecision.model_validate_json(response.text)

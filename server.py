@@ -189,7 +189,17 @@ async def stream_pipeline(topic: str = Query(..., description="Topik konten kese
             yield f"data: {json.dumps(final_payload)}\n\n"
 
         except Exception as e:
-            err_payload = {"type": "error", "message": str(e)}
+            err_str = str(e)
+            if "503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str:
+                user_msg = "Server Google Gemini sedang mengalami lonjakan trafik global (503 High Demand). Sistem telah mencoba melakukan retry otomatis. Silakan tunggu sekitar 15-30 detik lalu klik tombol 'Jalankan Pipeline' lagi."
+            elif "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                user_msg = "Batas kuota Gemini API tercapai sementara (429 Rate Limit). Silakan jeda beberapa saat lalu coba kembali."
+            elif "API_KEY_INVALID" in err_str:
+                user_msg = "GEMINI_API_KEY tidak valid atau belum disetel di Render Environment Variables."
+            else:
+                user_msg = f"Kendala Pipeline: {err_str}"
+
+            err_payload = {"type": "error", "message": user_msg}
             yield f"data: {json.dumps(err_payload)}\n\n"
 
     return StreamingResponse(

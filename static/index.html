@@ -1,51 +1,75 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🏢 Health Agent Office 3D - Multi-Agent Studio</title>
+  <title>🏢 Health Agent Office 3D - Autonomous Multi-Agent Studio</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     @keyframes floatBob {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
+      50% { transform: translateY(-5px); }
     }
     @keyframes pulseGlow {
-      0%, 100% { opacity: 0.85; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.08); }
+      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.8)); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
     .animate-float {
       animation: floatBob 3s ease-in-out infinite;
     }
     .animate-pulse-glow {
-      animation: pulseGlow 2s ease-in-out infinite;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+    .glass-card {
+      background: rgba(24, 30, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .light .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(226, 232, 240, 0.8);
     }
     /* Clean custom scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    .light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
   </style>
 </head>
-<body class="bg-[#f1f3f6] dark:bg-[#0f131a] text-slate-800 dark:text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6 transition-colors duration-200">
+<body class="bg-[#0b0e14] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6 transition-colors duration-200">
 
-  <div class="max-w-7xl mx-auto space-y-6">
+  <!-- Background Ambient Glow -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl"></div>
+  </div>
 
-    <!-- Top Header: Persis Format Spesifikasi User -->
-    <header class="bg-white/95 dark:bg-[#181e28]/95 backdrop-blur-md border border-slate-200/80 dark:border-slate-800 rounded-3xl p-4 md:p-6 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <div class="relative z-10 max-w-7xl mx-auto space-y-5">
+
+    <!-- Top Navigation Bar & Hero Header -->
+    <header class="glass-card rounded-3xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
       <div>
-        <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 flex items-center justify-center text-white text-2xl shadow-md font-bold">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-indigo-500/25 font-bold">
             🏢
           </div>
           <div>
-            <h1 class="text-xl md:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-              Health Agent Office 3D
-              <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                Lantai 1 Workstation ➔ Tangga ➔ Lantai 2 Rapat Finalisasi
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl md:text-2xl font-black text-white tracking-tight">
+                Health Agent Office 3D
+              </h1>
+              <span class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Gemini 3.5 Active
               </span>
-            </h1>
-            <p class="text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium mt-0.5">
+            </div>
+            <p class="text-xs md:text-sm text-slate-400 font-medium mt-0.5">
               Kantor 3D 2 lantai. Geser untuk memutar, scroll untuk zoom. Agen estafet laporan, lalu naik tangga untuk rapat finalisasi.
             </p>
           </div>
@@ -54,16 +78,16 @@
 
       <!-- Controls & Toggle Phone Preview -->
       <div class="flex items-center gap-2 self-end md:self-center">
-        <div class="bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl flex items-center text-xs font-medium border border-slate-200 dark:border-slate-700">
-          <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition">
+        <div class="bg-slate-800/80 p-1 rounded-2xl flex items-center text-xs font-medium border border-slate-700/80 shadow-inner">
+          <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition">
             <span>🏰</span> Tycoon View
           </button>
-          <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition">
+          <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition">
             <span>🚶</span> Step Inside
           </button>
         </div>
 
-        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold flex items-center gap-1.5 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition shadow-sm">
+        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3.5 py-2 rounded-2xl bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 border border-indigo-700/60 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm">
           <span>📱</span> Tampilan Feed IG
         </button>
       </div>
@@ -71,53 +95,53 @@
 
     <!-- Zone Quick Navigation Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-medium no-scrollbar">
-      <button onclick="focusZone('all')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white dark:bg-[#181e28] text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5">
+      <button onclick="focusZone('all')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800 text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
         <span>✨</span> Semua Lantai (Overview)
       </button>
-      <button onclick="focusZone('floor1')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+      <button onclick="focusZone('floor1')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
         <span>💻</span> Lantai 1: Workstations (Estafet Laporan)
       </button>
-      <button onclick="focusZone('stairs')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+      <button onclick="focusZone('stairs')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
         <span>🪜</span> Tangga Penghubung
       </button>
-      <button onclick="focusZone('floor2')" class="room-tab px-3.5 py-1.5 rounded-xl bg-white/70 dark:bg-[#181e28]/70 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-white dark:hover:bg-[#181e28] shadow-sm shrink-0 flex items-center gap-1.5">
+      <button onclick="focusZone('floor2')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
         <span>🤝</span> Lantai 2: Ruang Rapat Finalisasi (Pleno)
       </button>
     </div>
 
     <!-- Main Workspace Grid: 3D Canvas + Phone Preview -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
       
       <!-- 3D Canvas & Top Input Controls (8 cols or 12 cols) -->
-      <div id="viewport-container" class="lg:col-span-8 flex flex-col gap-3 transition-all duration-300">
+      <div id="viewport-container" class="lg:col-span-8 flex flex-col gap-3.5 transition-all duration-300">
         
         <!-- 3D Interactive Viewport Box -->
-        <div class="relative w-full h-[540px] md:h-[620px] bg-gradient-to-b from-[#e8edf4] to-[#f4f7fa] dark:from-[#111620] dark:to-[#171d28] border-2 border-slate-200 dark:border-slate-800/80 rounded-3xl overflow-hidden shadow-xl select-none">
+        <div class="relative w-full h-[540px] md:h-[620px] bg-gradient-to-b from-[#111622] via-[#151c2b] to-[#121724] border-2 border-slate-800 rounded-3xl overflow-hidden shadow-2xl select-none">
           
           <!-- Canvas Engine -->
           <canvas id="tycoonCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
 
           <!-- Top Left: Camera Angle & Zoom HUD -->
-          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-white/85 dark:bg-[#1c2331]/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-md text-xs font-mono">
-            <span class="text-slate-500 dark:text-slate-400">Rotasi:</span>
-            <span id="angle-display" class="font-bold text-indigo-600 dark:text-indigo-400">35°</span>
-            <span class="text-slate-300 dark:text-slate-600">|</span>
-            <button onclick="adjustAngle(-15)" title="Putar Kiri" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">↺</button>
-            <button onclick="adjustAngle(15)" title="Putar Kanan" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">↻</button>
-            <span class="text-slate-300 dark:text-slate-600">|</span>
-            <button onclick="adjustZoom(0.1)" title="Zoom In" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">+</button>
-            <button onclick="adjustZoom(-0.1)" title="Zoom Out" class="hover:text-indigo-500 font-bold px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800">−</button>
-            <button onclick="resetCamera()" title="Reset Kamera" class="text-[11px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:text-indigo-500">Reset</button>
+          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700/80 shadow-lg text-xs font-mono text-slate-200">
+            <span class="text-slate-400">Rotasi:</span>
+            <span id="angle-display" class="font-bold text-indigo-400">35°</span>
+            <span class="text-slate-600">|</span>
+            <button onclick="adjustAngle(-15)" title="Putar Kiri" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">↺</button>
+            <button onclick="adjustAngle(15)" title="Putar Kanan" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">↻</button>
+            <span class="text-slate-600">|</span>
+            <button onclick="adjustZoom(0.1)" title="Zoom In" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">+</button>
+            <button onclick="adjustZoom(-0.1)" title="Zoom Out" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">−</button>
+            <button onclick="resetCamera()" title="Reset Kamera" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition text-slate-300">Reset</button>
           </div>
 
           <!-- Top Right: Live Phase Notification Banner -->
-          <div id="phase-banner" class="absolute top-4 right-4 z-10 bg-white/90 dark:bg-[#1c2331]/90 backdrop-blur-md text-slate-800 dark:text-slate-100 font-semibold text-xs px-3.5 py-1.5 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 flex items-center gap-2">
+          <div id="phase-banner" class="absolute top-4 right-4 z-10 bg-slate-900/85 backdrop-blur-md text-slate-200 font-semibold text-xs px-3.5 py-1.5 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-2">
             <span id="phase-badge-icon" class="text-base">💡</span>
             <span id="phase-badge-text">Tahap 1: Dr. Idea merumuskan gagasan mitos...</span>
           </div>
 
           <!-- Bottom Left Instructions -->
-          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 dark:text-slate-500 pointer-events-none flex items-center gap-2">
+          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 pointer-events-none flex items-center gap-2">
             <span>🖱️ Geser mouse untuk memutar</span>
             <span>•</span>
             <span>Scroll untuk zoom</span>
@@ -126,10 +150,10 @@
           </div>
 
           <!-- Bottom Right Status Legend -->
-          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-white/85 dark:bg-[#1c2331]/85 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] font-medium text-slate-600 dark:text-slate-300">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Sedang Bekerja</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Estafet / Naik Tangga</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Rapat Finalisasi</span>
+          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700 text-[11px] font-medium text-slate-300 shadow-md">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Bekerja</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Estafet / Tangga</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Rapat Finalisasi</span>
           </div>
 
           <!-- Toast Alert Notification -->
@@ -151,22 +175,36 @@
 
         </div>
 
-        <!-- Topic Trigger Input Bar -->
-        <div class="bg-white dark:bg-[#181e28] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-stretch md:items-center gap-3">
-          <div class="relative flex-1">
-            <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-50 dark:bg-[#111620] border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-indigo-500 transition" placeholder="Masukkan topik kesehatan yang ingin dieksekusi tim agen...">
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="setSampleTopic('kolesterol')" class="px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-              🥚 Telur & Kolesterol
-            </button>
-            <button onclick="setSampleTopic('tidur')" class="px-2.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-              💤 Tidur 8 Jam
-            </button>
-            <button id="btn-run-pipeline" onclick="startAutonomousPipeline()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
+        <!-- Topic Trigger Input & Popular Chips -->
+        <div class="glass-card rounded-3xl p-4 md:p-5 shadow-xl space-y-3">
+          
+          <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
+            <div class="relative flex-1">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+              <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl pl-10 pr-4 py-2.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner" placeholder="Masukkan topik / mitos kesehatan yang ingin dibongkar...">
+            </div>
+            <button id="btn-run-pipeline" onclick="startAutonomousPipeline()" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-xs md:text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
               <span>🚀</span> Jalankan Pipeline
             </button>
           </div>
+
+          <!-- Quick Topic Chips -->
+          <div class="flex items-center gap-2 overflow-x-auto text-[11px] no-scrollbar pt-0.5">
+            <span class="text-slate-400 font-semibold shrink-0">Contoh Topik:</span>
+            <button onclick="setSampleTopic('kolesterol')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+              <span>🥚</span> Telur & Kolesterol
+            </button>
+            <button onclick="setSampleTopic('tidur')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+              <span>💤</span> Wajib Tidur 8 Jam
+            </button>
+            <button onclick="setSampleTopic('malam')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+              <span>🌙</span> Makan Malam Bikin Gemuk
+            </button>
+            <button onclick="setSampleTopic('kopi')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+              <span>☕</span> Kopi & Dehidrasi
+            </button>
+          </div>
+
         </div>
 
       </div>
@@ -174,11 +212,11 @@
       <!-- Right: Phone Carousel Simulator & Copy Export (4 cols) -->
       <div id="phone-container" class="lg:col-span-4 flex flex-col gap-3">
         
-        <!-- Smartphone Chassis -->
-        <div class="bg-slate-900 border-4 border-slate-800 rounded-[38px] p-3 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col">
+        <!-- Smartphone Chassis (Titanium Edition) -->
+        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border-4 border-slate-800 rounded-[42px] p-3.5 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col ring-1 ring-white/10">
           
           <!-- Dynamic Island -->
-          <div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center gap-1.5">
+          <div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center gap-1.5 shadow-inner">
             <div class="w-2 h-2 rounded-full bg-slate-800"></div>
             <div class="w-2 h-2 rounded-full bg-indigo-900/40"></div>
           </div>
@@ -192,7 +230,7 @@
                 </div>
               </div>
               <div>
-                <div class="font-bold flex items-center gap-1 text-[11px] leading-tight">
+                <div class="font-bold flex items-center gap-1 text-[11px] leading-tight text-white">
                   klinik.edukasi.ai
                   <svg class="w-3 h-3 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                 </div>
@@ -205,7 +243,7 @@
           </div>
 
           <!-- Carousel Slide Card Display (1:1) -->
-          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-inner flex flex-col justify-between p-4 transition-all duration-300" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
+          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 transition-all duration-300 ring-1 ring-white/10" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
             
             <!-- Top Slide Badge -->
             <div class="flex items-center justify-between z-10">
@@ -231,7 +269,7 @@
             </div>
 
             <!-- Bottom Prompt Box -->
-            <div class="z-10 bg-black/50 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
+            <div class="z-10 bg-black/55 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
               <div class="flex items-center justify-between">
                 <span class="text-amber-400 font-bold flex items-center gap-1">
                   <span>🎨</span> AI Image Prompt (Leo):
@@ -240,23 +278,23 @@
                   <span>📋</span> Salin Prompt
                 </button>
               </div>
-              <p id="slide-prompt" class="italic line-clamp-2 text-slate-200">
+              <p id="slide-prompt" class="italic line-clamp-2 text-slate-200 font-mono">
                 "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render."
               </p>
             </div>
 
             <!-- Slide Nav Arrows -->
-            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
+            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10">
               ‹
             </button>
-            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition">
+            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10">
               ›
             </button>
           </div>
 
           <!-- Action Bar -->
           <div class="flex items-center justify-between text-sm py-1 px-1">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 text-slate-300">
               <button class="hover:text-rose-500 transition flex items-center gap-1 text-xs">
                 ❤️ <span class="font-bold">2.4k</span>
               </button>
@@ -287,7 +325,7 @@
           </div>
 
           <!-- Caption Preview -->
-          <div class="text-[11px] text-slate-300 space-y-1 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 max-h-36 overflow-y-auto">
+          <div class="text-[11px] text-slate-300 space-y-1 bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800/80 max-h-36 overflow-y-auto">
             <p>
               <strong class="text-white">klinik.edukasi.ai</strong>
               <span id="caption-body">
@@ -301,17 +339,17 @@
 
         </div>
 
-        <!-- Quick Copy Buttons -->
+        <!-- Quick Copy Action Buttons -->
         <div class="space-y-2">
-          <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
+          <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-xs shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
             <span>📦</span> Salin Paket Lengkap (Semua Slide + Prompt AI)
           </button>
           
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-xl bg-white dark:bg-[#181e28] border border-amber-500/30 text-amber-600 dark:text-amber-400 font-semibold hover:bg-amber-50 dark:hover:bg-amber-950/30 transition flex items-center justify-center gap-1.5 shadow-sm">
+            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-400 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm">
               <span>🎨</span> Salin Semua Prompt
             </button>
-            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-xl bg-white dark:bg-[#181e28] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center justify-center gap-1.5 shadow-sm">
+            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm">
               <span>📑</span> Buka Daftar Slide
             </button>
           </div>
@@ -322,129 +360,129 @@
     </div>
 
     <!-- ## Tim agen (Bagian yang Diminta Pengguna) -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
-        <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+    <section class="space-y-3 pt-2">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <h2 class="text-lg font-black text-white flex items-center gap-2">
           <span>👥</span> Tim agen
-          <span class="text-xs font-normal text-slate-500 font-mono">5 Agen Kolaboratif Estafet Laporan</span>
+          <span class="text-xs font-normal text-slate-400 font-mono">5 Agen Kolaboratif Estafet Laporan</span>
         </h2>
-        <span class="text-xs text-slate-500 font-mono">Lantai 1: Workstations | Lantai 2: Dewan Redaksi</span>
+        <span class="text-xs text-slate-400 font-mono">Lantai 1: Workstations | Lantai 2: Dewan Redaksi</span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         
         <!-- Agen 1: Dr. Idea -->
-        <div id="card-agent-1" onclick="focusAgent(1)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-amber-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+        <div id="card-agent-1" onclick="focusAgent(1)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-amber-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl font-bold border border-amber-500/20">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30">
               💡
             </div>
-            <span id="badge-agent-1" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <span id="badge-agent-1" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
               Standby di Meja
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">Dr. Idea</div>
-            <div class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">Trend Ideator (Lantai 1)</div>
+            <div class="font-bold text-sm text-white">Dr. Idea</div>
+            <div class="text-[11px] text-amber-400 font-medium">Trend Ideator (Lantai 1)</div>
           </div>
-          <p id="desc-agent-1" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p id="desc-agent-1" class="text-xs text-slate-400 leading-relaxed">
             Merumuskan gagasan utama, angle pemecah mitos, dan target pembaca.
           </p>
-          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Berkas:</span>
-            <span id="doc-agent-1" class="text-amber-500 font-bold">Draf Ide #1</span>
+            <span id="doc-agent-1" class="text-amber-400 font-bold">Draf Ide #1</span>
           </div>
         </div>
 
         <!-- Agen 2: Nexus Researcher -->
-        <div id="card-agent-2" onclick="focusAgent(2)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-cyan-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+        <div id="card-agent-2" onclick="focusAgent(2)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-cyan-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl font-bold border border-cyan-500/20">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl font-bold border border-cyan-500/30">
               🌐
             </div>
-            <span id="badge-agent-2" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <span id="badge-agent-2" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
               Menunggu Estafet
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">Nexus</div>
-            <div class="text-[11px] text-cyan-600 dark:text-cyan-400 font-medium">Medical Researcher (Lantai 1)</div>
+            <div class="font-bold text-sm text-white">Nexus</div>
+            <div class="text-[11px] text-cyan-400 font-medium">Medical Researcher (Lantai 1)</div>
           </div>
-          <p id="desc-agent-2" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p id="desc-agent-2" class="text-xs text-slate-400 leading-relaxed">
             Menelusuri data resmi Kemenkes RI, WHO, dan statistik epidemiologi.
           </p>
-          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Berkas:</span>
-            <span id="doc-agent-2" class="text-cyan-500 font-bold">Kemenkes Validasi #2</span>
+            <span id="doc-agent-2" class="text-cyan-400 font-bold">Kemenkes Validasi #2</span>
           </div>
         </div>
 
         <!-- Agen 3: Canvas Creator -->
-        <div id="card-agent-3" onclick="focusAgent(3)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-purple-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+        <div id="card-agent-3" onclick="focusAgent(3)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-purple-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl font-bold border border-purple-500/20">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-500/30">
               ✍️
             </div>
-            <span id="badge-agent-3" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <span id="badge-agent-3" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
               Menunggu Estafet
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">Canvas</div>
-            <div class="text-[11px] text-purple-600 dark:text-purple-400 font-medium">Copy & Visual Creator (Lantai 1)</div>
+            <div class="font-bold text-sm text-white">Canvas</div>
+            <div class="text-[11px] text-purple-400 font-medium">Copy & Visual Creator (Lantai 1)</div>
           </div>
-          <p id="desc-agent-3" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p id="desc-agent-3" class="text-xs text-slate-400 leading-relaxed">
             Meracik hook 3 detik, naskah carousel 5 slide, dan prompt AI Midjourney.
           </p>
-          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Berkas:</span>
-            <span id="doc-agent-3" class="text-purple-500 font-bold">Draf Carousel #3</span>
+            <span id="doc-agent-3" class="text-purple-400 font-bold">Draf Carousel #3</span>
           </div>
         </div>
 
         <!-- Agen 4: Dr. Verif Fact-Checker -->
-        <div id="card-agent-4" onclick="focusAgent(4)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-rose-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+        <div id="card-agent-4" onclick="focusAgent(4)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-rose-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-500 flex items-center justify-center text-xl font-bold border border-rose-500/20">
+            <div class="w-10 h-10 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center text-xl font-bold border border-rose-500/30">
               🩺
             </div>
-            <span id="badge-agent-4" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <span id="badge-agent-4" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
               Menunggu Estafet
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">Dr. Verif</div>
-            <div class="text-[11px] text-rose-600 dark:text-rose-400 font-medium">Fact-Checker (Lantai 1)</div>
+            <div class="font-bold text-sm text-white">Dr. Verif</div>
+            <div class="text-[11px] text-rose-400 font-medium">Fact-Checker (Lantai 1)</div>
           </div>
-          <p id="desc-agent-4" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p id="desc-agent-4" class="text-xs text-slate-400 leading-relaxed">
             Audit klinis ketat: menyaring klaim overclaim dan memberi skor akurasi.
           </p>
-          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Berkas:</span>
-            <span id="doc-agent-4" class="text-rose-500 font-bold">Audit Klinis #4</span>
+            <span id="doc-agent-4" class="text-rose-400 font-bold">Audit Klinis #4</span>
           </div>
         </div>
 
         <!-- Agen 5: Chief Budi (Editor-in-Chief di Lantai 2) -->
-        <div id="card-agent-5" onclick="focusAgent(5)" class="cursor-pointer bg-white dark:bg-[#181e28] border-2 border-slate-200 dark:border-slate-800 hover:border-emerald-400 p-3.5 rounded-2xl shadow-sm transition space-y-2.5">
+        <div id="card-agent-5" onclick="focusAgent(5)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-emerald-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-xl font-bold border border-emerald-500/20">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-500/30">
               ⚖️
             </div>
-            <span id="badge-agent-5" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">
+            <span id="badge-agent-5" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
               Siap di Lantai 2
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-slate-900 dark:text-white">Chief Budi</div>
-            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Pimpinan Rapat (Lantai 2)</div>
+            <div class="font-bold text-sm text-white">Chief Budi</div>
+            <div class="text-[11px] text-emerald-400 font-medium">Pimpinan Rapat (Lantai 2)</div>
           </div>
-          <p id="desc-agent-5" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          <p id="desc-agent-5" class="text-xs text-slate-400 leading-relaxed">
             Menanti tim naik tangga ke Ruang Rapat Pleno untuk pengesahan final.
           </p>
-          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-1.5 flex items-center justify-between">
+          <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Konsensus:</span>
-            <span id="doc-agent-5" class="text-emerald-500 font-bold">Siap Disahkan</span>
+            <span id="doc-agent-5" class="text-emerald-400 font-bold">Siap Disahkan</span>
           </div>
         </div>
 
@@ -452,19 +490,19 @@
     </section>
 
     <!-- ## Log aktivitas (Bagian yang Diminta Pengguna) -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
-        <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+    <section class="space-y-3 pt-2 pb-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <h2 class="text-lg font-black text-white flex items-center gap-2">
           <span>📜</span> Log aktivitas
-          <span class="text-xs font-normal text-slate-500 font-mono">Kronologi Estafet & Perpindahan Tangga 3D</span>
+          <span class="text-xs font-normal text-slate-400 font-mono">Kronologi Estafet & Perpindahan Tangga 3D</span>
         </h2>
-        <button onclick="clearActivityLogs()" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-mono">
+        <button onclick="clearActivityLogs()" class="text-xs text-slate-400 hover:text-slate-200 font-mono px-3 py-1 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
           Bersihkan Log
         </button>
       </div>
 
       <!-- Live Terminal Log Box -->
-      <div class="bg-[#141822] border-2 border-slate-800 rounded-2xl p-4 shadow-inner text-xs font-mono space-y-2 max-h-60 overflow-y-auto" id="activity-log-container">
+      <div class="bg-[#0f131c] border-2 border-slate-800 rounded-3xl p-4 md:p-5 shadow-2xl text-xs font-mono space-y-2.5 max-h-64 overflow-y-auto" id="activity-log-container">
         <div class="text-slate-400 flex items-center gap-2">
           <span class="text-emerald-400">●</span>
           <span class="text-slate-500">[00:00]</span>
@@ -476,26 +514,26 @@
   </div>
 
   <!-- Fullscreen Modal: Daftar Naskah Slide & Semua Prompt AI -->
-  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-    <div class="relative w-full max-w-3xl bg-white dark:bg-[#181e28] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-[#141824] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
       
       <!-- Modal Header -->
-      <div class="p-4 md:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 bg-slate-50 dark:bg-[#141822]">
+      <div class="p-4 md:p-5 border-b border-slate-800 flex items-center justify-between gap-3 bg-[#10141f]">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-lg font-bold">
+          <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xl font-bold border border-indigo-500/30">
             📑
           </div>
           <div>
-            <h2 class="text-sm font-bold text-slate-900 dark:text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Salin naskah per slide atau unduh seluruh paket sekaligus</p>
+            <h2 class="text-sm md:text-base font-bold text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
+            <p class="text-xs text-slate-400">Salin naskah per slide atau unduh seluruh paket sekaligus</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="copyAllSlidesAndPrompts()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+          <button onclick="copyAllSlidesAndPrompts()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md">
             <span>📦</span> Salin Semua
           </button>
-          <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold flex items-center justify-center transition text-sm">
+          <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition text-sm">
             ✕
           </button>
         </div>
@@ -507,9 +545,9 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#141822] flex items-center justify-between text-xs">
-        <span class="text-slate-500">Format siap pakai untuk Instagram & Midjourney / Flux</span>
-        <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+      <div class="p-4 border-t border-slate-800 bg-[#10141f] flex items-center justify-between text-xs">
+        <span class="text-slate-400 font-mono">Format siap pakai untuk Instagram & Midjourney / Flux</span>
+        <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 transition">
           Tutup
         </button>
       </div>
@@ -580,7 +618,6 @@
         hairColor: "#d97706",
         shirtColor: "#fbbf24",
         deskPos: { x: -160, y: -70, z: 0 },
-        // Waypoints to climb stairs to Floor 2
         stairEntrance: { x: 30, y: 90, z: 0 },
         stairTop: { x: 30, y: -30, z: 95 },
         meetingPos: { x: 80, y: -80, z: 95 },
@@ -642,7 +679,6 @@
         color: "#10b981",
         hairColor: "#1e293b",
         shirtColor: "#0f766e",
-        // Budi sits in Executive Boardroom on Floor 2 (z = 95)
         deskPos: { x: 120, y: -110, z: 95 },
         meetingPos: { x: 120, y: -110, z: 95 },
         currentPos: { x: 120, y: -110, z: 95 },
@@ -651,16 +687,13 @@
       }
     ];
 
-    // Estafet Report Dossier (Floating glowing file)
     let dossier = {
       x: -160,
       y: -70,
       z: 22,
       targetX: -160,
       targetY: -70,
-      targetZ: 22,
-      visible: true,
-      currentOwner: 1
+      targetZ: 22
     };
 
     let animTime = 0;
@@ -719,23 +752,23 @@
       animTime += 0.04;
 
       // ==========================================
-      // 1. LANTAI 1 (LANTAI BAWAH: WORKSTATIONS)
+      // 1. LANTAI 1 (WORKSTATIONS & LAB RISET)
       // ==========================================
       draw3DBox(-40, 0, -18, 420, 300, 18, '#f8fafc', '#cbd5e1', '#94a3b8');
 
-      // Grid lines Lantai 1
+      // Grid tiles di Lantai 1
       for (let gx = -220; gx <= 140; gx += 40) {
         const pt1 = project(gx, -130, 0);
         const pt2 = project(gx, 130, 0);
         ctx.beginPath();
         ctx.moveTo(pt1.x, pt1.y);
         ctx.lineTo(pt2.x, pt2.y);
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
-      // Desks Lantai 1
+      // Meja Kerja Lantai 1
       const deskColor = '#ffffff';
       const deskSide = '#e2e8f0';
       draw3DBox(-160, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1'); // Meja Dr. Idea
@@ -743,7 +776,7 @@
       draw3DBox(-60, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');  // Meja Canvas
       draw3DBox(-60, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');   // Meja Dr. Verif
 
-      // Monitors Lantai 1
+      // Dual Monitor dengan Layar Bercahaya
       function drawMonitor(dx, dy, dz, glowColor) {
         draw3DBox(dx, dy - 10, dz + 22, 22, 4, 16, '#334155', '#1e293b', '#0f172a');
         const screenPt = project(dx, dy - 8, dz + 30);
@@ -755,7 +788,7 @@
       drawMonitor(-60, -70, 0, '#c084fc');
       drawMonitor(-60, 50, 0, '#fb7185');
 
-      // Plants & Coffee Counter Lantai 1
+      // Tanaman Monstera di Lantai 1
       function drawPlant(px, py, pz) {
         draw3DBox(px, py, pz, 16, 16, 14, '#b45309', '#92400e', '#78350f');
         const leafPt = project(px, py, pz + 24);
@@ -788,13 +821,12 @@
       ctx.moveTo(rBottom.x, rBottom.y);
       ctx.lineTo(rTop.x, rTop.y);
       ctx.strokeStyle = '#0284c7';
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 3.5;
       ctx.stroke();
 
       // ==========================================
       // 3. LANTAI 2 (RUANG RAPAT FINALISASI / MEZZANINE)
       // ==========================================
-      // Elevated slab at z = 95
       draw3DBox(120, -60, 95 - 16, 230, 190, 16, '#fbf7ee', '#d4a373', '#b45309');
 
       // Karpet Ruang Rapat Lantai 2
@@ -808,8 +840,8 @@
       );
 
       // Meja Konferensi Besar di Lantai 2
-      draw3DBox(120, -60, 95, 95, 65, 22, '#92400e', '#78350f', '#451a03'); // Meja Kayu Mewah
-      draw3DBox(120, -60, 95 + 22, 18, 12, 3, '#1e293b', '#0f172a', '#020617'); // Laptop Pimpinan
+      draw3DBox(120, -60, 95, 95, 65, 22, '#92400e', '#78350f', '#451a03');
+      draw3DBox(120, -60, 95 + 22, 18, 12, 3, '#1e293b', '#0f172a', '#020617');
 
       // Whiteboard Pengesahan Lantai 2
       draw3DBox(220, -60, 95, 6, 70, 55, '#ffffff', '#e2e8f0', '#cbd5e1');
@@ -846,7 +878,6 @@
       dossier.z += (dossier.targetZ - dossier.z) * 0.08;
 
       const dPt = project(dossier.x, dossier.y, dossier.z + Math.sin(animTime * 8) * 3);
-      // Glowing file folder
       ctx.beginPath();
       ctx.arc(dPt.x, dPt.y, 8 * camera.zoom, 0, Math.PI * 2);
       ctx.fillStyle = '#fbbf24';
@@ -865,33 +896,26 @@
         let target;
 
         if (!isMeetingPhase && agent.id < 5) {
-          // Fase 1-4: Agen berada di meja masing-masing di Lantai 1
           target = agent.deskPos;
           agent.walkPhase = 0;
         } else if (isMeetingPhase && agent.id < 5) {
-          // Fase 5: Estafet selesai, agen berjalan naik tangga ke Lantai 2!
           if (agent.walkPhase === 0) {
-            // Berjalan ke depan tangga di Lantai 1
             target = agent.stairEntrance;
             if (Math.hypot(agent.stairEntrance.x - agent.currentPos.x, agent.stairEntrance.y - agent.currentPos.y) < 8) {
               agent.walkPhase = 1;
             }
           } else if (agent.walkPhase === 1) {
-            // Berjalan naik tangga menuju Lantai 2
             target = agent.stairTop;
             if (Math.hypot(agent.stairTop.y - agent.currentPos.y, agent.stairTop.z - agent.currentPos.z) < 8) {
               agent.walkPhase = 2;
             }
           } else {
-            // Tiba di Lantai 2 dan duduk di Ruang Rapat Finalisasi
             target = agent.meetingPos;
           }
         } else {
-          // Chief Budi selalu memimpin di Lantai 2
           target = agent.meetingPos;
         }
 
-        // Interpolasi perpindahan
         agent.currentPos.x += (target.x - agent.currentPos.x) * 0.06;
         agent.currentPos.y += (target.y - agent.currentPos.y) * 0.06;
         agent.currentPos.z += (target.z - agent.currentPos.z) * 0.06;
@@ -902,13 +926,11 @@
         const basePt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z);
         const headPt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z + 32 + bob);
 
-        // Bayangan di lantai
         ctx.beginPath();
         ctx.ellipse(basePt.x, basePt.y, 8 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
         ctx.fill();
 
-        // Badan
         const bodyHeight = 15 * camera.zoom;
         const bodyWidth = 10 * camera.zoom;
         ctx.beginPath();
@@ -919,7 +941,6 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Kepala
         const headRadius = 7.5 * camera.zoom;
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 4 * camera.zoom, headRadius, 0, Math.PI * 2);
@@ -927,7 +948,6 @@
         ctx.fill();
         ctx.stroke();
 
-        // Rambut
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 2 * camera.zoom, headRadius * 1.05, Math.PI, Math.PI * 2);
         ctx.fillStyle = agent.hairColor;
@@ -941,7 +961,6 @@
           ctx.stroke();
         }
 
-        // Balon Status Tag
         const tagY = headPt.y - 18 * camera.zoom;
         const pillText = `${agent.name}`;
         ctx.font = 'bold 10px monospace';
@@ -961,7 +980,6 @@
         ctx.textBaseline = 'middle';
         ctx.fillText(pillText, headPt.x, tagY);
 
-        // Lampu Meja Menyala saat Aktif
         if (agent.status === 'working' && agent.id < 5) {
           const deskLightPt = project(agent.deskPos.x, agent.deskPos.y, 44);
           ctx.beginPath();
@@ -1031,13 +1049,13 @@
       const btnInside = document.getElementById('btn-view-inside');
 
       if (mode === 'tycoon') {
-        btnTycoon.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
-        btnInside.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition';
+        btnTycoon.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
+        btnInside.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition';
         camera.zoom = 1.15;
         camera.tilt = 0.52;
       } else {
-        btnInside.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-indigo-600 text-slate-800 dark:text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
-        btnTycoon.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white flex items-center gap-1.5 transition';
+        btnInside.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
+        btnTycoon.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition';
         camera.zoom = 1.85;
         camera.tilt = 0.35;
       }
@@ -1064,17 +1082,14 @@
       const viewport = document.getElementById('viewport-container');
       if (phone.classList.contains('hidden')) {
         phone.classList.remove('hidden');
-        viewport.className = 'lg:col-span-8 flex flex-col gap-3 transition-all duration-300';
+        viewport.className = 'lg:col-span-8 flex flex-col gap-3.5 transition-all duration-300';
       } else {
         phone.classList.add('hidden');
-        viewport.className = 'lg:col-span-12 flex flex-col gap-3 transition-all duration-300';
+        viewport.className = 'lg:col-span-12 flex flex-col gap-3.5 transition-all duration-300';
       }
       setTimeout(resizeCanvas, 320);
     }
 
-    /* ========================================================================
-       ACTIVITY LOG & AGENT TEAM HELPERS
-       ======================================================================== */
     function addActivityLog(badge, text) {
       const container = document.getElementById('activity-log-container');
       if (!container) return;
@@ -1083,7 +1098,7 @@
       const timeStr = `[${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
 
       const row = document.createElement('div');
-      row.className = 'text-slate-300 flex items-start gap-2 animate-fadeIn';
+      row.className = 'text-slate-300 flex items-start gap-2.5 animate-fadeIn';
       row.innerHTML = `<span class="shrink-0">${badge}</span> <span class="text-slate-500 shrink-0 font-mono">${timeStr}</span> <span class="leading-relaxed">${text}</span>`;
 
       container.appendChild(row);
@@ -1102,9 +1117,9 @@
       if (badge) {
         badge.textContent = statusText;
         if (isWorking) {
-          badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse';
+          badge.className = 'text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse';
         } else {
-          badge.className = 'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400';
+          badge.className = 'text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400';
         }
       }
     }
@@ -1279,38 +1294,38 @@
       if (!container) return;
 
       container.innerHTML = slidesData.map((s, idx) => `
-        <div class="bg-slate-50 dark:bg-[#111620] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-3">
-          <div class="flex items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
             <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-500 text-white font-mono">
+              <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-600 text-white font-mono">
                 SLIDE ${idx + 1}
               </span>
-              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate max-w-xs sm:max-w-md">
+              <span class="text-xs font-bold text-slate-100 truncate max-w-xs sm:max-w-md">
                 ${s.title}
               </span>
             </div>
-            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1">
+            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700">
               <span>📄</span> Salin Naskah
             </button>
           </div>
 
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p class="text-xs text-slate-300 leading-relaxed">
             ${s.body}
           </p>
-          <div class="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">
+          <div class="text-[10px] text-cyan-400 font-mono">
             ${s.source}
           </div>
 
           <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 space-y-1.5">
             <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
+              <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
                 <span>🎨</span> AI Visual Prompt (Midjourney / Flux):
               </span>
               <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm">
                 <span>📋</span> Salin Prompt
               </button>
             </div>
-            <p class="text-xs italic text-slate-700 dark:text-amber-200/90 font-mono">
+            <p class="text-xs italic text-amber-200/90 font-mono">
               "${s.prompt}"
             </p>
           </div>
@@ -1338,6 +1353,10 @@
         document.getElementById('topic-input').value = "Mitos: Makan Telur Setiap Hari Bikin Kolesterol Meledak";
       } else if (type === 'tidur') {
         document.getElementById('topic-input').value = "Fakta: Apakah Benar Kita Wajib Tidur Tepat 8 Jam Tiap Malam?";
+      } else if (type === 'malam') {
+        document.getElementById('topic-input').value = "Mitos: Makan Malam di Atas Jam 7 Pasti Bikin Cepat Gemuk";
+      } else if (type === 'kopi') {
+        document.getElementById('topic-input').value = "Fakta: Apakah Minum Kopi Hitam Bikin Tubuh Dehidrasi?";
       }
       startAutonomousPipeline();
     }
@@ -1362,7 +1381,6 @@
         a.status = 'idle';
         a.walkPhase = 0;
       });
-      // Dossier begins at Dr. Idea's desk
       dossier.targetX = -160;
       dossier.targetY = -70;
       dossier.targetZ = 22;
@@ -1385,7 +1403,6 @@
             focusAgent(1);
             updatePhaseHUD('💡', 'Tahap 1: Dr. Idea merumuskan angle pemecah mitos...');
             addActivityLog('💡', `<strong>Dr. Idea (Ideator):</strong> Mulai merumuskan sudut pandang unik di Lantai 1.`);
-            // Move dossier to Agent 1
             dossier.targetX = -160;
             dossier.targetY = -70;
             dossier.targetZ = 24;
@@ -1399,7 +1416,6 @@
             updatePhaseHUD('📜➔🌐', 'Estafet #1: Berkas diserahkan ke Nexus Researcher...');
             addActivityLog('📜', `<strong>Estafet #1:</strong> Dr. Idea menyerahkan Berkas Gagasan ke meja Nexus Researcher.`);
             addActivityLog('🌐', `<strong>Nexus (Researcher):</strong> Meneliti data Kemenkes RI & standar WHO via Google Search Grounding.`);
-            // Move dossier to Agent 2
             dossier.targetX = -160;
             dossier.targetY = 50;
             dossier.targetZ = 24;
@@ -1413,7 +1429,6 @@
             updatePhaseHUD('📜➔✍️', 'Estafet #2: Berkas riset diserahkan ke Canvas Creator...');
             addActivityLog('📜', `<strong>Estafet #2:</strong> Nexus menyerahkan Rujukan Valid ke meja Canvas Creator.`);
             addActivityLog('✍️', `<strong>Canvas (Creator):</strong> Menulis hook 3 detik, naskah 5 slide & prompt Midjourney 8K.`);
-            // Move dossier to Agent 3
             dossier.targetX = -60;
             dossier.targetY = -70;
             dossier.targetZ = 24;
@@ -1427,13 +1442,11 @@
             updatePhaseHUD('📜➔🩺', 'Estafet #3: Draf diserahkan ke Dr. Verif Fact-Checker...');
             addActivityLog('📜', `<strong>Estafet #3:</strong> Canvas menyerahkan Draf Naskah ke meja Dr. Verif Fact-Checker.`);
             addActivityLog('🩺', `<strong>Dr. Verif (Fact-Checker):</strong> Memeriksa keakuratan klinis, menyaring hoaks & overclaim.`);
-            // Move dossier to Agent 4
             dossier.targetX = -60;
             dossier.targetY = 50;
             dossier.targetZ = 24;
           }
           else if (aid === 5) {
-            // TAHAP 5: NAIK TANGGA UNTUK RAPAT FINALISASI DI LANTAI 2
             agents[3].status = 'idle';
             updateAgentTeamCard(4, '✅ Audit Lolos', false);
             updateAgentTeamCard(5, '🟢 Memimpin Rapat', true);
@@ -1444,7 +1457,6 @@
             addActivityLog('📢', `<strong>PANGGILAN RAPAT:</strong> Berkas audit dinyatakan sah! Semua agen diminta naik ke Lantai 2.`);
             addActivityLog('🪜', `<strong>Naik Tangga:</strong> Dr. Idea, Nexus, Canvas, dan Dr. Verif berbaris menaiki anak tangga menuju Ruang Rapat Finalisasi di Lantai 2!`);
             
-            // Move dossier to Meeting Table on Floor 2
             dossier.targetX = 120;
             dossier.targetY = -60;
             dossier.targetZ = 118;

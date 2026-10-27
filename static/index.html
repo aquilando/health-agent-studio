@@ -3,117 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Team.Ai Style - Health Multi-Agent Office</title>
+  <title>Habbo Hotel Style AI Office - Health Studio</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    @keyframes pill-bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3.5px); }
+    .pixelated {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
     }
-    .pill-tag {
-      animation: pill-bob 2.6s ease-in-out infinite;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    @keyframes habbo-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+    .habbo-pill {
+      animation: habbo-bob 2.8s ease-in-out infinite;
+      box-shadow: 0 4px 0px rgba(0, 0, 0, 0.4);
     }
   </style>
 </head>
-<body class="bg-[#1a1e29] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
+<body class="bg-[#181d26] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
 
   <div class="max-w-6xl mx-auto space-y-4">
     
-    <!-- Header -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#232938] border border-slate-700/80 rounded-2xl p-4 shadow-xl">
+    <!-- Retro Header Bar -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#242c38] border-2 border-slate-700 rounded-2xl p-4 shadow-xl">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20 font-bold text-white">
-          AI
+        <div class="w-10 h-10 rounded-xl bg-amber-500 border-2 border-amber-700 flex items-center justify-center text-xl font-black text-slate-950 shadow-inner">
+          🏨
         </div>
         <div>
           <h1 class="text-base font-bold text-white flex items-center gap-2">
-            Team.Ai Health Studio
-            <span class="text-[11px] font-normal px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-              Voxel 3D Office • Gemini 3.8
+            Habbo Hotel AI Agent Office
+            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+              Retro Pixel-Art • Gemini 3.8
             </span>
           </h1>
-          <p class="text-xs text-slate-400">Gaya Kantor 3D Low-Poly Voxel: Karakter Kubus, Rak Buku, Sofa Merah & Jalur Data</p>
+          <p class="text-xs text-slate-400">Gaya Habbo Hotel: Grid Isometrik 2:1, Loker Besi, Lemari Kayu, Dispenser & Tag Hitam</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <span id="office-status" class="text-xs px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-300 flex items-center gap-2 font-medium">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span> Semua Agen di Meja Kerja
+      <div class="flex items-center gap-2 font-mono text-xs">
+        <span class="px-3 py-1.5 rounded-xl bg-[#1c222c] border border-slate-700 text-slate-300 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Runs today: <span class="text-amber-400 font-bold">1</span> | Approvals: <span class="text-cyan-400 font-bold">0</span>
         </span>
       </div>
     </header>
 
-    <!-- 3D Voxel Canvas Office Viewport -->
-    <div class="relative bg-[#1e2330] border-2 border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[580px]">
+    <!-- Habbo Hotel Pixel-Art Viewport -->
+    <div class="relative bg-[#212936] border-4 border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[580px]">
       
-      <!-- Canvas 3D Voxel Engine -->
-      <canvas id="voxel-canvas" width="980" height="580" class="block"></canvas>
+      <!-- Canvas 2D Retro Habbo Pixel Engine -->
+      <canvas id="habbo-canvas" width="980" height="580" class="block pixelated"></canvas>
 
-      <!-- Exact Match Team.Ai Floating White Pill Badges -->
+      <!-- Exact Match Dark Floating Pill Tags (Seperti Screenshot Habbo Hotel) -->
       <div id="badge-layer" class="absolute inset-0 pointer-events-none">
         
-        <!-- Dr. Idea Badge -->
-        <div id="badge-idea" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 200px; top: 180px;">
-          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
-            <span class="w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px]">A</span>
-            <span>Dr. Idea</span>
+        <!-- Dr. Idea Tag -->
+        <div id="tag-1" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 230px; top: 190px;">
+          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
+            <span class="text-amber-400">#</span>
+            <span>ideator-brief</span>
+            <span id="pill-count-1" class="text-[10px] bg-slate-800 px-1.5 rounded text-amber-300">1</span>
           </div>
         </div>
 
-        <!-- Nexus Badge -->
-        <div id="badge-nexus" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 450px; top: 160px; animation-delay: 0.4s;">
-          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
-            <span class="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px]">W</span>
-            <span>Nexus</span>
+        <!-- Nexus Researcher Tag -->
+        <div id="tag-2" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 450px; top: 170px; animation-delay: 0.4s;">
+          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
+            <span class="text-cyan-400">#</span>
+            <span>kemenkes-who-research</span>
+            <span id="pill-count-2" class="text-[10px] bg-slate-800 px-1.5 rounded text-cyan-300">2</span>
           </div>
         </div>
 
-        <!-- Canvas Creator Badge -->
-        <div id="badge-canvas" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 710px; top: 220px; animation-delay: 0.8s;">
-          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
-            <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">Y</span>
-            <span>Canvas</span>
+        <!-- Canvas Creator Tag -->
+        <div id="tag-3" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 710px; top: 220px; animation-delay: 0.8s;">
+          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
+            <span class="text-purple-400">#</span>
+            <span>visual-prompt-copy</span>
+            <span id="pill-count-3" class="text-[10px] bg-slate-800 px-1.5 rounded text-purple-300">1</span>
           </div>
         </div>
 
-        <!-- Dr. Verif Badge -->
-        <div id="badge-verif" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 260px; top: 330px; animation-delay: 1.2s;">
-          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
-            <span class="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px]">K</span>
-            <span>Dr. Verif</span>
+        <!-- Dr. Verif Fact-Checker Tag -->
+        <div id="tag-4" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 270px; top: 340px; animation-delay: 1.2s;">
+          <div class="bg-[#1f2733]/90 backdrop-blur-sm text-slate-100 px-3 py-0.5 rounded-full border border-slate-600 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
+            <span class="text-rose-400">#</span>
+            <span>medical-audit-factcheck</span>
+            <span id="pill-count-4" class="text-[10px] bg-slate-800 px-1.5 rounded text-rose-300">0</span>
           </div>
         </div>
 
-        <!-- Ical (Pimpinan) Badge -->
-        <div id="badge-ical" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 490px; top: 380px; animation-delay: 1.6s;">
-          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-3 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
-            <span class="w-4 h-4 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px]">I</span>
-            <span>Ical (Kamu)</span>
+        <!-- Ical Tag (Pimpinan) -->
+        <div id="tag-user" class="absolute habbo-pill pointer-events-auto cursor-pointer" style="left: 510px; top: 390px; animation-delay: 1.6s;">
+          <div class="bg-indigo-950/90 backdrop-blur-sm text-indigo-200 px-3 py-0.5 rounded-full border border-indigo-500 text-xs font-mono font-bold flex items-center gap-1.5 hover:scale-105 transition">
+            <span class="text-indigo-400">👑</span>
+            <span>ical-lead (kamu)</span>
           </div>
-        </div>
-
-        <!-- Watermark Team.Ai.id (Exact Like Screenshot) -->
-        <div class="absolute bottom-16 left-6 pointer-events-none">
-          <span class="text-xl font-black italic tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-            Team.Ai.id
-          </span>
         </div>
 
       </div>
 
       <!-- Quick Floating Control Box at Bottom of Office -->
-      <div class="absolute bottom-3 left-4 right-4 bg-slate-900/95 border border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
+      <div class="absolute bottom-3 left-4 right-4 bg-[#1f2733]/95 border-2 border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
         <input 
           id="topic-input" 
           type="text" 
           placeholder="Ketik topik edukasi kesehatan (misal: Bahaya gula kemasan anak, ISPA polusi udara, garam & hipertensi)..."
-          class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-full"
+          class="flex-1 bg-[#151a22] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-full font-mono"
         />
         <button 
           id="btn-run" 
-          onclick="runVoxelPipeline()" 
-          class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-600/30 whitespace-nowrap w-full md:w-auto">
+          onclick="runHabboPipeline()" 
+          class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white text-xs font-mono font-bold px-6 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-orange-600/30 whitespace-nowrap w-full md:w-auto">
           <span>🚀 Rapat Pleno & Produksi</span>
         </button>
       </div>
@@ -121,26 +122,26 @@
     </div>
 
     <!-- Final Result Interactive Presentation Section -->
-    <section id="result-section" class="hidden bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl space-y-6">
+    <section id="result-section" class="hidden bg-[#242c38] border-2 border-emerald-500/40 rounded-3xl p-6 shadow-2xl space-y-6">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-4">
         <div>
-          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1.5 mb-1">
+          <span class="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5 mb-1">
             ✓ HASIL SIDANG PLENO DISETUJUI & SIAP PUBLIKASI
           </span>
           <h2 id="res-topic" class="text-xl font-bold text-white mt-1">Judul Konten Final</h2>
-          <p id="res-audience" class="text-xs text-slate-400">Target Audiens: -</p>
+          <p id="res-audience" class="text-xs text-slate-400 font-mono">Target Audiens: -</p>
         </div>
         <div class="flex items-center gap-2">
-          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
-            <span class="text-[10px] text-slate-400 block font-medium">Uji Medis</span>
-            <span id="score-medical" class="text-sm font-bold text-blue-400">98/100</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-center">
+            <span class="text-[10px] text-slate-400 block font-mono">Uji Medis</span>
+            <span id="score-medical" class="text-sm font-bold text-cyan-400 font-mono">98/100</span>
           </div>
-          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
-            <span class="text-[10px] text-slate-400 block font-medium">Virality</span>
-            <span id="score-virality" class="text-sm font-bold text-emerald-400">95/100</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-center">
+            <span class="text-[10px] text-slate-400 block font-mono">Virality</span>
+            <span id="score-virality" class="text-sm font-bold text-emerald-400 font-mono">95/100</span>
           </div>
-          <button onclick="copyFullContent()" class="ml-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-lg shadow-blue-600/20">
+          <button onclick="copyFullContent()" class="ml-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
             📋 Salin Naskah
           </button>
         </div>
@@ -151,7 +152,7 @@
         
         <!-- Left Column: Smartphone Carousel Simulator -->
         <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="text-xs font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
+          <div class="text-xs font-mono font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
             📱 Preview Postingan Instagram (Carousel):
           </div>
 
@@ -196,30 +197,30 @@
         </div>
 
         <!-- Right Column: Full Script, Captions, Citations -->
-        <div class="lg:col-span-7 space-y-4 text-xs">
+        <div class="lg:col-span-7 space-y-4 text-xs font-mono">
           
-          <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-1">
-            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+          <div class="p-4 rounded-2xl bg-[#1b212b] border border-amber-500/30 space-y-1">
+            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5 font-sans">
               🎯 Hook 3 Detik Pertama (Membongkar Mitos):
             </span>
-            <p id="res-hook" class="text-sm text-slate-100 font-medium leading-relaxed"></p>
+            <p id="res-hook" class="text-sm text-slate-100 font-medium leading-relaxed font-sans"></p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-            <span class="text-xs font-bold text-purple-400 block">📝 Caption Naskah Medsos:</span>
+          <div class="p-4 rounded-2xl bg-[#1b212b] border border-slate-700 space-y-2">
+            <span class="text-xs font-bold text-purple-400 block font-sans">📝 Caption Naskah Medsos:</span>
             <p id="res-caption" class="text-slate-300 whitespace-pre-line leading-relaxed font-sans"></p>
-            <div class="pt-2 text-slate-400 border-t border-slate-900">
+            <div class="pt-2 text-slate-400 border-t border-slate-800 font-sans">
               <span class="font-semibold text-slate-200">Call to Action (CTA):</span> <span id="res-cta"></span>
             </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+          <div class="p-4 rounded-2xl bg-[#1b212b] border border-slate-700 space-y-3 font-sans">
             <div>
               <span class="text-xs font-bold text-cyan-400 block mb-1">📚 Sitasi Ilmiah Sah (Kemenkes & WHO):</span>
-              <ul id="res-sources" class="text-slate-300 space-y-1 list-disc list-inside"></ul>
+              <ul id="res-sources" class="text-slate-300 space-y-1 list-disc list-inside text-xs"></ul>
             </div>
 
-            <div class="pt-3 border-t border-slate-900">
+            <div class="pt-3 border-t border-slate-800 font-sans">
               <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Catatan Konsensus Dewan Pleno:</span>
               <p id="res-notes" class="text-slate-400 italic text-[11px]"></p>
             </div>
@@ -234,182 +235,216 @@
   </div>
 
   <script>
-    const canvas = document.getElementById('voxel-canvas');
+    const canvas = document.getElementById('habbo-canvas');
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
 
     let eventSource = null;
     let fullOutputMarkdown = "";
     let carouselSlides = [];
     let currentSlideIdx = 0;
 
-    const ORIGIN_X = 520;
-    const ORIGIN_Y = 160;
-    const TILE_W = 44;
-    const TILE_H = 22;
+    const ORIGIN_X = 510;
+    const ORIGIN_Y = 170;
+    const TILE_W = 48;
+    const TILE_H = 24;
 
     function toIso(x, y, z = 0) {
       return {
-        x: ORIGIN_X + (x - y) * (TILE_W / 2),
-        y: ORIGIN_Y + (x + y) * (TILE_H / 2) - z * 1.5
+        x: Math.round(ORIGIN_X + (x - y) * (TILE_W / 2)),
+        y: Math.round(ORIGIN_Y + (x + y) * (TILE_H / 2) - z * 1.4)
       };
     }
 
-    function drawVoxelBlock(x, y, z, wx, wy, wz, topCol, leftCol, rightCol) {
+    function drawHabboBlock(x, y, z, wx, wy, wz, topCol, leftCol, rightCol, strokeCol = '#1e293b') {
       const p = toIso(x, y, z);
-      const isoDx = (TILE_W / 2) * wx;
-      const isoDy = (TILE_H / 2) * wy;
-      const h = wz * 1.5;
+      const isoDx = Math.round((TILE_W / 2) * wx);
+      const isoDy = Math.round((TILE_H / 2) * wx);
+      const isoDxY = Math.round((TILE_W / 2) * wy);
+      const isoDyY = Math.round((TILE_H / 2) * wy);
+      const h = Math.round(wz * 1.4);
 
-      // Top Face
       ctx.fillStyle = topCol;
       ctx.beginPath();
       ctx.moveTo(p.x, p.y - h);
-      ctx.lineTo(p.x + isoDx, p.y + (TILE_H/2)*wx - h);
-      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy - h);
-      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
+      ctx.lineTo(p.x + isoDx, p.y + isoDy - h);
+      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY - h);
+      ctx.lineTo(p.x - isoDxY, p.y + isoDyY - h);
       ctx.closePath();
       ctx.fill();
+      if (strokeCol) {
+        ctx.strokeStyle = strokeCol;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
 
-      // Left Face
       ctx.fillStyle = leftCol;
       ctx.beginPath();
-      ctx.moveTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
-      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy - h);
-      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy);
-      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy);
+      ctx.moveTo(p.x - isoDxY, p.y + isoDyY - h);
+      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY - h);
+      ctx.lineTo(p.x + isoDx - isoDxY, p.y + isoDy + isoDyY);
+      ctx.lineTo(p.x - isoDxY, p.y + isoDyY);
       ctx.closePath();
       ctx.fill();
+      if (strokeCol) {
+        ctx.strokeStyle = strokeCol;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
 
-      // Right Face
       ctx.fillStyle = rightCol;
       ctx.beginPath();
-      ctx.moveTo(p.x - h, p.y - h);
       ctx.moveTo(p.x, p.y - h);
-      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
-      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy);
+      ctx.lineTo(p.x - isoDxY, p.y + isoDyY - h);
+      ctx.lineTo(p.x - isoDxY, p.y + isoDyY);
       ctx.lineTo(p.x, p.y);
       ctx.closePath();
       ctx.fill();
+      if (strokeCol) {
+        ctx.strokeStyle = strokeCol;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
     }
 
     const state = {
       time: 0,
       activeAgent: null,
       chars: {
-        1: { name: "Dr. Idea", x: 2.5, y: 3.5, hair: '#8d5b4c', shirt: '#9333ea', typing: false },
-        2: { name: "Nexus", x: 5.5, y: 3.0, hair: '#1e293b', shirt: '#f59e0b', typing: false },
-        3: { name: "Canvas", x: 8.5, y: 3.8, hair: '#d97706', shirt: '#10b981', typing: false },
-        4: { name: "Dr. Verif", x: 3.5, y: 6.8, hair: '#cbd5e1', shirt: '#ef4444', typing: false },
-        5: { name: "Ical", x: 6.5, y: 7.2, hair: '#0f172a', shirt: '#06b6d4', typing: false }
+        1: { name: "Dr. Idea", x: 2.2, y: 3.4, hair: '#8d5b4c', shirt: '#ea580c', typing: false },
+        2: { name: "Nexus", x: 5.2, y: 2.8, hair: '#1e293b', shirt: '#0284c7', typing: false },
+        3: { name: "Canvas", x: 8.2, y: 3.6, hair: '#c2410c', shirt: '#9333ea', typing: false },
+        4: { name: "Dr. Verif", x: 3.2, y: 6.6, hair: '#e2e8f0', shirt: '#dc2626', typing: false },
+        5: { name: "Ical", x: 6.2, y: 7.0, hair: '#0f172a', shirt: '#059669', typing: false }
       }
     };
 
-    function drawVoxelCharacter(c, isAct = false) {
-      const breath = Math.sin(state.time * 3) * 1.5;
-      drawVoxelBlock(c.x, c.y, 0, 0.9, 0.9, 8, '#334155', '#1e293b', '#0f172a');
-      drawVoxelBlock(c.x + 0.1, c.y + 0.1, 8 + breath, 0.7, 0.7, 9, c.shirt, '#475569', '#334155');
-      drawVoxelBlock(c.x, c.y, 17 + breath, 0.9, 0.9, 9, '#fed7aa', '#fdba74', '#fb923c');
-      drawVoxelBlock(c.x - 0.05, c.y - 0.05, 23 + breath, 1.0, 1.0, 4, c.hair, '#3e2723', '#271711');
+    function drawHabboAvatar(c, isAct = false) {
+      const p = toIso(c.x, c.y, 0);
+      const bob = Math.sin(state.time * 4) * 1.5;
 
-      if (isAct) {
-        const pt = toIso(c.x, c.y, 28);
-        ctx.fillStyle = '#38bdf8';
-        ctx.beginPath();
-        ctx.arc(pt.x + 4, pt.y - 6, 3, 0, Math.PI * 2);
-        ctx.fill();
+      drawHabboBlock(c.x, c.y, 0, 0.8, 0.8, 7, '#334155', '#1e293b', '#0f172a');
+      drawHabboBlock(c.x + 0.1, c.y + 0.1, 7 + bob, 0.6, 0.6, 8, c.shirt, '#475569', '#334155');
+      drawHabboBlock(c.x, c.y, 15 + bob, 0.8, 0.8, 8, '#fed7aa', '#fba86c', '#ea7b3c');
+      drawHabboBlock(c.x - 0.05, c.y - 0.05, 21 + bob, 0.9, 0.9, 4, c.hair, '#3e2723', '#271711');
+
+      const ptHead = toIso(c.x, c.y, 18 + bob);
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(ptHead.x - 3, ptHead.y - 2, 2, 3);
+      ctx.fillRect(ptHead.x + 2, ptHead.y - 2, 2, 3);
+
+      if (c.typing) {
+        const pHand = toIso(c.x + 0.5, c.y + 0.5, 10);
+        ctx.fillStyle = '#fed7aa';
+        ctx.fillRect(pHand.x - 4, pHand.y + Math.sin(state.time * 25) * 2, 3, 3);
+        ctx.fillRect(pHand.x + 2, pHand.y - Math.sin(state.time * 25) * 2, 3, 3);
       }
     }
 
-    function drawWorkstation(x, y, isScreenOn = false) {
-      drawVoxelBlock(x, y, 9, 2.0, 1.2, 1.5, '#e2c29d', '#c49a6c', '#a8794c');
-      drawVoxelBlock(x, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#020617');
-      drawVoxelBlock(x + 1.8, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#020617');
+    function drawHabboDesk(x, y, isScreenActive = false) {
+      drawHabboBlock(x, y, 9, 2.0, 1.2, 1.5, '#ea580c', '#c2410c', '#9a3412');
+      drawHabboBlock(x, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#000000');
+      drawHabboBlock(x + 1.8, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#000000');
 
-      const scrCol = isScreenOn ? '#38bdf8' : '#67e8f9';
-      drawVoxelBlock(x + 0.5, y + 0.2, 11, 0.9, 0.2, 5, scrCol, '#0891b2', '#0e7490');
-      drawVoxelBlock(x + 0.6, y + 0.6, 10.6, 0.7, 0.3, 0.4, '#ffffff', '#cbd5e1', '#94a3b8');
+      const scrColor = isScreenActive ? '#38bdf8' : '#22d3ee';
+      drawHabboBlock(x + 0.5, y + 0.2, 11, 0.9, 0.2, 5, scrColor, '#0369a1', '#075985');
+      drawHabboBlock(x + 1.4, y + 0.6, 0, 0.4, 0.6, 6, '#475569', '#334155', '#1e293b');
+      drawHabboBlock(x - 0.5, y + 0.8, 0, 0.5, 0.5, 4, '#cbd5e1', '#94a3b8', '#64748b');
     }
 
-    function renderVoxelOffice() {
+    function renderHabboScene() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let x = 0; x < 13; x++) {
-        for (let y = 0; y < 11; y++) {
-          const isCarpet = (x >= 2 && x <= 9 && y >= 2 && y <= 9);
-          const topC = isCarpet ? '#e2e8f0' : '#f1f5f9';
-          const leftC = isCarpet ? '#cbd5e1' : '#e2e8f0';
-          const rightC = isCarpet ? '#94a3b8' : '#cbd5e1';
-          drawVoxelBlock(x, y, 0, 1, 1, 0.5, topC, leftC, rightC);
+      for (let x = 0; x < 12; x++) {
+        for (let y = 0; y < 10; y++) {
+          const isAisle = (x >= 2 && x <= 9 && y >= 2 && y <= 8);
+          const topCol = isAisle ? '#94a3b8' : '#cbd5e1';
+          const leftCol = isAisle ? '#64748b' : '#94a3b8';
+          const rightCol = isAisle ? '#475569' : '#64748b';
+          drawHabboBlock(x, y, 0, 1, 1, 0.5, topCol, leftCol, rightCol, '#334155');
         }
       }
 
-      // Concrete Wall
-      drawVoxelBlock(0, 0, 0, 12, 0.6, 32, '#f8fafc', '#e2e8f0', '#cbd5e1');
+      // Back Wall
+      drawHabboBlock(0, 0, 0, 11, 0.5, 30, '#f1f5f9', '#cbd5e1', '#94a3b8', '#475569');
 
-      // Poster on Wall
-      const pChart = toIso(2, 0.6, 20);
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(pChart.x - 30, pChart.y - 20, 60, 36);
-      ctx.strokeStyle = '#64748b';
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(pChart.x - 30, pChart.y - 20, 60, 36);
-      ctx.fillStyle = '#f59e0b'; ctx.fillRect(pChart.x - 22, pChart.y + 2, 7, 10);
-      ctx.fillStyle = '#06b6d4'; ctx.fillRect(pChart.x - 12, pChart.y - 4, 7, 16);
-      ctx.fillStyle = '#10b981'; ctx.fillRect(pChart.x - 2, pChart.y - 10, 7, 22);
+      // Window
+      const pWin = toIso(1, 0.5, 20);
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(pWin.x - 30, pWin.y - 18, 60, 32);
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(pWin.x - 30, pWin.y - 18, 60, 32);
 
       // Wall Clock
-      const pClock = toIso(6, 0.6, 25);
+      const pClock = toIso(5, 0.5, 24);
       ctx.fillStyle = '#ffffff';
-      ctx.beginPath(); ctx.arc(pClock.x, pClock.y, 8, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#475569'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.beginPath(); ctx.arc(pClock.x, pClock.y, 8, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2; ctx.stroke();
 
-      // Wooden Bookshelf
-      drawVoxelBlock(8, 0.6, 0, 3.5, 0.9, 26, '#d97706', '#b45309', '#92400e');
-      drawVoxelBlock(8.2, 0.8, 16, 0.4, 0.6, 6, '#2563eb', '#1d4ed8', '#1e40af');
-      drawVoxelBlock(8.7, 0.8, 16, 0.4, 0.6, 6, '#f59e0b', '#d97706', '#b45309');
-      drawVoxelBlock(9.2, 0.8, 16, 0.4, 0.6, 6, '#ef4444', '#dc2626', '#b91c1c');
+      // Notice Board
+      const pNotice = toIso(6.5, 0.5, 18);
+      ctx.fillStyle = '#fef08a';
+      ctx.fillRect(pNotice.x - 20, pNotice.y - 14, 40, 24);
+      ctx.strokeStyle = '#854d0e'; ctx.lineWidth = 1.5; ctx.strokeRect(pNotice.x - 20, pNotice.y - 14, 40, 24);
 
-      // Lounge Red Sofa
-      drawVoxelBlock(8.5, 8.5, 0, 3.2, 1.4, 5, '#ef4444', '#dc2626', '#b91c1c');
-      drawVoxelBlock(8.5, 8.5, 5, 0.4, 1.4, 4, '#dc2626', '#b91c1c', '#991b1b');
-      drawVoxelBlock(7.2, 9.2, 0, 1.2, 1.2, 3, '#f1f5f9', '#e2e8f0', '#cbd5e1');
+      // Wooden Wardrobe / Cabinet
+      drawHabboBlock(3, 0.5, 0, 2.4, 0.8, 24, '#ea580c', '#c2410c', '#9a3412', '#7c2d12');
+      const pHandle = toIso(3.8, 0.8, 12);
+      ctx.fillStyle = '#fde047'; ctx.fillRect(pHandle.x - 2, pHandle.y - 2, 4, 4);
+
+      // Metal Lockers
+      drawHabboBlock(5.8, 0.5, 0, 2.0, 0.8, 22, '#64748b', '#475569', '#334155', '#1e293b');
+
+      // Water Cooler Dispenser
+      drawHabboBlock(10.2, 0.5, 0, 0.8, 0.8, 12, '#f8fafc', '#cbd5e1', '#94a3b8');
+      drawHabboBlock(10.3, 0.6, 12, 0.6, 0.6, 7, '#38bdf8', '#0284c7', '#0369a1');
+
+      // Whiteboard
+      const pBoard = toIso(9, 3, 14);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(pBoard.x - 22, pBoard.y - 18, 44, 30);
+      ctx.strokeStyle = '#334155'; ctx.lineWidth = 2; ctx.strokeRect(pBoard.x - 22, pBoard.y - 18, 44, 30);
 
       // Workstations
-      drawWorkstation(1.8, 2.5, state.activeAgent === 1);
-      drawWorkstation(4.8, 2.0, state.activeAgent === 2);
-      drawWorkstation(7.8, 2.8, state.activeAgent === 3);
-      drawWorkstation(2.8, 5.8, state.activeAgent === 4);
-      drawWorkstation(5.8, 6.2, false);
+      drawHabboDesk(1.6, 2.4, state.activeAgent === 1);
+      drawHabboDesk(4.6, 1.8, state.activeAgent === 2);
+      drawHabboDesk(7.6, 2.6, state.activeAgent === 3);
+      drawHabboDesk(2.6, 5.6, state.activeAgent === 4);
+      drawHabboDesk(5.6, 6.0, false);
 
-      // Voxel Characters
+      // Characters
       Object.keys(state.chars).forEach(key => {
         const c = state.chars[key];
         const isAct = (key == state.activeAgent);
-        drawVoxelCharacter(c, isAct);
+        drawHabboAvatar(c, isAct);
       });
 
-      // Data line on wall
-      ctx.strokeStyle = '#06b6d4';
+      // Glass Partition
+      ctx.strokeStyle = '#38bdf888';
+      ctx.fillStyle = '#38bdf818';
       ctx.lineWidth = 2;
-      const wireP1 = toIso(1, 0.2, 30);
-      const wireP2 = toIso(7, 0.2, 30);
+      const g1 = toIso(0, 6, 0);
+      const g2 = toIso(2, 6, 0);
+      const g1Top = toIso(0, 6, 22);
+      const g2Top = toIso(2, 6, 22);
+
       ctx.beginPath();
-      ctx.moveTo(wireP1.x, wireP1.y);
-      ctx.lineTo(wireP2.x, wireP2.y);
+      ctx.moveTo(g1.x, g1.y);
+      ctx.lineTo(g2.x, g2.y);
+      ctx.lineTo(g2Top.x, g2Top.y);
+      ctx.lineTo(g1Top.x, g1Top.y);
+      ctx.closePath();
+      ctx.fill();
       ctx.stroke();
 
-      const pulseNode = (Math.sin(state.time * 5) + 1) / 2;
-      ctx.fillStyle = '#38bdf8';
-      ctx.beginPath(); ctx.arc(wireP1.x + 20, wireP1.y - 5, 3 + pulseNode * 2, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(wireP2.x - 30, wireP2.y + 8, 3, 0, Math.PI * 2); ctx.fill();
-
-      state.time += 0.03;
-      requestAnimationFrame(renderVoxelOffice);
+      state.time += 0.04;
+      requestAnimationFrame(renderHabboScene);
     }
 
-    renderVoxelOffice();
+    renderHabboScene();
 
-    function resetVoxelOffice() {
+    function resetHabboOffice() {
       for (let i = 1; i <= 4; i++) {
         state.chars[i].typing = false;
       }
@@ -417,16 +452,14 @@
       document.getElementById('result-section').classList.add('hidden');
     }
 
-    function runVoxelPipeline() {
+    function runHabboPipeline() {
       const topic = document.getElementById('topic-input').value.trim();
       if (!topic) {
-        alert("Silakan masukkan ide atau topik konten terlebih dahulu!");
+        alert("Silakan masukkan topik edukasi kesehatan terlebih dahulu!");
         return;
       }
 
-      resetVoxelOffice();
-      document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span> Agen Voxel Sedang Bekerja...';
-
+      resetHabboOffice();
       const btn = document.getElementById('btn-run');
       btn.disabled = true;
 
@@ -446,6 +479,8 @@
         else if (msg.type === 'agent_complete') {
           if (msg.agent_id <= 4) {
             state.chars[msg.agent_id].typing = false;
+            const countEl = document.getElementById(`pill-count-${msg.agent_id}`);
+            if (countEl) countEl.innerText = '✓';
           }
         }
         else if (msg.type === 'pipeline_finished') {
@@ -453,7 +488,6 @@
           btn.disabled = false;
           state.activeAgent = null;
 
-          document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Keputusan Pleno Selesai ✓';
           renderFinalResult(msg.data);
         }
         else if (msg.type === 'error') {
@@ -520,7 +554,7 @@
       dotsContainer.innerHTML = '';
       carouselSlides.forEach((_, idx) => {
         const dot = document.createElement('div');
-        dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-cyan-400 w-4' : 'bg-slate-700'}`;
+        dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-amber-400 w-4' : 'bg-slate-700'}`;
         dotsContainer.appendChild(dot);
       });
     }

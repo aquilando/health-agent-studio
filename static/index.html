@@ -3,352 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cartoon Health Multi-Agent Studio</title>
+  <title>Team.Ai Style - Health Multi-Agent Office</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    @keyframes cartoon-bob {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(1deg); }
+    @keyframes pill-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3.5px); }
     }
-    @keyframes cartoon-bounce {
-      0%, 100% { transform: scale(1, 1); }
-      30% { transform: scale(1.15, 0.85); }
-      50% { transform: scale(0.9, 1.1) translateY(-8px); }
-      70% { transform: scale(1.05, 0.95); }
-    }
-    @keyframes bulb-glow {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #fbbf24); }
-      50% { transform: scale(1.25); filter: drop-shadow(0 0 16px #f59e0b); }
-    }
-    @keyframes float-zzz {
-      0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translate(12px, -24px) scale(1.2); opacity: 0; }
-    }
-    .char-cartoon-idle {
-      animation: cartoon-bob 3.2s ease-in-out infinite;
-    }
-    .char-cartoon-active {
-      animation: cartoon-bounce 0.8s ease-in-out infinite;
-    }
-    .bulb-pop {
-      animation: bulb-glow 1.5s ease-in-out infinite;
-    }
-    .zzz-1 { animation: float-zzz 2.5s infinite; }
-    .zzz-2 { animation: float-zzz 2.5s 0.8s infinite; }
-    
-    .cartoon-card {
-      border: 3px solid #1e293b;
-      box-shadow: 4px 6px 0px #0f172a;
+    .pill-tag {
+      animation: pill-bob 2.6s ease-in-out infinite;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
   </style>
 </head>
-<body class="bg-[#1e1b2e] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
+<body class="bg-[#1a1e29] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
 
-  <div class="max-w-6xl mx-auto space-y-5">
+  <div class="max-w-6xl mx-auto space-y-4">
     
-    <!-- Top Header (Cartoon Style) -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#2d2745] border-3 border-[#171424] rounded-3xl p-4 shadow-[0_8px_0_#151221]">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#232938] border border-slate-700/80 rounded-2xl p-4 shadow-xl">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-2xl bg-amber-400 border-2 border-amber-600 flex items-center justify-center text-2xl shadow-[0_4px_0_#b45309] animate-bounce">
-          🎬
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20 font-bold text-white">
+          AI
         </div>
         <div>
-          <h1 class="text-lg font-black tracking-wide text-amber-300 flex items-center gap-2">
-            HEALTH TOON STUDIO! 🌟
-            <span class="text-[11px] font-bold px-3 py-0.5 rounded-full bg-emerald-500 text-slate-900 border-2 border-emerald-700 shadow-[0_2px_0_#047857]">
-              Gemini 3.8 Cartoon Edition
+          <h1 class="text-base font-bold text-white flex items-center gap-2">
+            Team.Ai Health Studio
+            <span class="text-[11px] font-normal px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              Voxel 3D Office • Gemini 3.8
             </span>
           </h1>
-          <p class="text-xs text-purple-200 font-medium">Kantor Animasi Kartun: 5 Karakter Lucu Kolaborasi Produksi Konten Medis Bebas Hoaks!</p>
+          <p class="text-xs text-slate-400">Gaya Kantor 3D Low-Poly Voxel: Karakter Kubus, Rak Buku, Sofa Merah & Jalur Data</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <span id="office-status" class="text-xs font-bold px-3 py-1.5 rounded-2xl bg-[#1f1a32] border-2 border-purple-900 text-purple-300 flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> Semua Karakter Siap Bekerja!
+        <span id="office-status" class="text-xs px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-300 flex items-center gap-2 font-medium">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span> Semua Agen di Meja Kerja
         </span>
       </div>
     </header>
 
-    <!-- The Living Cartoon Office Stage -->
-    <div class="relative bg-gradient-to-b from-[#383154] via-[#2c2644] to-[#201b33] border-4 border-[#171424] rounded-3xl overflow-hidden shadow-[0_12px_0_#120f1c] p-4 md:p-6 space-y-6">
+    <!-- 3D Voxel Canvas Office Viewport -->
+    <div class="relative bg-[#1e2330] border-2 border-slate-700/80 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[580px]">
       
-      <!-- Top Floor: Cartoon Ruang Rapat (Boardroom Meeting) -->
-      <div class="rounded-3xl bg-[#26203a] border-3 border-purple-950 p-4 relative overflow-hidden shadow-inner">
+      <!-- Canvas 3D Voxel Engine -->
+      <canvas id="voxel-canvas" width="980" height="580" class="block"></canvas>
+
+      <!-- Exact Match Team.Ai Floating White Pill Badges -->
+      <div id="badge-layer" class="absolute inset-0 pointer-events-none">
         
-        <div class="flex items-center justify-between pb-3 border-b-2 border-purple-900/60 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="px-3 py-1 rounded-xl bg-amber-400 text-slate-950 text-xs font-black tracking-wider border-2 border-amber-600 shadow-[0_2px_0_#b45309] flex items-center gap-1.5">
-              <span>🎪 RUANG RAPAT PLENO KARTUN</span>
-            </span>
-            <span class="text-xs text-purple-300 font-medium hidden sm:inline">Papan Tulis Draf & Meja Diskusi Bersama</span>
+        <!-- Dr. Idea Badge -->
+        <div id="badge-idea" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 200px; top: 180px;">
+          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
+            <span class="w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px]">A</span>
+            <span>Dr. Idea</span>
           </div>
-          <span id="meeting-badge" class="text-[11px] font-black px-3 py-1 rounded-full bg-purple-900/80 text-amber-300 border border-purple-700">
-            Agenda: Menunggu Perintah ☕
+        </div>
+
+        <!-- Nexus Badge -->
+        <div id="badge-nexus" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 450px; top: 160px; animation-delay: 0.4s;">
+          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
+            <span class="w-4 h-4 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px]">W</span>
+            <span>Nexus</span>
+          </div>
+        </div>
+
+        <!-- Canvas Creator Badge -->
+        <div id="badge-canvas" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 710px; top: 220px; animation-delay: 0.8s;">
+          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
+            <span class="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">Y</span>
+            <span>Canvas</span>
+          </div>
+        </div>
+
+        <!-- Dr. Verif Badge -->
+        <div id="badge-verif" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 260px; top: 330px; animation-delay: 1.2s;">
+          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-2.5 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
+            <span class="w-4 h-4 rounded-full bg-rose-500 text-white flex items-center justify-center text-[10px]">K</span>
+            <span>Dr. Verif</span>
+          </div>
+        </div>
+
+        <!-- Ical (Pimpinan) Badge -->
+        <div id="badge-ical" class="absolute pill-tag pointer-events-auto cursor-pointer" style="left: 490px; top: 380px; animation-delay: 1.6s;">
+          <div class="bg-white/95 backdrop-blur-sm text-slate-900 px-3 py-1 rounded-full flex items-center gap-1.5 border border-slate-200 text-xs font-bold shadow-md hover:scale-105 transition">
+            <span class="w-4 h-4 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px]">I</span>
+            <span>Ical (Kamu)</span>
+          </div>
+        </div>
+
+        <!-- Watermark Team.Ai.id (Exact Like Screenshot) -->
+        <div class="absolute bottom-16 left-6 pointer-events-none">
+          <span class="text-xl font-black italic tracking-wider text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+            Team.Ai.id
           </span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-          <!-- Cartoon Whiteboard (5 Cols) -->
-          <div class="md:col-span-5 bg-[#fffdf0] border-3 border-amber-800 rounded-2xl p-3 text-slate-800 shadow-[0_4px_0_#78350f] relative transform -rotate-1">
-            <div class="flex items-center justify-between text-[10px] font-black text-amber-700 mb-1 border-b border-amber-200 pb-1">
-              <span>📌 PAPAN STRATEGI REDAKSI</span>
-              <span>KEMENKES & WHO</span>
-            </div>
-            <div id="cartoon-board-text" class="text-xs font-bold font-mono text-purple-900 leading-relaxed min-h-[65px] flex flex-col justify-center">
-              ✏️ 1. Cari Mitos Populer di Medsos<br>
-              🔬 2. Cocokkan Pedoman IDAI / WHO<br>
-              🎯 3. Bikin Hook Bikin Melek & Anti-Hoaks!
-            </div>
-          </div>
-
-          <!-- Meeting Table & Cute Character Avatars (7 Cols) -->
-          <div class="md:col-span-7 flex flex-wrap items-center justify-around gap-2 bg-[#1f1a33] border-2 border-purple-900/80 rounded-2xl p-3.5">
-            <div id="c-seat-1" class="flex flex-col items-center opacity-40 transition-all duration-300">
-              <div class="w-11 h-11 rounded-2xl bg-amber-400 border-2 border-amber-600 flex items-center justify-center text-xl shadow-[0_3px_0_#b45309]">💡</div>
-              <span class="text-[10px] font-black text-amber-300 mt-1">Dr. Idea</span>
-            </div>
-            <div id="c-seat-2" class="flex flex-col items-center opacity-40 transition-all duration-300">
-              <div class="w-11 h-11 rounded-2xl bg-cyan-400 border-2 border-cyan-600 flex items-center justify-center text-xl shadow-[0_3px_0_#0891b2]">🌐</div>
-              <span class="text-[10px] font-black text-cyan-300 mt-1">Nexus</span>
-            </div>
-            <div id="c-seat-3" class="flex flex-col items-center opacity-40 transition-all duration-300">
-              <div class="w-11 h-11 rounded-2xl bg-purple-400 border-2 border-purple-600 flex items-center justify-center text-xl shadow-[0_3px_0_#7e22ce]">🎨</div>
-              <span class="text-[10px] font-black text-purple-300 mt-1">Canvas</span>
-            </div>
-            <div id="c-seat-4" class="flex flex-col items-center opacity-40 transition-all duration-300">
-              <div class="w-11 h-11 rounded-2xl bg-rose-400 border-2 border-rose-600 flex items-center justify-center text-xl shadow-[0_3px_0_#be123c]">🩺</div>
-              <span class="text-[10px] font-black text-rose-300 mt-1">Dr. Verif</span>
-            </div>
-            <div id="c-seat-user" class="flex flex-col items-center opacity-90 transition-all duration-300">
-              <div class="w-11 h-11 rounded-2xl bg-indigo-500 border-2 border-indigo-700 flex items-center justify-center text-xl shadow-[0_3px_0_#3730a3]">👑</div>
-              <span class="text-[10px] font-black text-indigo-300 mt-1">Ical (Boss)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Open Cartoon Office (4 Expressive Character Pods) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        
-        <!-- Character 1: Dr. Idea -->
-        <div id="c-card-1" class="cartoon-card bg-[#28223d] rounded-3xl p-4 transition-all duration-300 relative group hover:-translate-y-1">
-          <div id="c-bulb-1" class="absolute -top-3.5 right-4 w-8 h-8 rounded-full bg-amber-400 border-2 border-amber-600 flex items-center justify-center text-base shadow-[0_3px_0_#b45309] hidden">
-            💡
-          </div>
-
-          <div class="flex flex-col items-center text-center pb-2">
-            <div id="c-avatar-1" class="w-20 h-20 mb-1 char-cartoon-idle">
-              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                <ellipse cx="50" cy="36" rx="30" ry="24" fill="#6d4c41"/>
-                <circle cx="50" cy="46" r="26" fill="#ffd1a9"/>
-                <path d="M26,35 Q50,20 74,35 Q60,42 50,38 Q40,42 26,35 Z" fill="#54382f"/>
-                <circle cx="41" cy="45" r="9" fill="none" stroke="#3e2723" stroke-width="2.5"/>
-                <circle cx="59" cy="45" r="9" fill="none" stroke="#3e2723" stroke-width="2.5"/>
-                <line x1="50" y1="45" x2="50" y2="45" stroke="#3e2723" stroke-width="2.5"/>
-                <circle cx="41" cy="45" r="4.5" fill="#1e293b"/>
-                <circle cx="43" cy="43" r="1.5" fill="#ffffff"/>
-                <circle cx="59" cy="45" r="4.5" fill="#1e293b"/>
-                <circle cx="61" cy="43" r="1.5" fill="#ffffff"/>
-                <circle cx="33" cy="52" r="4" fill="#ff8a80" opacity="0.6"/>
-                <circle cx="67" cy="52" r="4" fill="#ff8a80" opacity="0.6"/>
-                <path d="M45,54 Q50,60 55,54" fill="none" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M30,72 Q50,68 70,72 L76,100 L24,100 Z" fill="#fbbf24"/>
-                <circle cx="50" cy="74" r="3" fill="#d97706"/>
-              </svg>
-            </div>
-            <h3 class="text-sm font-black text-amber-300">Dr. Idea</h3>
-            <span class="text-[10px] font-bold text-purple-300">Si Pembuat Gagasan</span>
-            <span id="c-status-1" class="mt-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#1b172a] text-slate-400 border border-purple-900">Standby 😴</span>
-          </div>
-
-          <div class="bg-[#1b162b] border-2 border-purple-950 rounded-2xl p-2.5 text-[11px] text-purple-200">
-            <span class="text-amber-400 font-bold block text-[10px]">Pikiran Agen:</span>
-            <p id="c-thought-1" class="italic line-clamp-2">"Lagi siapin ide topik edukasi yang bikin netizen kaget!"</p>
-          </div>
-        </div>
-
-        <!-- Character 2: Nexus -->
-        <div id="c-card-2" class="cartoon-card bg-[#28223d] rounded-3xl p-4 transition-all duration-300 relative group hover:-translate-y-1">
-          <div id="c-bulb-2" class="absolute -top-3.5 right-4 w-8 h-8 rounded-full bg-cyan-400 border-2 border-cyan-600 flex items-center justify-center text-base shadow-[0_3px_0_#0891b2] hidden">
-            🔍
-          </div>
-
-          <div class="flex flex-col items-center text-center pb-2">
-            <div id="c-avatar-2" class="w-20 h-20 mb-1 char-cartoon-idle">
-              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                <circle cx="50" cy="46" r="32" fill="#0891b2"/>
-                <circle cx="50" cy="46" r="25" fill="#fde0c5"/>
-                <path d="M30,36 Q50,22 70,36 Q60,40 50,38 Q40,40 30,36 Z" fill="#0f172a"/>
-                <path d="M22,46 A28,28 0 0,1 78,46" fill="none" stroke="#22d3ee" stroke-width="4.5"/>
-                <rect x="18" y="42" width="7" height="15" rx="3" fill="#06b6d4"/>
-                <rect x="75" y="42" width="7" height="15" rx="3" fill="#06b6d4"/>
-                <ellipse cx="42" cy="46" rx="4.5" ry="6.5" fill="#0f172a"/>
-                <circle cx="44" cy="44" r="2" fill="#ffffff"/>
-                <ellipse cx="58" cy="46" rx="4.5" ry="6.5" fill="#0f172a"/>
-                <circle cx="60" cy="44" r="2" fill="#ffffff"/>
-                <path d="M46,55 Q50,59 54,55" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
-                <path d="M28,72 Q50,66 72,72 L76,100 L24,100 Z" fill="#06b6d4"/>
-                <polygon points="50,70 45,82 55,82" fill="#0891b2"/>
-              </svg>
-            </div>
-            <h3 class="text-sm font-black text-cyan-300">Nexus</h3>
-            <span class="text-[10px] font-bold text-purple-300">Detektif Kemenkes & WHO</span>
-            <span id="c-status-2" class="mt-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#1b172a] text-slate-400 border border-purple-900">Standby 😴</span>
-          </div>
-
-          <div class="bg-[#1b162b] border-2 border-purple-950 rounded-2xl p-2.5 text-[11px] text-purple-200">
-            <span class="text-cyan-400 font-bold block text-[10px]">Data Scanner:</span>
-            <p id="c-thought-2" class="italic line-clamp-2">"Scanner data Kemenkes & WHO ready untuk lacak fakta!"</p>
-          </div>
-        </div>
-
-        <!-- Character 3: Canvas -->
-        <div id="c-card-3" class="cartoon-card bg-[#28223d] rounded-3xl p-4 transition-all duration-300 relative group hover:-translate-y-1">
-          <div id="c-bulb-3" class="absolute -top-3.5 right-4 w-8 h-8 rounded-full bg-purple-400 border-2 border-purple-600 flex items-center justify-center text-base shadow-[0_3px_0_#7e22ce] hidden">
-            🎨
-          </div>
-
-          <div class="flex flex-col items-center text-center pb-2">
-            <div id="c-avatar-3" class="w-20 h-20 mb-1 char-cartoon-idle">
-              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                <circle cx="50" cy="46" r="28" fill="#581c87"/>
-                <circle cx="50" cy="46" r="25" fill="#fde0c5"/>
-                <ellipse cx="46" cy="26" rx="28" ry="12" fill="#9333ea" transform="rotate(-10 46 26)"/>
-                <circle cx="58" cy="18" r="3" fill="#a855f7"/>
-                <ellipse cx="41" cy="46" rx="4.5" ry="6" fill="#1e1b4b"/>
-                <circle cx="43" cy="44" r="2" fill="#ffffff"/>
-                <ellipse cx="59" cy="46" rx="4.5" ry="6" fill="#1e1b4b"/>
-                <circle cx="61" cy="44" r="2" fill="#ffffff"/>
-                <circle cx="68" cy="53" r="3" fill="#f43f5e" opacity="0.8"/>
-                <circle cx="32" cy="53" r="3" fill="#06b6d4" opacity="0.8"/>
-                <ellipse cx="50" cy="56" rx="3.5" ry="3" fill="#e11d48"/>
-                <path d="M28,72 Q50,67 72,72 L76,100 L24,100 Z" fill="#c084fc"/>
-                <path d="M38,72 L42,100 L58,100 L62,72 Z" fill="#7e22ce"/>
-              </svg>
-            </div>
-            <h3 class="text-sm font-black text-purple-300">Canvas</h3>
-            <span class="text-[10px] font-bold text-purple-300">Si Kreator Visual & Copy</span>
-            <span id="c-status-3" class="mt-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#1b172a] text-slate-400 border border-purple-900">Standby 😴</span>
-          </div>
-
-          <div class="bg-[#1b162b] border-2 border-purple-950 rounded-2xl p-2.5 text-[11px] text-purple-200">
-            <span class="text-purple-400 font-bold block text-[10px]">Studio Kreatif:</span>
-            <p id="c-thought-3" class="italic line-clamp-2">"Kuas & prompt 3D siap sulap data jadi carousel keren!"</p>
-          </div>
-        </div>
-
-        <!-- Character 4: Dr. Verif -->
-        <div id="c-card-4" class="cartoon-card bg-[#28223d] rounded-3xl p-4 transition-all duration-300 relative group hover:-translate-y-1">
-          <div id="c-bulb-4" class="absolute -top-3.5 right-4 w-8 h-8 rounded-full bg-rose-400 border-2 border-rose-600 flex items-center justify-center text-base shadow-[0_3px_0_#be123c] hidden">
-            🩺
-          </div>
-
-          <div class="flex flex-col items-center text-center pb-2">
-            <div id="c-avatar-4" class="w-20 h-20 mb-1 char-cartoon-idle">
-              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
-                <ellipse cx="50" cy="38" rx="27" ry="20" fill="#1e293b"/>
-                <circle cx="50" cy="46" r="25" fill="#ffd1a9"/>
-                <path d="M26,38 Q50,26 74,38 Q60,42 50,38 Q40,42 26,38 Z" fill="#0f172a"/>
-                <ellipse cx="34" cy="28" rx="7" ry="5" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
-                <circle cx="34" cy="28" r="2.5" fill="#38bdf8"/>
-                <ellipse cx="41" cy="46" rx="4" ry="5.5" fill="#0f172a"/>
-                <circle cx="43" cy="44" r="1.5" fill="#ffffff"/>
-                <ellipse cx="59" cy="46" rx="4" ry="5.5" fill="#0f172a"/>
-                <circle cx="61" cy="44" r="1.5" fill="#ffffff"/>
-                <path d="M44,55 Q50,61 56,55" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M28,72 Q50,68 72,72 L76,100 L24,100 Z" fill="#ffffff"/>
-                <path d="M38,72 Q38,88 50,90 Q62,88 62,72" fill="none" stroke="#e11d48" stroke-width="2.5"/>
-                <circle cx="50" cy="92" r="3.5" fill="#94a3b8"/>
-              </svg>
-            </div>
-            <h3 class="text-sm font-black text-rose-300">Dr. Verif</h3>
-            <span class="text-[10px] font-bold text-purple-300">Dokter Cek Fakta Medis</span>
-            <span id="c-status-4" class="mt-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#1b172a] text-slate-400 border border-purple-900">Standby 😴</span>
-          </div>
-
-          <div class="bg-[#1b162b] border-2 border-purple-950 rounded-2xl p-2.5 text-[11px] text-purple-200">
-            <span class="text-rose-400 font-bold block text-[10px]">Klinik Cek Fakta:</span>
-            <p id="c-thought-4" class="italic line-clamp-2">"Stetoskop & jurnal ilmiah siap saring klaim hoaks!"</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Cute Cartoon Office Amenities Floor (Water Cooler, Sleeping Cat, Coffee) -->
-      <div class="pt-3 border-t-2 border-purple-900/60 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-purple-300">
-        
-        <div class="flex items-center gap-5">
-          <div class="flex items-center gap-2 bg-[#251f38] px-3 py-1.5 rounded-2xl border border-purple-900 shadow-sm">
-            <span class="text-lg">🚰</span>
-            <div>
-              <span class="block text-[11px] text-cyan-300 font-black leading-none">Dispenser Air Biru</span>
-              <span class="text-[9px] text-purple-400">Gluk... gluk... segar!</span>
-            </div>
-          </div>
-
-          <!-- Cute Sleeping Orange Cat with Floating Zzz -->
-          <div class="flex items-center gap-2 bg-[#251f38] px-3 py-1.5 rounded-2xl border border-purple-900 shadow-sm relative">
-            <span class="text-xl">🐱</span>
-            <div>
-              <span class="block text-[11px] text-amber-300 font-black leading-none">Si Oyen (Kucing Kantor)</span>
-              <span class="text-[9px] text-purple-400">Tidur di karpet empuk</span>
-            </div>
-            <div class="absolute -top-3 right-2 text-[10px] font-black text-amber-400 zzz-1">Z</div>
-            <div class="absolute -top-5 right-4 text-[12px] font-black text-amber-400 zzz-2">z</div>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2.5 bg-gradient-to-r from-indigo-950 to-purple-950 px-4 py-2 rounded-2xl border-2 border-indigo-700 shadow-md">
-          <span class="text-lg">👑</span>
-          <div>
-            <span class="block text-xs font-black text-indigo-300 leading-none">MEJA BOSS ICAL</span>
-            <span class="text-[10px] text-purple-300">Pimpinan Redaksi • Penentu Keputusan Akhir</span>
-          </div>
         </div>
 
       </div>
 
       <!-- Quick Floating Control Box at Bottom of Office -->
-      <div class="bg-[#1f1a32] border-3 border-purple-900 rounded-3xl p-3.5 shadow-2xl flex flex-col md:flex-row items-center gap-2.5">
+      <div class="absolute bottom-3 left-4 right-4 bg-slate-900/95 border border-slate-700 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
         <input 
           id="topic-input" 
           type="text" 
           placeholder="Ketik topik edukasi kesehatan (misal: Bahaya gula kemasan anak, ISPA polusi udara, garam & hipertensi)..."
-          class="flex-1 bg-[#151224] border-2 border-purple-800 rounded-2xl px-4 py-2.5 text-xs text-white placeholder-purple-400 focus:outline-none focus:border-amber-400 w-full font-medium"
+          class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 w-full"
         />
         <button 
           id="btn-run" 
-          onclick="runCartoonPipeline()" 
-          class="bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:opacity-90 text-slate-950 text-xs font-black px-6 py-2.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-[0_4px_0_#b45309] whitespace-nowrap w-full md:w-auto transform active:translate-y-1">
-          <span>🚀 JALANKAN RAPAT & PRODUKSI!</span>
+          onclick="runVoxelPipeline()" 
+          class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-600/30 whitespace-nowrap w-full md:w-auto">
+          <span>🚀 Rapat Pleno & Produksi</span>
         </button>
       </div>
 
     </div>
 
     <!-- Final Result Interactive Presentation Section -->
-    <section id="result-section" class="hidden bg-[#26203a] border-4 border-emerald-500/50 rounded-3xl p-6 shadow-2xl space-y-6">
+    <section id="result-section" class="hidden bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl space-y-6">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-purple-900 pb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <span class="text-xs font-black px-3 py-1 rounded-full bg-emerald-400 text-slate-950 border-2 border-emerald-700 shadow-[0_2px_0_#047857] inline-flex items-center gap-1.5 mb-1">
-            🎉 KEPUTUSAN PLENO KARTUN DISETUJUI! SIAP TAYANG!
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1.5 mb-1">
+            ✓ HASIL SIDANG PLENO DISETUJUI & SIAP PUBLIKASI
           </span>
-          <h2 id="res-topic" class="text-xl font-black text-amber-300 mt-1">Judul Konten Final</h2>
-          <p id="res-audience" class="text-xs text-purple-200 font-medium">Target Audiens: -</p>
+          <h2 id="res-topic" class="text-xl font-bold text-white mt-1">Judul Konten Final</h2>
+          <p id="res-audience" class="text-xs text-slate-400">Target Audiens: -</p>
         </div>
         <div class="flex items-center gap-2">
-          <div class="px-4 py-2 rounded-2xl bg-[#1a162b] border-2 border-purple-900 text-center">
-            <span class="text-[10px] text-purple-400 block font-bold">Uji Medis</span>
-            <span id="score-medical" class="text-sm font-black text-cyan-400">98/100</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block font-medium">Uji Medis</span>
+            <span id="score-medical" class="text-sm font-bold text-blue-400">98/100</span>
           </div>
-          <div class="px-4 py-2 rounded-2xl bg-[#1a162b] border-2 border-purple-900 text-center">
-            <span class="text-[10px] text-purple-400 block font-bold">Virality</span>
-            <span id="score-virality" class="text-sm font-black text-emerald-400">95/100</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block font-medium">Virality</span>
+            <span id="score-virality" class="text-sm font-bold text-emerald-400">95/100</span>
           </div>
-          <button onclick="copyFullContent()" class="ml-2 px-4 py-2.5 rounded-2xl bg-amber-400 text-slate-950 text-xs font-black transition flex items-center gap-1.5 shadow-[0_3px_0_#b45309] hover:bg-amber-300">
+          <button onclick="copyFullContent()" class="ml-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-lg shadow-blue-600/20">
             📋 Salin Naskah
           </button>
         </div>
@@ -359,14 +151,14 @@
         
         <!-- Left Column: Smartphone Carousel Simulator -->
         <div class="lg:col-span-5 flex flex-col items-center">
-          <div class="text-xs font-black text-amber-300 mb-2 flex items-center gap-1.5">
+          <div class="text-xs font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
             📱 Preview Postingan Instagram (Carousel):
           </div>
 
-          <div class="w-[290px] h-[500px] bg-slate-950 border-4 border-purple-800 rounded-[36px] p-3 flex flex-col justify-between shadow-[0_10px_25px_rgba(0,0,0,0.6)] relative overflow-hidden">
+          <div class="w-[290px] h-[500px] bg-slate-950 border-4 border-slate-800 rounded-[36px] p-3 flex flex-col justify-between shadow-2xl relative overflow-hidden">
             <div class="w-20 h-3.5 bg-slate-800 rounded-full mx-auto mb-2"></div>
 
-            <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
               <div class="flex items-center gap-2">
                 <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-bold">🩺</div>
                 <div>
@@ -374,27 +166,27 @@
                   <span class="text-[9px] text-slate-400">Official Health Post</span>
                 </div>
               </div>
-              <span id="carousel-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-amber-400 font-bold">
+              <span id="carousel-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">
                 1 / 4
               </span>
             </div>
 
-            <div id="phone-slide-body" class="flex-1 my-2 rounded-2xl bg-gradient-to-br from-purple-950 to-indigo-950 border border-purple-800 p-4 flex flex-col justify-center text-center space-y-2 relative">
+            <div id="phone-slide-body" class="flex-1 my-2 rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 border border-slate-800 p-4 flex flex-col justify-center text-center space-y-2 relative">
               <div id="phone-slide-icon" class="text-3xl">🍭</div>
-              <h4 id="phone-slide-title" class="text-xs font-black text-amber-300">Headline Slide</h4>
-              <p id="phone-slide-text" class="text-[11px] text-slate-200 leading-relaxed font-medium"></p>
+              <h4 id="phone-slide-title" class="text-xs font-bold text-white">Headline Slide</h4>
+              <p id="phone-slide-text" class="text-[11px] text-slate-300 leading-relaxed"></p>
               
-              <div class="mt-2 pt-2 border-t border-purple-900 text-[9px] text-purple-300 font-mono italic text-left">
+              <div class="mt-2 pt-2 border-t border-slate-800/60 text-[9px] text-purple-300 font-mono italic text-left">
                 🎨 Prompt: <span id="phone-slide-prompt"></span>
               </div>
             </div>
 
             <div class="flex items-center justify-between pt-1">
-              <button onclick="prevSlide()" class="px-3 py-1 rounded-xl bg-purple-900 hover:bg-purple-800 text-xs font-bold text-white transition">
+              <button onclick="prevSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
                 ◀ Prev
               </button>
               <div id="dots-container" class="flex gap-1.5"></div>
-              <button onclick="nextSlide()" class="px-3 py-1 rounded-xl bg-purple-900 hover:bg-purple-800 text-xs font-bold text-white transition">
+              <button onclick="nextSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
                 Next ▶
               </button>
             </div>
@@ -406,29 +198,29 @@
         <!-- Right Column: Full Script, Captions, Citations -->
         <div class="lg:col-span-7 space-y-4 text-xs">
           
-          <div class="p-4 rounded-3xl bg-[#1b162b] border-2 border-amber-500/40 space-y-1">
-            <span class="text-xs font-black text-amber-400 flex items-center gap-1.5">
+          <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-1">
+            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
               🎯 Hook 3 Detik Pertama (Membongkar Mitos):
             </span>
-            <p id="res-hook" class="text-sm text-slate-100 font-bold leading-relaxed"></p>
+            <p id="res-hook" class="text-sm text-slate-100 font-medium leading-relaxed"></p>
           </div>
 
-          <div class="p-4 rounded-3xl bg-[#1b162b] border-2 border-purple-900 space-y-2">
-            <span class="text-xs font-black text-purple-300 block">📝 Naskah Lengkap Caption Medsos:</span>
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+            <span class="text-xs font-bold text-purple-400 block">📝 Caption Naskah Medsos:</span>
             <p id="res-caption" class="text-slate-300 whitespace-pre-line leading-relaxed font-sans"></p>
-            <div class="pt-2 text-purple-400 border-t border-purple-950 font-bold">
-              <span>Call to Action (CTA):</span> <span id="res-cta" class="text-slate-200"></span>
+            <div class="pt-2 text-slate-400 border-t border-slate-900">
+              <span class="font-semibold text-slate-200">Call to Action (CTA):</span> <span id="res-cta"></span>
             </div>
           </div>
 
-          <div class="p-4 rounded-3xl bg-[#1b162b] border-2 border-purple-900 space-y-3">
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
             <div>
-              <span class="text-xs font-black text-cyan-300 block mb-1">📚 Sitasi Ilmiah Sah (Kemenkes & WHO):</span>
+              <span class="text-xs font-bold text-cyan-400 block mb-1">📚 Sitasi Ilmiah Sah (Kemenkes & WHO):</span>
               <ul id="res-sources" class="text-slate-300 space-y-1 list-disc list-inside"></ul>
             </div>
 
-            <div class="pt-3 border-t border-purple-950">
-              <span class="text-[11px] font-black text-emerald-400 block">🏛️ Catatan Konsensus Dewan Pleno:</span>
+            <div class="pt-3 border-t border-slate-900">
+              <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Catatan Konsensus Dewan Pleno:</span>
               <p id="res-notes" class="text-slate-400 italic text-[11px]"></p>
             </div>
           </div>
@@ -442,86 +234,198 @@
   </div>
 
   <script>
+    const canvas = document.getElementById('voxel-canvas');
+    const ctx = canvas.getContext('2d');
+
     let eventSource = null;
     let fullOutputMarkdown = "";
     let carouselSlides = [];
     let currentSlideIdx = 0;
 
-    const agents = {
-      1: { card: 'c-card-1', bulb: 'c-bulb-1', avatar: 'c-avatar-1', status: 'c-status-1', thought: 'c-thought-1', seat: 'c-seat-1', color: 'amber' },
-      2: { card: 'c-card-2', bulb: 'c-bulb-2', avatar: 'c-avatar-2', status: 'c-status-2', thought: 'c-thought-2', seat: 'c-seat-2', color: 'cyan' },
-      3: { card: 'c-card-3', bulb: 'c-bulb-3', avatar: 'c-avatar-3', status: 'c-status-3', thought: 'c-thought-3', seat: 'c-seat-3', color: 'purple' },
-      4: { card: 'c-card-4', bulb: 'c-bulb-4', avatar: 'c-avatar-4', status: 'c-status-4', thought: 'c-thought-4', seat: 'c-seat-4', color: 'rose' }
+    const ORIGIN_X = 520;
+    const ORIGIN_Y = 160;
+    const TILE_W = 44;
+    const TILE_H = 22;
+
+    function toIso(x, y, z = 0) {
+      return {
+        x: ORIGIN_X + (x - y) * (TILE_W / 2),
+        y: ORIGIN_Y + (x + y) * (TILE_H / 2) - z * 1.5
+      };
+    }
+
+    function drawVoxelBlock(x, y, z, wx, wy, wz, topCol, leftCol, rightCol) {
+      const p = toIso(x, y, z);
+      const isoDx = (TILE_W / 2) * wx;
+      const isoDy = (TILE_H / 2) * wy;
+      const h = wz * 1.5;
+
+      // Top Face
+      ctx.fillStyle = topCol;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y - h);
+      ctx.lineTo(p.x + isoDx, p.y + (TILE_H/2)*wx - h);
+      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy - h);
+      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
+      ctx.closePath();
+      ctx.fill();
+
+      // Left Face
+      ctx.fillStyle = leftCol;
+      ctx.beginPath();
+      ctx.moveTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
+      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy - h);
+      ctx.lineTo(p.x + isoDx - (TILE_W/2)*wy, p.y + (TILE_H/2)*wx + (TILE_H/2)*wy);
+      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy);
+      ctx.closePath();
+      ctx.fill();
+
+      // Right Face
+      ctx.fillStyle = rightCol;
+      ctx.beginPath();
+      ctx.moveTo(p.x - h, p.y - h);
+      ctx.moveTo(p.x, p.y - h);
+      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy - h);
+      ctx.lineTo(p.x - (TILE_W/2)*wy, p.y + (TILE_H/2)*wy);
+      ctx.lineTo(p.x, p.y);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    const state = {
+      time: 0,
+      activeAgent: null,
+      chars: {
+        1: { name: "Dr. Idea", x: 2.5, y: 3.5, hair: '#8d5b4c', shirt: '#9333ea', typing: false },
+        2: { name: "Nexus", x: 5.5, y: 3.0, hair: '#1e293b', shirt: '#f59e0b', typing: false },
+        3: { name: "Canvas", x: 8.5, y: 3.8, hair: '#d97706', shirt: '#10b981', typing: false },
+        4: { name: "Dr. Verif", x: 3.5, y: 6.8, hair: '#cbd5e1', shirt: '#ef4444', typing: false },
+        5: { name: "Ical", x: 6.5, y: 7.2, hair: '#0f172a', shirt: '#06b6d4', typing: false }
+      }
     };
 
-    function resetCartoonOffice() {
-      for (let i = 1; i <= 4; i++) {
-        const a = agents[i];
-        document.getElementById(a.card).className = 'cartoon-card bg-[#28223d] rounded-3xl p-4 transition-all duration-300 relative group hover:-translate-y-1';
-        document.getElementById(a.bulb).classList.add('hidden');
-        document.getElementById(a.avatar).className = 'w-20 h-20 mb-1 char-cartoon-idle';
-        document.getElementById(a.status).innerText = 'Standby 😴';
-        document.getElementById(a.status).className = 'mt-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#1b172a] text-slate-400 border border-purple-900';
-        document.getElementById(a.seat).className = 'flex flex-col items-center opacity-40 transition-all duration-300';
+    function drawVoxelCharacter(c, isAct = false) {
+      const breath = Math.sin(state.time * 3) * 1.5;
+      drawVoxelBlock(c.x, c.y, 0, 0.9, 0.9, 8, '#334155', '#1e293b', '#0f172a');
+      drawVoxelBlock(c.x + 0.1, c.y + 0.1, 8 + breath, 0.7, 0.7, 9, c.shirt, '#475569', '#334155');
+      drawVoxelBlock(c.x, c.y, 17 + breath, 0.9, 0.9, 9, '#fed7aa', '#fdba74', '#fb923c');
+      drawVoxelBlock(c.x - 0.05, c.y - 0.05, 23 + breath, 1.0, 1.0, 4, c.hair, '#3e2723', '#271711');
+
+      if (isAct) {
+        const pt = toIso(c.x, c.y, 28);
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(pt.x + 4, pt.y - 6, 3, 0, Math.PI * 2);
+        ctx.fill();
       }
-      document.getElementById('meeting-badge').innerText = 'Agenda: Standby ☕';
+    }
+
+    function drawWorkstation(x, y, isScreenOn = false) {
+      drawVoxelBlock(x, y, 9, 2.0, 1.2, 1.5, '#e2c29d', '#c49a6c', '#a8794c');
+      drawVoxelBlock(x, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#020617');
+      drawVoxelBlock(x + 1.8, y, 0, 0.2, 0.2, 9, '#1e293b', '#0f172a', '#020617');
+
+      const scrCol = isScreenOn ? '#38bdf8' : '#67e8f9';
+      drawVoxelBlock(x + 0.5, y + 0.2, 11, 0.9, 0.2, 5, scrCol, '#0891b2', '#0e7490');
+      drawVoxelBlock(x + 0.6, y + 0.6, 10.6, 0.7, 0.3, 0.4, '#ffffff', '#cbd5e1', '#94a3b8');
+    }
+
+    function renderVoxelOffice() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let x = 0; x < 13; x++) {
+        for (let y = 0; y < 11; y++) {
+          const isCarpet = (x >= 2 && x <= 9 && y >= 2 && y <= 9);
+          const topC = isCarpet ? '#e2e8f0' : '#f1f5f9';
+          const leftC = isCarpet ? '#cbd5e1' : '#e2e8f0';
+          const rightC = isCarpet ? '#94a3b8' : '#cbd5e1';
+          drawVoxelBlock(x, y, 0, 1, 1, 0.5, topC, leftC, rightC);
+        }
+      }
+
+      // Concrete Wall
+      drawVoxelBlock(0, 0, 0, 12, 0.6, 32, '#f8fafc', '#e2e8f0', '#cbd5e1');
+
+      // Poster on Wall
+      const pChart = toIso(2, 0.6, 20);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(pChart.x - 30, pChart.y - 20, 60, 36);
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(pChart.x - 30, pChart.y - 20, 60, 36);
+      ctx.fillStyle = '#f59e0b'; ctx.fillRect(pChart.x - 22, pChart.y + 2, 7, 10);
+      ctx.fillStyle = '#06b6d4'; ctx.fillRect(pChart.x - 12, pChart.y - 4, 7, 16);
+      ctx.fillStyle = '#10b981'; ctx.fillRect(pChart.x - 2, pChart.y - 10, 7, 22);
+
+      // Wall Clock
+      const pClock = toIso(6, 0.6, 25);
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(pClock.x, pClock.y, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#475569'; ctx.lineWidth = 1.5; ctx.stroke();
+
+      // Wooden Bookshelf
+      drawVoxelBlock(8, 0.6, 0, 3.5, 0.9, 26, '#d97706', '#b45309', '#92400e');
+      drawVoxelBlock(8.2, 0.8, 16, 0.4, 0.6, 6, '#2563eb', '#1d4ed8', '#1e40af');
+      drawVoxelBlock(8.7, 0.8, 16, 0.4, 0.6, 6, '#f59e0b', '#d97706', '#b45309');
+      drawVoxelBlock(9.2, 0.8, 16, 0.4, 0.6, 6, '#ef4444', '#dc2626', '#b91c1c');
+
+      // Lounge Red Sofa
+      drawVoxelBlock(8.5, 8.5, 0, 3.2, 1.4, 5, '#ef4444', '#dc2626', '#b91c1c');
+      drawVoxelBlock(8.5, 8.5, 5, 0.4, 1.4, 4, '#dc2626', '#b91c1c', '#991b1b');
+      drawVoxelBlock(7.2, 9.2, 0, 1.2, 1.2, 3, '#f1f5f9', '#e2e8f0', '#cbd5e1');
+
+      // Workstations
+      drawWorkstation(1.8, 2.5, state.activeAgent === 1);
+      drawWorkstation(4.8, 2.0, state.activeAgent === 2);
+      drawWorkstation(7.8, 2.8, state.activeAgent === 3);
+      drawWorkstation(2.8, 5.8, state.activeAgent === 4);
+      drawWorkstation(5.8, 6.2, false);
+
+      // Voxel Characters
+      Object.keys(state.chars).forEach(key => {
+        const c = state.chars[key];
+        const isAct = (key == state.activeAgent);
+        drawVoxelCharacter(c, isAct);
+      });
+
+      // Data line on wall
+      ctx.strokeStyle = '#06b6d4';
+      ctx.lineWidth = 2;
+      const wireP1 = toIso(1, 0.2, 30);
+      const wireP2 = toIso(7, 0.2, 30);
+      ctx.beginPath();
+      ctx.moveTo(wireP1.x, wireP1.y);
+      ctx.lineTo(wireP2.x, wireP2.y);
+      ctx.stroke();
+
+      const pulseNode = (Math.sin(state.time * 5) + 1) / 2;
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath(); ctx.arc(wireP1.x + 20, wireP1.y - 5, 3 + pulseNode * 2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(wireP2.x - 30, wireP2.y + 8, 3, 0, Math.PI * 2); ctx.fill();
+
+      state.time += 0.03;
+      requestAnimationFrame(renderVoxelOffice);
+    }
+
+    renderVoxelOffice();
+
+    function resetVoxelOffice() {
+      for (let i = 1; i <= 4; i++) {
+        state.chars[i].typing = false;
+      }
+      state.activeAgent = null;
       document.getElementById('result-section').classList.add('hidden');
     }
 
-    function setAgentBouncing(id, statusText, thoughtText) {
-      const a = agents[id];
-      document.getElementById(a.card).classList.add(`border-amber-400`, 'scale-105', 'bg-[#352c52]');
-      document.getElementById(a.bulb).classList.remove('hidden');
-      document.getElementById(a.bulb).classList.add('bulb-pop');
-      document.getElementById(a.avatar).className = 'w-20 h-20 mb-1 char-cartoon-active';
-      document.getElementById(a.status).innerText = statusText + ' ⚡';
-      document.getElementById(a.status).className = 'mt-1 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 border-2 border-amber-600 animate-pulse';
-      document.getElementById(a.thought).innerText = `"${thoughtText}"`;
-    }
-
-    function setAgentCheering(id, summary) {
-      const a = agents[id];
-      document.getElementById(a.card).classList.remove(`border-amber-400`, 'scale-105', 'bg-[#352c52]');
-      document.getElementById(a.card).classList.add('border-emerald-400');
-      document.getElementById(a.bulb).classList.add('hidden');
-      document.getElementById(a.avatar).className = 'w-20 h-20 mb-1 char-cartoon-idle';
-      document.getElementById(a.status).innerText = 'Selesai! 🎉';
-      document.getElementById(a.status).className = 'mt-1 text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-400 text-slate-950';
-      if (summary) document.getElementById(a.thought).innerText = summary;
-    }
-
-    function startCartoonPleno() {
-      for (let i = 1; i <= 4; i++) {
-        document.getElementById(agents[i].seat).className = 'flex flex-col items-center opacity-100 scale-110 transition-all duration-300';
-      }
-      document.getElementById('meeting-badge').innerText = 'Sidang Pleno Ramai! 🎪';
-      document.getElementById('meeting-badge').className = 'text-[11px] font-black px-3 py-1 rounded-full bg-amber-400 text-slate-950 border-2 border-amber-600 animate-bounce';
-      
-      document.getElementById('cartoon-board-text').innerHTML = `
-        <span class="text-amber-600 font-black">● SIDANG DEWAN KARTUN DIMULAI!</span><br>
-        Dokter Verif menguji naskah: "Klaim akurat, bebas hoaks, dan bahasa renyah!"
-      `;
-    }
-
-    function finishCartoonPleno(scoreMed, scoreVir) {
-      document.getElementById('meeting-badge').innerText = 'Konsensus Disetujui 100%! ✓';
-      document.getElementById('meeting-badge').className = 'text-[11px] font-black px-3 py-1 rounded-full bg-emerald-400 text-slate-950 border-2 border-emerald-600';
-
-      document.getElementById('cartoon-board-text').innerHTML = `
-        <span class="text-emerald-700 font-black">✓ KEPUTUSAN PLENO: SIAP POSTING!</span><br>
-        Skor Medis: <b>${scoreMed}/100</b> | Virality: <b>${scoreVir}/100</b>
-      `;
-    }
-
-    function runCartoonPipeline() {
+    function runVoxelPipeline() {
       const topic = document.getElementById('topic-input').value.trim();
       if (!topic) {
         alert("Silakan masukkan ide atau topik konten terlebih dahulu!");
         return;
       }
 
-      resetCartoonOffice();
-      document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span> Kartun Agen Sedang Bekerja...';
+      resetVoxelOffice();
+      document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span> Agen Voxel Sedang Bekerja...';
 
       const btn = document.getElementById('btn-run');
       btn.disabled = true;
@@ -534,24 +438,22 @@
         const msg = JSON.parse(event.data);
 
         if (msg.type === 'agent_start') {
-          if (msg.agent_id === 5) {
-            startCartoonPleno();
-          } else {
-            setAgentBouncing(msg.agent_id, msg.status_badge, msg.thought);
+          state.activeAgent = msg.agent_id;
+          if (msg.agent_id <= 4) {
+            state.chars[msg.agent_id].typing = true;
           }
         }
         else if (msg.type === 'agent_complete') {
-          if (msg.agent_id < 5) {
-            setAgentCheering(msg.agent_id, msg.summary);
+          if (msg.agent_id <= 4) {
+            state.chars[msg.agent_id].typing = false;
           }
         }
         else if (msg.type === 'pipeline_finished') {
           eventSource.close();
           btn.disabled = false;
+          state.activeAgent = null;
 
-          document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Paket Konten Siap! ✓';
-          finishCartoonPleno(msg.data.pleno.medical_score, msg.data.pleno.engagement_score);
-
+          document.getElementById('office-status').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Keputusan Pleno Selesai ✓';
           renderFinalResult(msg.data);
         }
         else if (msg.type === 'error') {
@@ -618,7 +520,7 @@
       dotsContainer.innerHTML = '';
       carouselSlides.forEach((_, idx) => {
         const dot = document.createElement('div');
-        dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-amber-400 w-4' : 'bg-purple-900'}`;
+        dot.className = `w-2 h-2 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-cyan-400 w-4' : 'bg-slate-700'}`;
         dotsContainer.appendChild(dot);
       });
     }
@@ -640,7 +542,7 @@
     function copyFullContent() {
       if (!fullOutputMarkdown) return;
       navigator.clipboard.writeText(fullOutputMarkdown).then(() => {
-        alert("✓ Paket naskah carousel kartun berhasil disalin!");
+        alert("✓ Paket naskah carousel berhasil disalin!");
       });
     }
   </script>

@@ -298,9 +298,16 @@
             </div>
 
             <!-- Slide Bottom Prompt / AI Visual Note -->
-            <div class="z-10 bg-black/40 backdrop-blur-md rounded-xl p-2 border border-white/10 text-[9px] text-slate-300">
-              <span class="text-amber-400 font-bold block mb-0.5">🎨 AI Image Prompt (Leo):</span>
-              <p id="slide-prompt" class="italic line-clamp-2">
+            <div class="z-10 bg-black/50 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-amber-400 font-bold flex items-center gap-1">
+                  <span>🎨</span> AI Image Prompt (Leo):
+                </span>
+                <button onclick="copyCurrentPrompt()" title="Salin Prompt Gambar untuk Slide ini" class="px-2 py-0.5 rounded bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-bold border border-amber-500/30 transition flex items-center gap-1">
+                  <span>📋</span> Salin Prompt
+                </button>
+              </div>
+              <p id="slide-prompt" class="italic line-clamp-2 text-slate-200">
                 "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render."
               </p>
             </div>
@@ -328,11 +335,14 @@
                 ✈️
               </button>
             </div>
-            <div class="flex items-center gap-1 text-[10px] text-slate-400 font-mono">
-              <button onclick="copyCaption()" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
-                📋 Salin Caption
-              </button>
-            </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
+                <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+                  📄 Teks Slide
+                </button>
+                <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+                  📋 Caption
+                </button>
+              </div>
           </div>
 
           <!-- Carousel Pagination Dots -->
@@ -359,10 +369,68 @@
 
         </div>
 
+        <!-- Quick Export Action Buttons below Phone Mockup -->
+        <div class="space-y-2">
+          <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold text-xs shadow-md shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
+            <span>📦</span> Salin Paket Lengkap (Semua Slide + Prompt AI)
+          </button>
+          
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-xl bg-white dark:bg-[#181e28] border border-amber-500/30 text-amber-600 dark:text-amber-400 font-semibold hover:bg-amber-50 dark:hover:bg-amber-950/30 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>🎨</span> Salin Semua Prompt
+            </button>
+            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-xl bg-white dark:bg-[#181e28] border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center justify-center gap-1.5 shadow-sm">
+              <span>📑</span> Buka Daftar Slide
+            </button>
+          </div>
+        </div>
+
       </div>
 
     </div>
 
+  </div>
+
+  <!-- Fullscreen Modal: Daftar Naskah Slide & Semua Prompt AI -->
+  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-white dark:bg-[#181e28] border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-4 md:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3 bg-slate-50 dark:bg-[#141822]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-lg font-bold">
+            📑
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Salin naskah per slide atau unduh seluruh paket sekaligus</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="copyAllSlidesAndPrompts()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-sm">
+            <span>📦</span> Salin Semua
+          </button>
+          <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold flex items-center justify-center transition text-sm">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (List of Slides & Prompts) -->
+      <div id="modal-slides-list" class="p-4 md:p-6 space-y-4 overflow-y-auto">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#141822] flex items-center justify-between text-xs">
+        <span class="text-slate-500">Format siap pakai untuk Instagram & Midjourney / Flux</span>
+        <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-semibold text-slate-700 dark:text-slate-200 transition">
+          Tutup
+        </button>
+      </div>
+
+    </div>
   </div>
 
   <script>
@@ -911,7 +979,152 @@
     function copyCaption() {
       const caption = document.getElementById('caption-body').innerText + "\n\n" + document.getElementById('caption-hashtags').innerText;
       navigator.clipboard.writeText(caption).then(() => {
-        alert("✅ Caption Instagram berhasil disalin ke clipboard!");
+        showCopyNotification("✅ Caption & Hashtag Instagram berhasil disalin!");
+      });
+    }
+
+    function copyCurrentPrompt() {
+      if (!slidesData || slidesData.length === 0) return;
+      const s = slidesData[currentSlide];
+      navigator.clipboard.writeText(s.prompt).then(() => {
+        showCopyNotification(`✅ Prompt Visual Slide ${currentSlide + 1} berhasil disalin!`);
+      });
+    }
+
+    function copyCurrentSlideText() {
+      if (!slidesData || slidesData.length === 0) return;
+      const s = slidesData[currentSlide];
+      const text = `${s.title}\n\n${s.body}\n\nSumber: ${s.source}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showCopyNotification(`✅ Teks Slide ${currentSlide + 1} berhasil disalin!`);
+      });
+    }
+
+    function copyAllPromptsOnly() {
+      if (!slidesData || slidesData.length === 0) return;
+      const output = slidesData.map((s, idx) => 
+        `// SLIDE ${idx + 1}: ${s.title}\n${s.prompt}`
+      ).join('\n\n');
+
+      navigator.clipboard.writeText(output).then(() => {
+        showCopyNotification("✅ Semua prompt visual AI (5 Slide) berhasil disalin!");
+      });
+    }
+
+    function copyAllSlidesAndPrompts() {
+      if (!slidesData || slidesData.length === 0) return;
+      const topic = document.getElementById('topic-input') ? document.getElementById('topic-input').value : 'Edukasi Kesehatan';
+      const caption = document.getElementById('caption-body') ? document.getElementById('caption-body').innerText : '';
+      const hashtags = document.getElementById('caption-hashtags') ? document.getElementById('caption-hashtags').innerText : '';
+
+      let doc = `====================================================\n`;
+      doc += `📌 TOPIK: ${topic}\n`;
+      doc += `🏥 Health Agent Studio • Verifikasi Kemenkes/WHO\n`;
+      doc += `====================================================\n\n`;
+
+      doc += `📱 NASKAH LENGKAP CAROUSEL INSTAGRAM:\n`;
+      doc += `----------------------------------------------------\n`;
+      slidesData.forEach((s, idx) => {
+        doc += `[SLIDE ${idx + 1}] ${s.badge || ''}\n`;
+        doc += `Judul  : ${s.title}\n`;
+        doc += `Naskah : ${s.body}\n`;
+        doc += `Sumber : ${s.source}\n`;
+        doc += `🎨 AI Image Prompt:\n"${s.prompt}"\n\n`;
+      });
+
+      doc += `----------------------------------------------------\n`;
+      doc += `📝 CAPTION INSTAGRAM:\n`;
+      doc += `${caption}\n\n`;
+      doc += `${hashtags}\n`;
+      doc += `====================================================\n`;
+
+      navigator.clipboard.writeText(doc).then(() => {
+        showCopyNotification("✅ Paket lengkap (5 Slide, Prompt Visual & Caption) berhasil disalin!");
+      });
+    }
+
+    function showCopyNotification(msg) {
+      // Re-use or show subtle alert toast
+      const toast = document.getElementById('error-toast');
+      const text = document.getElementById('error-toast-text');
+      if (toast && text) {
+        toast.className = 'absolute top-16 right-4 z-20 max-w-sm bg-emerald-950/95 border-2 border-emerald-500/80 text-emerald-100 p-3.5 rounded-2xl shadow-2xl backdrop-blur-md text-xs space-y-1';
+        text.innerText = msg;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 3000);
+      } else {
+        alert(msg);
+      }
+    }
+
+    function openExportModal() {
+      renderModalSlides();
+      document.getElementById('export-modal').classList.remove('hidden');
+    }
+
+    function closeExportModal() {
+      document.getElementById('export-modal').classList.add('hidden');
+    }
+
+    function renderModalSlides() {
+      const container = document.getElementById('modal-slides-list');
+      if (!container) return;
+
+      container.innerHTML = slidesData.map((s, idx) => `
+        <div class="bg-slate-50 dark:bg-[#111620] border border-slate-200 dark:border-slate-800 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-500 text-white font-mono">
+                SLIDE ${idx + 1}
+              </span>
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate max-w-xs sm:max-w-md">
+                ${s.title}
+              </span>
+            </div>
+            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-[11px] font-semibold text-slate-700 dark:text-slate-300 transition flex items-center gap-1">
+              <span>📄</span> Salin Naskah
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            ${s.body}
+          </p>
+          <div class="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono">
+            ${s.source}
+          </div>
+
+          <!-- Prompt Box in Modal -->
+          <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                <span>🎨</span> AI Visual Prompt (Midjourney / Flux):
+              </span>
+              <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm">
+                <span>📋</span> Salin Prompt
+              </button>
+            </div>
+            <p class="text-xs italic text-slate-700 dark:text-amber-200/90 font-mono">
+              "${s.prompt}"
+            </p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function copySingleSlide(idx) {
+      const s = slidesData[idx];
+      const text = `[SLIDE ${idx + 1}]\n${s.title}\n\n${s.body}\n\nSumber: ${s.source}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showCopyNotification(`✅ Naskah Slide ${idx + 1} disalin!`);
+      });
+    }
+
+    function copySinglePrompt(idx) {
+      const s = slidesData[idx];
+      navigator.clipboard.writeText(s.prompt).then(() => {
+        showCopyNotification(`✅ Prompt visual Slide ${idx + 1} disalin!`);
       });
     }
 

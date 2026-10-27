@@ -8,15 +8,16 @@
   <style>
     @keyframes floatBob {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-4px); }
     }
     @keyframes pulseGlow {
-      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4)); }
-      50% { opacity: 1; filter: drop-shadow(0 0 16px rgba(99, 102, 241, 0.8)); }
+      0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.4)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8)); }
     }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
+    @keyframes heartPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
     }
     .animate-float {
       animation: floatBob 3s ease-in-out infinite;
@@ -24,49 +25,63 @@
     .animate-pulse-glow {
       animation: pulseGlow 2.5s ease-in-out infinite;
     }
+    .heart-pop {
+      animation: heartPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
     .glass-card {
-      background: rgba(24, 30, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(18, 24, 38, 0.78);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .light .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(226, 232, 240, 0.8);
+    .glass-card-glow {
+      background: rgba(18, 24, 38, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-shadow: 0 0 35px -8px rgba(99, 102, 241, 0.15);
     }
     /* Clean custom scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    .light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-[#0b0e14] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6 transition-colors duration-200">
+<body class="bg-[#090d14] text-slate-100 min-h-screen antialiased select-none font-sans p-3 sm:p-5 md:p-6 transition-colors duration-200">
 
-  <!-- Background Ambient Glow -->
+  <!-- Background Ambient Glow Mesh -->
   <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-    <div class="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl"></div>
-    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/4 -right-40 w-[550px] h-[550px] bg-purple-600/15 rounded-full blur-[140px]"></div>
+    <div class="absolute -bottom-40 left-1/3 w-[600px] h-[600px] bg-cyan-600/12 rounded-full blur-[130px]"></div>
+    <div class="absolute top-2/3 right-1/4 w-[400px] h-[400px] bg-emerald-600/10 rounded-full blur-[100px]"></div>
   </div>
 
   <div class="relative z-10 max-w-7xl mx-auto space-y-5">
 
     <!-- Top Navigation Bar & Hero Header -->
-    <header class="glass-card rounded-3xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <header class="glass-card-glow rounded-3xl p-4 md:p-6 shadow-2xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
       <div>
         <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-indigo-500/25 font-bold">
-            🏢
+          <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-indigo-600 to-violet-600 flex items-center justify-center text-white text-2xl shadow-xl shadow-indigo-500/30 font-bold shrink-0">
+            <span>🏢</span>
+            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#090d14] animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-[#090d14]"></span>
           </div>
           <div>
-            <div class="flex items-center gap-2">
-              <h1 class="text-xl md:text-2xl font-black text-white tracking-tight">
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="text-xl md:text-2xl font-black text-white tracking-tight flex items-center gap-2">
                 Health Agent Office 3D
               </h1>
-              <span class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 flex items-center gap-1.5">
+              <span class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 flex items-center gap-1.5 shadow-sm">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 Gemini 3.5 Active
+              </span>
+              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+                Grounding Kemenkes & WHO
               </span>
             </div>
             <p class="text-xs md:text-sm text-slate-400 font-medium mt-0.5">
@@ -76,18 +91,33 @@
         </div>
       </div>
 
-      <!-- Controls & Toggle Phone Preview -->
-      <div class="flex items-center gap-2 self-end md:self-center">
-        <div class="bg-slate-800/80 p-1 rounded-2xl flex items-center text-xs font-medium border border-slate-700/80 shadow-inner">
-          <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition">
-            <span>🏰</span> Tycoon View
+      <!-- Controls: Camera, Audio, Auto-Orbit & Phone Toggle -->
+      <div class="flex flex-wrap items-center gap-2 self-stretch lg:self-center justify-end">
+        
+        <!-- View Mode: Tycoon vs Step Inside -->
+        <div class="bg-slate-900/90 p-1 rounded-2xl flex items-center text-xs font-medium border border-slate-700/80 shadow-inner">
+          <button id="btn-view-tycoon" onclick="setViewMode('tycoon')" class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition active:scale-95">
+            <span>🏰</span> Tycoon
           </button>
-          <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition">
-            <span>🚶</span> Step Inside
+          <button id="btn-view-inside" onclick="setViewMode('inside')" class="px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition active:scale-95">
+            <span>🚶</span> Inside
           </button>
         </div>
 
-        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3.5 py-2 rounded-2xl bg-indigo-950/60 hover:bg-indigo-900/60 text-indigo-300 border border-indigo-700/60 text-xs font-semibold flex items-center gap-1.5 transition shadow-sm">
+        <!-- Auto Orbit Toggle Button -->
+        <button id="btn-auto-orbit" onclick="toggleAutoOrbit()" title="Putar Otomatis Sudut Kamera 3D" class="px-3 py-2 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95">
+          <span id="orbit-icon">🎥</span>
+          <span id="orbit-label">Auto Orbit</span>
+        </button>
+
+        <!-- Sound Audio FX Toggle -->
+        <button id="btn-sound-fx" onclick="toggleSoundFx()" title="Efek Suara Sintesis Studio" class="px-3 py-2 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95">
+          <span id="sound-icon">🔇</span>
+          <span id="sound-label">Audio: Mati</span>
+        </button>
+
+        <!-- Phone Preview Toggle -->
+        <button onclick="togglePhonePreview()" id="btn-toggle-phone" class="px-3.5 py-2 rounded-2xl bg-indigo-950/70 hover:bg-indigo-900/80 text-indigo-300 border border-indigo-700/60 text-xs font-bold flex items-center gap-1.5 transition shadow-sm active:scale-95">
           <span>📱</span> Tampilan Feed IG
         </button>
       </div>
@@ -95,16 +125,16 @@
 
     <!-- Zone Quick Navigation Tabs -->
     <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-medium no-scrollbar">
-      <button onclick="focusZone('all')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800 text-indigo-400 border border-indigo-500/30 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
+      <button onclick="focusZone('all')" id="tab-zone-all" class="room-tab px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white border border-indigo-500 shadow-md shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95">
         <span>✨</span> Semua Lantai (Overview)
       </button>
-      <button onclick="focusZone('floor1')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
-        <span>💻</span> Lantai 1: Workstations (Estafet Laporan)
+      <button onclick="focusZone('floor1')" id="tab-zone-floor1" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95">
+        <span>💻</span> Lantai 1: Workstations (Estafet Berkas)
       </button>
-      <button onclick="focusZone('stairs')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
+      <button onclick="focusZone('stairs')" id="tab-zone-stairs" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95">
         <span>🪜</span> Tangga Penghubung
       </button>
-      <button onclick="focusZone('floor2')" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105">
+      <button onclick="focusZone('floor2')" id="tab-zone-floor2" class="room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95">
         <span>🤝</span> Lantai 2: Ruang Rapat Finalisasi (Pleno)
       </button>
     </div>
@@ -116,41 +146,41 @@
       <div id="viewport-container" class="lg:col-span-8 flex flex-col gap-3.5 transition-all duration-300">
         
         <!-- 3D Interactive Viewport Box -->
-        <div class="relative w-full h-[540px] md:h-[620px] bg-gradient-to-b from-[#111622] via-[#151c2b] to-[#121724] border-2 border-slate-800 rounded-3xl overflow-hidden shadow-2xl select-none">
+        <div class="relative w-full h-[540px] md:h-[620px] bg-gradient-to-b from-[#111624] via-[#141b2a] to-[#0f1422] border-2 border-slate-800/90 rounded-3xl overflow-hidden shadow-2xl select-none group">
           
           <!-- Canvas Engine -->
           <canvas id="tycoonCanvas" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
 
           <!-- Top Left: Camera Angle & Zoom HUD -->
-          <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700/80 shadow-lg text-xs font-mono text-slate-200">
+          <div class="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-1.5 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700/80 shadow-xl text-xs font-mono text-slate-200">
             <span class="text-slate-400">Rotasi:</span>
             <span id="angle-display" class="font-bold text-indigo-400">35°</span>
             <span class="text-slate-600">|</span>
-            <button onclick="adjustAngle(-15)" title="Putar Kiri" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">↺</button>
-            <button onclick="adjustAngle(15)" title="Putar Kanan" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">↻</button>
+            <button onclick="adjustAngle(-15)" title="Putar Kiri 15°" class="hover:text-indigo-400 font-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition active:scale-90">↺</button>
+            <button onclick="adjustAngle(15)" title="Putar Kanan 15°" class="hover:text-indigo-400 font-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition active:scale-90">↻</button>
             <span class="text-slate-600">|</span>
-            <button onclick="adjustZoom(0.1)" title="Zoom In" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">+</button>
-            <button onclick="adjustZoom(-0.1)" title="Zoom Out" class="hover:text-indigo-400 font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition">−</button>
-            <button onclick="resetCamera()" title="Reset Kamera" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition text-slate-300">Reset</button>
+            <button onclick="adjustZoom(0.12)" title="Perbesar (Zoom In)" class="hover:text-indigo-400 font-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition active:scale-90">+</button>
+            <button onclick="adjustZoom(-0.12)" title="Perkecil (Zoom Out)" class="hover:text-indigo-400 font-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition active:scale-90">−</button>
+            <button onclick="resetCamera()" title="Kembalikan Posisi Kamera Awal" class="text-[11px] px-2.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition text-slate-300 active:scale-90 font-sans font-medium">Reset</button>
           </div>
 
           <!-- Top Right: Live Phase Notification Banner -->
-          <div id="phase-banner" class="absolute top-4 right-4 z-10 bg-slate-900/85 backdrop-blur-md text-slate-200 font-semibold text-xs px-3.5 py-1.5 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-2">
-            <span id="phase-badge-icon" class="text-base">💡</span>
-            <span id="phase-badge-text">Tahap 1: Dr. Idea merumuskan gagasan mitos...</span>
+          <div id="phase-banner" class="absolute top-4 right-4 z-10 bg-slate-900/90 backdrop-blur-md text-slate-200 font-semibold text-xs px-3.5 py-2 rounded-2xl shadow-xl border border-slate-700/80 flex items-center gap-2.5">
+            <span id="phase-badge-icon" class="text-lg">💡</span>
+            <span id="phase-badge-text" class="tracking-tight">Tahap 1: Dr. Idea siap merumuskan gagasan mitos...</span>
           </div>
 
           <!-- Bottom Left Instructions -->
-          <div class="absolute bottom-3 left-4 z-10 text-[11px] font-mono text-slate-400 pointer-events-none flex items-center gap-2">
-            <span>🖱️ Geser mouse untuk memutar</span>
+          <div class="absolute bottom-3.5 left-4 z-10 text-[11px] font-mono text-slate-400 pointer-events-none flex items-center gap-2 bg-slate-950/60 backdrop-blur-sm px-3 py-1 rounded-xl border border-slate-800/60">
+            <span>🖱️ Geser untuk memutar</span>
             <span>•</span>
-            <span>Scroll untuk zoom</span>
+            <span>Scroll zoom</span>
             <span>•</span>
-            <span>Estafet laporan di Lantai 1 ➔ Naik tangga ke Lantai 2</span>
+            <span>Estafet Lantai 1 ➔ Tangga ➔ Lantai 2</span>
           </div>
 
           <!-- Bottom Right Status Legend -->
-          <div class="absolute bottom-3 right-4 z-10 flex items-center gap-2.5 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700 text-[11px] font-medium text-slate-300 shadow-md">
+          <div class="absolute bottom-3.5 right-4 z-10 hidden sm:flex items-center gap-3 bg-slate-900/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-slate-700/80 text-[11px] font-medium text-slate-300 shadow-md">
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Bekerja</span>
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Estafet / Tangga</span>
             <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-500"></span> Rapat Finalisasi</span>
@@ -177,31 +207,38 @@
 
         <!-- Topic Trigger Input & Popular Chips -->
         <div class="glass-card rounded-3xl p-4 md:p-5 shadow-xl space-y-3">
-          
           <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
             <div class="relative flex-1">
               <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
-              <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-2xl pl-10 pr-4 py-2.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner" placeholder="Masukkan topik / mitos kesehatan yang ingin dibongkar...">
+              <input type="text" id="topic-input" value="Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal" class="w-full bg-slate-900/95 border border-slate-700/80 rounded-2xl pl-10 pr-4 py-2.5 text-xs md:text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 transition shadow-inner" placeholder="Masukkan topik / mitos kesehatan yang ingin dibongkar...">
             </div>
             <button id="btn-run-pipeline" onclick="startAutonomousPipeline()" class="px-6 py-2.5 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-xs md:text-sm shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2 transition active:scale-95 shrink-0">
               <span>🚀</span> Jalankan Pipeline
             </button>
           </div>
 
-          <!-- Quick Topic Chips -->
+          <!-- Quick Topic Chips & Random Generator -->
           <div class="flex items-center gap-2 overflow-x-auto text-[11px] no-scrollbar pt-0.5">
-            <span class="text-slate-400 font-semibold shrink-0">Contoh Topik:</span>
-            <button onclick="setSampleTopic('kolesterol')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+            <span class="text-slate-400 font-semibold shrink-0 flex items-center gap-1">
+              <span>🔥</span> Mitos Populer:
+            </span>
+            <button onclick="setSampleTopic('kolesterol')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0 active:scale-95">
               <span>🥚</span> Telur & Kolesterol
             </button>
-            <button onclick="setSampleTopic('tidur')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+            <button onclick="setSampleTopic('tidur')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0 active:scale-95">
               <span>💤</span> Wajib Tidur 8 Jam
             </button>
-            <button onclick="setSampleTopic('malam')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
-              <span>🌙</span> Makan Malam Bikin Gemuk
+            <button onclick="setSampleTopic('malam')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0 active:scale-95">
+              <span>🌙</span> Makan Malam & Berat Badan
             </button>
-            <button onclick="setSampleTopic('kopi')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0">
+            <button onclick="setSampleTopic('kopi')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0 active:scale-95">
               <span>☕</span> Kopi & Dehidrasi
+            </button>
+            <button onclick="setSampleTopic('lemon')" class="px-3 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition flex items-center gap-1 shrink-0 active:scale-95">
+              <span>🍋</span> Detoks Air Lemon
+            </button>
+            <button onclick="generateRandomTopic()" title="Pilih Topik Mitos Acak" class="px-3 py-1 rounded-full bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 font-semibold transition flex items-center gap-1 shrink-0 active:scale-95">
+              <span>🎲</span> Acak Mitos
             </button>
           </div>
 
@@ -212,37 +249,45 @@
       <!-- Right: Phone Carousel Simulator & Copy Export (4 cols) -->
       <div id="phone-container" class="lg:col-span-4 flex flex-col gap-3">
         
-        <!-- Smartphone Chassis (Titanium Edition) -->
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border-4 border-slate-800 rounded-[42px] p-3.5 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col ring-1 ring-white/10">
+        <!-- Smartphone Chassis (Titanium iPhone 16 Pro Edition) -->
+        <div class="bg-gradient-to-b from-slate-900 via-slate-950 to-black border-[5px] border-slate-700/80 rounded-[46px] p-4 shadow-2xl relative overflow-hidden text-slate-100 flex flex-col ring-1 ring-white/10">
           
-          <!-- Dynamic Island -->
-          <div class="w-24 h-4 bg-black rounded-full mx-auto mb-2 flex items-center justify-center gap-1.5 shadow-inner">
-            <div class="w-2 h-2 rounded-full bg-slate-800"></div>
-            <div class="w-2 h-2 rounded-full bg-indigo-900/40"></div>
+          <!-- Dynamic Island & Status Bar -->
+          <div class="flex items-center justify-between px-2 pt-0.5 pb-1 text-[10px] text-slate-400 font-mono">
+            <span id="phone-time" class="font-bold text-slate-200">09:41</span>
+            <!-- Dynamic Island Capsule -->
+            <div class="w-24 h-4 bg-black rounded-full flex items-center justify-center gap-1.5 shadow-inner border border-white/5">
+              <div class="w-2 h-2 rounded-full bg-slate-800"></div>
+              <div class="w-2 h-2 rounded-full bg-indigo-900/40"></div>
+            </div>
+            <div class="flex items-center gap-1 text-[10px]">
+              <span>5G</span>
+              <span>🔋</span>
+            </div>
           </div>
 
           <!-- Social Header -->
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-500 to-rose-500 p-0.5">
-                <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-[10px]">
+          <div class="flex items-center justify-between py-2 border-b border-slate-800/90 text-xs mt-1">
+            <div class="flex items-center gap-2.5">
+              <div class="relative w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-indigo-500 p-0.5 shrink-0">
+                <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-xs">
                   🩺
                 </div>
               </div>
               <div>
                 <div class="font-bold flex items-center gap-1 text-[11px] leading-tight text-white">
                   klinik.edukasi.ai
-                  <svg class="w-3 h-3 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg class="w-3.5 h-3.5 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                 </div>
-                <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI</div>
+                <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI • 128k Followers</div>
               </div>
             </div>
-            <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950 px-2 py-0.5 rounded-full border border-indigo-800">
+            <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950/80 px-2.5 py-0.5 rounded-full border border-indigo-800/80">
               Mengikuti
             </span>
           </div>
 
-          <!-- Carousel Slide Card Display (1:1) -->
+          <!-- Carousel Slide Card Display (1:1 Ratio) -->
           <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 transition-all duration-300 ring-1 ring-white/10" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
             
             <!-- Top Slide Badge -->
@@ -250,7 +295,7 @@
               <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
                 SLIDE 1 • HOOK UTAMA
               </span>
-              <span id="slide-index-counter" class="text-[10px] font-mono bg-black/40 px-2 py-0.5 rounded-full text-slate-200">
+              <span id="slide-index-counter" class="text-[10px] font-mono bg-black/50 px-2 py-0.5 rounded-full text-slate-200">
                 1 / 5
               </span>
             </div>
@@ -263,19 +308,19 @@
               <p id="slide-body" class="text-xs text-indigo-100 font-medium leading-relaxed drop-shadow">
                 Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!
               </p>
-              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/30 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/20">
+              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/25">
                 🔍 Sumber: Kemenkes RI & Clinical Endocrinology
               </div>
             </div>
 
             <!-- Bottom Prompt Box -->
-            <div class="z-10 bg-black/55 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
+            <div class="z-10 bg-black/60 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
               <div class="flex items-center justify-between">
                 <span class="text-amber-400 font-bold flex items-center gap-1">
                   <span>🎨</span> AI Image Prompt (Leo):
                 </span>
-                <button onclick="copyCurrentPrompt()" title="Salin Prompt Gambar untuk Slide ini" class="px-2 py-0.5 rounded bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-bold border border-amber-500/30 transition flex items-center gap-1">
-                  <span>📋</span> Salin Prompt
+                <button id="btn-copy-prompt-card" onclick="copyCurrentPrompt()" title="Salin Prompt Gambar untuk Slide ini" class="px-2 py-0.5 rounded bg-amber-500/25 hover:bg-amber-500/40 text-amber-300 font-bold border border-amber-500/40 transition flex items-center gap-1 active:scale-95">
+                  <span id="copy-prompt-icon">📋</span> <span id="copy-prompt-text">Salin Prompt</span>
                 </button>
               </div>
               <p id="slide-prompt" class="italic line-clamp-2 text-slate-200 font-mono">
@@ -284,44 +329,40 @@
             </div>
 
             <!-- Slide Nav Arrows -->
-            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10">
+            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90">
               ‹
             </button>
-            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10">
+            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90">
               ›
             </button>
           </div>
 
-          <!-- Action Bar -->
+          <!-- Action Bar: Like, Comment, Share & Copy Slide Text -->
           <div class="flex items-center justify-between text-sm py-1 px-1">
             <div class="flex items-center gap-3 text-slate-300">
-              <button class="hover:text-rose-500 transition flex items-center gap-1 text-xs">
-                ❤️ <span class="font-bold">2.4k</span>
+              <button onclick="toggleLikePost()" id="btn-like-heart" class="hover:text-rose-500 transition flex items-center gap-1 text-xs active:scale-125">
+                <span id="heart-emoji">🤍</span> <span id="like-counter" class="font-bold">2.4k</span>
               </button>
               <button class="hover:text-cyan-400 transition flex items-center gap-1 text-xs">
                 💬 <span class="font-bold">184</span>
               </button>
-              <button class="hover:text-amber-400 transition flex items-center gap-1 text-xs">
+              <button onclick="sharePost()" title="Bagikan Tautan" class="hover:text-amber-400 transition flex items-center gap-1 text-xs">
                 ✈️
               </button>
             </div>
             <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
-              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
                 📄 Teks Slide
               </button>
-              <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition">
+              <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
                 📋 Caption
               </button>
             </div>
           </div>
 
-          <!-- Dots Indicator -->
-          <div class="flex items-center justify-center gap-1 py-1.5" id="carousel-dots">
-            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+          <!-- Clickable Dots Indicator -->
+          <div class="flex items-center justify-center gap-1.5 py-1.5" id="carousel-dots">
+            <!-- Dynamic Dots -->
           </div>
 
           <!-- Caption Preview -->
@@ -342,14 +383,14 @@
         <!-- Quick Copy Action Buttons -->
         <div class="space-y-2">
           <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-xs shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
-            <span>📦</span> Salin Paket Lengkap (Semua Slide + Prompt AI)
+            <span>📦</span> Salin Paket Lengkap (5 Slide + Prompt AI)
           </button>
           
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-400 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm">
+            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-400 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
               <span>🎨</span> Salin Semua Prompt
             </button>
-            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm">
+            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
               <span>📑</span> Buka Daftar Slide
             </button>
           </div>
@@ -359,22 +400,22 @@
 
     </div>
 
-    <!-- ## Tim agen (Bagian yang Diminta Pengguna) -->
+    <!-- ## Tim agen (Bagian Blueprint Permintaan Pengguna) -->
     <section class="space-y-3 pt-2">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
         <h2 class="text-lg font-black text-white flex items-center gap-2">
           <span>👥</span> Tim agen
           <span class="text-xs font-normal text-slate-400 font-mono">5 Agen Kolaboratif Estafet Laporan</span>
         </h2>
-        <span class="text-xs text-slate-400 font-mono">Lantai 1: Workstations | Lantai 2: Dewan Redaksi</span>
+        <span class="text-xs text-slate-400 font-mono hidden sm:inline">Lantai 1: Workstations | Lantai 2: Dewan Redaksi Pleno</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         
         <!-- Agen 1: Dr. Idea -->
-        <div id="card-agent-1" onclick="focusAgent(1)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-amber-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
+        <div id="card-agent-1" onclick="focusAgent(1)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-amber-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02] group">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/15 text-amber-400 flex items-center justify-center text-xl font-bold border border-amber-500/30 group-hover:scale-110 transition">
               💡
             </div>
             <span id="badge-agent-1" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
@@ -382,7 +423,10 @@
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-white">Dr. Idea</div>
+            <div class="font-bold text-sm text-white flex items-center justify-between">
+              <span>Dr. Idea</span>
+              <span class="text-[10px] text-amber-400 font-mono font-normal">Fokus 3D ➔</span>
+            </div>
             <div class="text-[11px] text-amber-400 font-medium">Trend Ideator (Lantai 1)</div>
           </div>
           <p id="desc-agent-1" class="text-xs text-slate-400 leading-relaxed">
@@ -395,9 +439,9 @@
         </div>
 
         <!-- Agen 2: Nexus Researcher -->
-        <div id="card-agent-2" onclick="focusAgent(2)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-cyan-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
+        <div id="card-agent-2" onclick="focusAgent(2)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-cyan-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02] group">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl font-bold border border-cyan-500/30">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl font-bold border border-cyan-500/30 group-hover:scale-110 transition">
               🌐
             </div>
             <span id="badge-agent-2" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
@@ -405,7 +449,10 @@
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-white">Nexus</div>
+            <div class="font-bold text-sm text-white flex items-center justify-between">
+              <span>Nexus</span>
+              <span class="text-[10px] text-cyan-400 font-mono font-normal">Fokus 3D ➔</span>
+            </div>
             <div class="text-[11px] text-cyan-400 font-medium">Medical Researcher (Lantai 1)</div>
           </div>
           <p id="desc-agent-2" class="text-xs text-slate-400 leading-relaxed">
@@ -413,14 +460,14 @@
           </p>
           <div class="text-[10px] font-mono text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
             <span>Berkas:</span>
-            <span id="doc-agent-2" class="text-cyan-400 font-bold">Kemenkes Validasi #2</span>
+            <span id="doc-agent-2" class="text-cyan-400 font-bold">Validasi Kemenkes #2</span>
           </div>
         </div>
 
         <!-- Agen 3: Canvas Creator -->
-        <div id="card-agent-3" onclick="focusAgent(3)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-purple-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
+        <div id="card-agent-3" onclick="focusAgent(3)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-purple-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02] group">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-500/30">
+            <div class="w-10 h-10 rounded-2xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-500/30 group-hover:scale-110 transition">
               ✍️
             </div>
             <span id="badge-agent-3" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
@@ -428,7 +475,10 @@
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-white">Canvas</div>
+            <div class="font-bold text-sm text-white flex items-center justify-between">
+              <span>Canvas</span>
+              <span class="text-[10px] text-purple-400 font-mono font-normal">Fokus 3D ➔</span>
+            </div>
             <div class="text-[11px] text-purple-400 font-medium">Copy & Visual Creator (Lantai 1)</div>
           </div>
           <p id="desc-agent-3" class="text-xs text-slate-400 leading-relaxed">
@@ -441,9 +491,9 @@
         </div>
 
         <!-- Agen 4: Dr. Verif Fact-Checker -->
-        <div id="card-agent-4" onclick="focusAgent(4)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-rose-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
+        <div id="card-agent-4" onclick="focusAgent(4)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-rose-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02] group">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center text-xl font-bold border border-rose-500/30">
+            <div class="w-10 h-10 rounded-2xl bg-rose-500/15 text-rose-400 flex items-center justify-center text-xl font-bold border border-rose-500/30 group-hover:scale-110 transition">
               🩺
             </div>
             <span id="badge-agent-4" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
@@ -451,7 +501,10 @@
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-white">Dr. Verif</div>
+            <div class="font-bold text-sm text-white flex items-center justify-between">
+              <span>Dr. Verif</span>
+              <span class="text-[10px] text-rose-400 font-mono font-normal">Fokus 3D ➔</span>
+            </div>
             <div class="text-[11px] text-rose-400 font-medium">Fact-Checker (Lantai 1)</div>
           </div>
           <p id="desc-agent-4" class="text-xs text-slate-400 leading-relaxed">
@@ -464,9 +517,9 @@
         </div>
 
         <!-- Agen 5: Chief Budi (Editor-in-Chief di Lantai 2) -->
-        <div id="card-agent-5" onclick="focusAgent(5)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-emerald-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02]">
+        <div id="card-agent-5" onclick="focusAgent(5)" class="cursor-pointer glass-card border-2 border-slate-800 hover:border-emerald-400/80 p-4 rounded-3xl shadow-lg transition space-y-2.5 hover:scale-[1.02] group">
           <div class="flex items-center justify-between">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-500/30">
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-500/30 group-hover:scale-110 transition">
               ⚖️
             </div>
             <span id="badge-agent-5" class="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400">
@@ -474,7 +527,10 @@
             </span>
           </div>
           <div>
-            <div class="font-bold text-sm text-white">Chief Budi</div>
+            <div class="font-bold text-sm text-white flex items-center justify-between">
+              <span>Chief Budi</span>
+              <span class="text-[10px] text-emerald-400 font-mono font-normal">Fokus 3D ➔</span>
+            </div>
             <div class="text-[11px] text-emerald-400 font-medium">Pimpinan Rapat (Lantai 2)</div>
           </div>
           <p id="desc-agent-5" class="text-xs text-slate-400 leading-relaxed">
@@ -489,20 +545,25 @@
       </div>
     </section>
 
-    <!-- ## Log aktivitas (Bagian yang Diminta Pengguna) -->
-    <section class="space-y-3 pt-2 pb-6">
+    <!-- ## Log aktivitas (Bagian Blueprint Permintaan Pengguna) -->
+    <section class="space-y-3 pt-2 pb-8">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
         <h2 class="text-lg font-black text-white flex items-center gap-2">
           <span>📜</span> Log aktivitas
           <span class="text-xs font-normal text-slate-400 font-mono">Kronologi Estafet & Perpindahan Tangga 3D</span>
         </h2>
-        <button onclick="clearActivityLogs()" class="text-xs text-slate-400 hover:text-slate-200 font-mono px-3 py-1 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
-          Bersihkan Log
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="copyAllLogs()" class="text-xs text-slate-400 hover:text-slate-200 font-mono px-3 py-1 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition active:scale-95">
+            📋 Salin Log
+          </button>
+          <button onclick="clearActivityLogs()" class="text-xs text-slate-400 hover:text-slate-200 font-mono px-3 py-1 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition active:scale-95">
+            Bersihkan Log
+          </button>
+        </div>
       </div>
 
       <!-- Live Terminal Log Box -->
-      <div class="bg-[#0f131c] border-2 border-slate-800 rounded-3xl p-4 md:p-5 shadow-2xl text-xs font-mono space-y-2.5 max-h-64 overflow-y-auto" id="activity-log-container">
+      <div class="bg-[#0e121a] border-2 border-slate-800 rounded-3xl p-4 md:p-5 shadow-2xl text-xs font-mono space-y-2.5 max-h-64 overflow-y-auto" id="activity-log-container">
         <div class="text-slate-400 flex items-center gap-2">
           <span class="text-emerald-400">●</span>
           <span class="text-slate-500">[00:00]</span>
@@ -515,22 +576,25 @@
 
   <!-- Fullscreen Modal: Daftar Naskah Slide & Semua Prompt AI -->
   <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-    <div class="relative w-full max-w-3xl bg-[#141824] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+    <div class="relative w-full max-w-3xl bg-[#121622] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
       
       <!-- Modal Header -->
-      <div class="p-4 md:p-5 border-b border-slate-800 flex items-center justify-between gap-3 bg-[#10141f]">
+      <div class="p-4 md:p-5 border-b border-slate-800 flex items-center justify-between gap-3 bg-[#0e121c]">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xl font-bold border border-indigo-500/30">
             📑
           </div>
           <div>
             <h2 class="text-sm md:text-base font-bold text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
-            <p class="text-xs text-slate-400">Salin naskah per slide atau unduh seluruh paket sekaligus</p>
+            <p class="text-xs text-slate-400">Salin naskah per slide atau unduh seluruh naskah Markdown</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="copyAllSlidesAndPrompts()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md">
+          <button onclick="downloadMarkdownFile()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
+            <span>💾</span> Unduh .MD
+          </button>
+          <button onclick="copyAllSlidesAndPrompts()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
             <span>📦</span> Salin Semua
           </button>
           <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition text-sm">
@@ -545,8 +609,8 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 border-t border-slate-800 bg-[#10141f] flex items-center justify-between text-xs">
-        <span class="text-slate-400 font-mono">Format siap pakai untuk Instagram & Midjourney / Flux</span>
+      <div class="p-4 border-t border-slate-800 bg-[#0e121c] flex items-center justify-between text-xs">
+        <span class="text-slate-400 font-mono">Format Instagram & Midjourney / Flux Ready</span>
         <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 transition">
           Tutup
         </button>
@@ -557,11 +621,69 @@
 
   <script>
     /* ========================================================================
+       WEB AUDIO SYNTHESIZER (Pops, Chimes, Whooshes & Elevator Jingle)
+       ======================================================================== */
+    let audioCtx = null;
+    let isSoundEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function toggleSoundFx() {
+      isSoundEnabled = !isSoundEnabled;
+      if (isSoundEnabled) initAudio();
+      document.getElementById('sound-icon').textContent = isSoundEnabled ? '🔊' : '🔇';
+      document.getElementById('sound-label').textContent = isSoundEnabled ? 'Audio: Aktif' : 'Audio: Mati';
+      document.getElementById('btn-sound-fx').className = isSoundEnabled
+        ? 'px-3 py-2 rounded-2xl bg-indigo-600/30 text-indigo-300 border border-indigo-500/50 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95'
+        : 'px-3 py-2 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95';
+      if (isSoundEnabled) playChime(520, 'sine', 0.15);
+    }
+
+    function playChime(freq, type = 'sine', duration = 0.2) {
+      if (!isSoundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playPassSound() {
+      if (!isSoundEnabled || !audioCtx) return;
+      playChime(440, 'triangle', 0.1);
+      setTimeout(() => playChime(880, 'sine', 0.18), 80);
+    }
+
+    function playStairsSound() {
+      if (!isSoundEnabled || !audioCtx) return;
+      [330, 392, 493, 587, 659].forEach((freq, idx) => {
+        setTimeout(() => playChime(freq, 'sine', 0.12), idx * 100);
+      });
+    }
+
+    function playSuccessFanfare() {
+      if (!isSoundEnabled || !audioCtx) return;
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        setTimeout(() => playChime(freq, 'triangle', 0.25), idx * 120);
+      });
+    }
+
+    /* ========================================================================
        3D MULTI-FLOOR ISOMETRIC ENGINE (Canvas 2D + 3D Matrix Projection)
-       - Lantai 1 (Workstation): Agen bekerja di meja masing-masing & estafet laporan
-       - Tangga Penghubung: Menghubungkan Lantai 1 ke Lantai 2
-       - Lantai 2 (Ruang Rapat Finalisasi): Mezanin kaca & meja rapat pleno
-       - Animasi: Agen estafet berkas laporan, lalu berjalan naik tangga ke Lantai 2
+       - Lantai 1 (Workstations & Lab): Agen 1-4 bekerja & estafet laporan 📜
+       - Tangga Penghubung: 10 anak tangga arsitektural dengan lampu LED
+       - Lantai 2 (Ruang Rapat Pleno): Mezanin kaca, lampu gantung & meja rapat
        ======================================================================== */
 
     const canvas = document.getElementById('tycoonCanvas');
@@ -578,6 +700,21 @@
       lastMouseY: 0,
       viewMode: 'tycoon'
     };
+
+    let isAutoOrbit = false;
+
+    function toggleAutoOrbit() {
+      isAutoOrbit = !isAutoOrbit;
+      const btn = document.getElementById('btn-auto-orbit');
+      const label = document.getElementById('orbit-label');
+      if (isAutoOrbit) {
+        btn.className = 'px-3 py-2 rounded-2xl bg-indigo-600 text-white border border-indigo-400 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow-lg shadow-indigo-500/20';
+        label.textContent = 'Orbit Aktif';
+      } else {
+        btn.className = 'px-3 py-2 rounded-2xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95';
+        label.textContent = 'Auto Orbit';
+      }
+    }
 
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
@@ -623,7 +760,8 @@
         meetingPos: { x: 80, y: -80, z: 95 },
         currentPos: { x: -160, y: -70, z: 0 },
         status: "idle",
-        walkPhase: 0
+        walkPhase: 0,
+        thought: "💡 Merumuskan angle mitos..."
       },
       {
         id: 2,
@@ -639,7 +777,8 @@
         meetingPos: { x: 80, y: -45, z: 95 },
         currentPos: { x: -160, y: 50, z: 0 },
         status: "idle",
-        walkPhase: 0
+        walkPhase: 0,
+        thought: "🌐 Cek Kemenkes & WHO..."
       },
       {
         id: 3,
@@ -654,7 +793,8 @@
         meetingPos: { x: 160, y: -80, z: 95 },
         currentPos: { x: -60, y: -70, z: 0 },
         status: "idle",
-        walkPhase: 0
+        walkPhase: 0,
+        thought: "✍️ Tulis carousel & prompt AI..."
       },
       {
         id: 4,
@@ -670,7 +810,8 @@
         meetingPos: { x: 160, y: -45, z: 95 },
         currentPos: { x: -60, y: 50, z: 0 },
         status: "idle",
-        walkPhase: 0
+        walkPhase: 0,
+        thought: "🩺 Uji akurasi klinis..."
       },
       {
         id: 5,
@@ -683,7 +824,8 @@
         meetingPos: { x: 120, y: -110, z: 95 },
         currentPos: { x: 120, y: -110, z: 95 },
         status: "idle",
-        walkPhase: 3
+        walkPhase: 3,
+        thought: "⚖️ Sidang Pleno siap dibuka..."
       }
     ];
 
@@ -693,7 +835,8 @@
       z: 22,
       targetX: -160,
       targetY: -70,
-      targetZ: 22
+      targetZ: 22,
+      history: []
     };
 
     let animTime = 0;
@@ -751,19 +894,26 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       animTime += 0.04;
 
+      // Auto Orbit Camera Drift
+      if (isAutoOrbit && !camera.isDragging) {
+        camera.angle += 0.003;
+        document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
+      }
+
       // ==========================================
       // 1. LANTAI 1 (WORKSTATIONS & LAB RISET)
       // ==========================================
-      draw3DBox(-40, 0, -18, 420, 300, 18, '#f8fafc', '#cbd5e1', '#94a3b8');
+      // Alas Lantai 1 dengan shadow halus
+      draw3DBox(-40, 0, -20, 420, 300, 20, '#f8fafc', '#cbd5e1', '#94a3b8');
 
-      // Grid tiles di Lantai 1
+      // Grid Tiles Lantai 1
       for (let gx = -220; gx <= 140; gx += 40) {
         const pt1 = project(gx, -130, 0);
         const pt2 = project(gx, 130, 0);
         ctx.beginPath();
         ctx.moveTo(pt1.x, pt1.y);
         ctx.lineTo(pt2.x, pt2.y);
-        ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -771,22 +921,35 @@
       // Meja Kerja Lantai 1
       const deskColor = '#ffffff';
       const deskSide = '#e2e8f0';
-      draw3DBox(-160, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1'); // Meja Dr. Idea
-      draw3DBox(-160, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');  // Meja Nexus
-      draw3DBox(-60, -70, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');  // Meja Canvas
-      draw3DBox(-60, 50, 0, 50, 40, 22, deskColor, deskSide, '#cbd5e1');   // Meja Dr. Verif
+      draw3DBox(-160, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1'); // Meja Dr. Idea
+      draw3DBox(-160, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');  // Meja Nexus
+      draw3DBox(-60, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');  // Meja Canvas
+      draw3DBox(-60, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');   // Meja Dr. Verif
 
-      // Dual Monitor dengan Layar Bercahaya
-      function drawMonitor(dx, dy, dz, glowColor) {
-        draw3DBox(dx, dy - 10, dz + 22, 22, 4, 16, '#334155', '#1e293b', '#0f172a');
-        const screenPt = project(dx, dy - 8, dz + 30);
+      // Dual Curved Monitor dengan Layar Bercahaya
+      function drawMonitor(dx, dy, dz, glowColor, label) {
+        draw3DBox(dx, dy - 12, dz + 22, 24, 4, 16, '#334155', '#1e293b', '#0f172a');
+        const screenPt = project(dx, dy - 10, dz + 30);
         ctx.fillStyle = glowColor;
-        ctx.fillRect(screenPt.x - 7, screenPt.y - 5, 14, 10);
+        ctx.fillRect(screenPt.x - 8, screenPt.y - 6, 16, 11);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 7px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, screenPt.x, screenPt.y + 1);
       }
-      drawMonitor(-160, -70, 0, '#fbbf24');
-      drawMonitor(-160, 50, 0, '#38bdf8');
-      drawMonitor(-60, -70, 0, '#c084fc');
-      drawMonitor(-60, 50, 0, '#fb7185');
+      drawMonitor(-160, -70, 0, '#fbbf24', 'IDEA');
+      drawMonitor(-160, 50, 0, '#38bdf8', 'DATA');
+      drawMonitor(-60, -70, 0, '#c084fc', 'DRAW');
+      drawMonitor(-60, 50, 0, '#fb7185', 'AUDIT');
+
+      // Water Dispenser & Coffee Station di Pojok Lantai 1
+      draw3DBox(-210, 80, 0, 20, 20, 36, '#0284c7', '#0369a1', '#075985');
+      draw3DBox(-210, 80, 36, 14, 14, 18, 'rgba(56, 189, 248, 0.7)', '#38bdf8', '#0284c7');
+      const mugPt = project(-200, 75, 38);
+      ctx.beginPath();
+      ctx.arc(mugPt.x, mugPt.y, 3 * camera.zoom, 0, Math.PI * 2);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fill();
 
       // Tanaman Monstera di Lantai 1
       function drawPlant(px, py, pz) {
@@ -798,10 +961,16 @@
         ctx.fill();
       }
       drawPlant(-210, -120, 0);
-      drawPlant(-210, 110, 0);
+      drawPlant(-210, 120, 0);
 
       // Whiteboard Riset Lantai 1
       draw3DBox(-230, 0, 0, 8, 80, 50, '#f1f5f9', '#e2e8f0', '#cbd5e1');
+      const post1 = project(-226, -20, 32);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillRect(post1.x - 3, post1.y - 3, 6, 6);
+      const post2 = project(-226, 10, 25);
+      ctx.fillStyle = '#06b6d4';
+      ctx.fillRect(post2.x - 3, post2.y - 3, 6, 6);
 
       // ==========================================
       // 2. TANGGA PENGHUBUNG (LANTAI 1 KE LANTAI 2)
@@ -812,9 +981,16 @@
         const stepX = 45;
         const stepY = 90 - s * 12;
         draw3DBox(stepX, stepY, stepZ, 46, 14, 8, '#e2e8f0', '#cbd5e1', '#94a3b8');
+
+        // Cyan LED Step Guide Light
+        const ledPt = project(stepX, stepY + 5, stepZ + 8);
+        ctx.beginPath();
+        ctx.arc(ledPt.x, ledPt.y, 2 * camera.zoom, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8';
+        ctx.fill();
       }
 
-      // Pegangan Tangga (Silver Handrail)
+      // Pegangan Tangga (Silver Blue Handrail)
       const rBottom = project(68, 95, 15);
       const rTop = project(68, -30, 115);
       ctx.beginPath();
@@ -827,6 +1003,7 @@
       // ==========================================
       // 3. LANTAI 2 (RUANG RAPAT FINALISASI / MEZZANINE)
       // ==========================================
+      // Lantai Kayu Walnut Mezanin
       draw3DBox(120, -60, 95 - 16, 230, 190, 16, '#fbf7ee', '#d4a373', '#b45309');
 
       // Karpet Ruang Rapat Lantai 2
@@ -839,9 +1016,34 @@
         'rgba(129, 140, 248, 0.4)'
       );
 
-      // Meja Konferensi Besar di Lantai 2
-      draw3DBox(120, -60, 95, 95, 65, 22, '#92400e', '#78350f', '#451a03');
-      draw3DBox(120, -60, 95 + 22, 18, 12, 3, '#1e293b', '#0f172a', '#020617');
+      // Meja Konferensi Besar di Lantai 2 (Mahogany)
+      draw3DBox(120, -60, 95, 96, 66, 22, '#92400e', '#78350f', '#451a03');
+      draw3DBox(120, -60, 95 + 22, 20, 12, 3, '#1e293b', '#0f172a', '#020617'); // Laptop Pimpinan
+
+      // Lampu Gantung Mezanin (Executive Pendant Light)
+      const lampPt = project(120, -60, 95 + 60);
+      const lampCordPt = project(120, -60, 95 + 110);
+      ctx.beginPath();
+      ctx.moveTo(lampCordPt.x, lampCordPt.y);
+      ctx.lineTo(lampPt.x, lampPt.y);
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(lampPt.x, lampPt.y, 8 * camera.zoom, 0, Math.PI);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fill();
+
+      // Warm Table Spotlight Glow
+      const tableGlow = project(120, -60, 95 + 23);
+      const grad = ctx.createRadialGradient(tableGlow.x, tableGlow.y, 2, tableGlow.x, tableGlow.y, 38 * camera.zoom);
+      grad.addColorStop(0, 'rgba(251, 191, 36, 0.35)');
+      grad.addColorStop(1, 'rgba(251, 191, 36, 0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(tableGlow.x, tableGlow.y, 38 * camera.zoom, 22 * camera.zoom, 0, 0, Math.PI * 2);
+      ctx.fill();
 
       // Whiteboard Pengesahan Lantai 2
       draw3DBox(220, -60, 95, 6, 70, 55, '#ffffff', '#e2e8f0', '#cbd5e1');
@@ -877,9 +1079,21 @@
       dossier.y += (dossier.targetY - dossier.y) * 0.08;
       dossier.z += (dossier.targetZ - dossier.z) * 0.08;
 
+      // Particle Trail
+      dossier.history.push({ x: dossier.x, y: dossier.y, z: dossier.z });
+      if (dossier.history.length > 7) dossier.history.shift();
+
+      dossier.history.forEach((h, idx) => {
+        const hp = project(h.x, h.y, h.z);
+        ctx.beginPath();
+        ctx.arc(hp.x, hp.y, (idx * 0.9) * camera.zoom, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(251, 191, 36, ${idx / 12})`;
+        ctx.fill();
+      });
+
       const dPt = project(dossier.x, dossier.y, dossier.z + Math.sin(animTime * 8) * 3);
       ctx.beginPath();
-      ctx.arc(dPt.x, dPt.y, 8 * camera.zoom, 0, Math.PI * 2);
+      ctx.arc(dPt.x, dPt.y, 9 * camera.zoom, 0, Math.PI * 2);
       ctx.fillStyle = '#fbbf24';
       ctx.fill();
       ctx.strokeStyle = '#d97706';
@@ -903,6 +1117,7 @@
             target = agent.stairEntrance;
             if (Math.hypot(agent.stairEntrance.x - agent.currentPos.x, agent.stairEntrance.y - agent.currentPos.y) < 8) {
               agent.walkPhase = 1;
+              playStairsSound();
             }
           } else if (agent.walkPhase === 1) {
             target = agent.stairTop;
@@ -926,11 +1141,13 @@
         const basePt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z);
         const headPt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z + 32 + bob);
 
+        // Bayangan Kaki
         ctx.beginPath();
         ctx.ellipse(basePt.x, basePt.y, 8 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.fill();
 
+        // Badan / Kemeja
         const bodyHeight = 15 * camera.zoom;
         const bodyWidth = 10 * camera.zoom;
         ctx.beginPath();
@@ -941,6 +1158,7 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
+        // Kepala
         const headRadius = 7.5 * camera.zoom;
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 4 * camera.zoom, headRadius, 0, Math.PI * 2);
@@ -948,11 +1166,13 @@
         ctx.fill();
         ctx.stroke();
 
+        // Rambut
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 2 * camera.zoom, headRadius * 1.05, Math.PI, Math.PI * 2);
         ctx.fillStyle = agent.hairColor;
         ctx.fill();
 
+        // Aksesori
         if (agent.accessory === 'stethoscope') {
           ctx.beginPath();
           ctx.arc(headPt.x, headPt.y + 14 * camera.zoom, 4 * camera.zoom, 0, Math.PI);
@@ -961,6 +1181,7 @@
           ctx.stroke();
         }
 
+        // Tag Nama di Atas Kepala
         const tagY = headPt.y - 18 * camera.zoom;
         const pillText = `${agent.name}`;
         ctx.font = 'bold 10px monospace';
@@ -980,6 +1201,33 @@
         ctx.textBaseline = 'middle';
         ctx.fillText(pillText, headPt.x, tagY);
 
+        // Dynamic Speech / Thought Bubbles saat Aktif
+        if (agent.status === 'working' || (isMeetingPhase && agent.id === 5)) {
+          const bubbleText = agent.thought;
+          const bubbleY = headPt.y - 36 * camera.zoom;
+          ctx.font = 'bold 9px sans-serif';
+          const bw = ctx.measureText(bubbleText).width + 16;
+          
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
+          ctx.strokeStyle = agent.color;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(headPt.x - bw/2, bubbleY - 9, bw, 18, 9);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(headPt.x, bubbleY + 12, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = agent.color;
+          ctx.fill();
+
+          ctx.fillStyle = '#ffffff';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(bubbleText, headPt.x, bubbleY);
+        }
+
+        // Indikator Meja Menyala
         if (agent.status === 'working' && agent.id < 5) {
           const deskLightPt = project(agent.deskPos.x, agent.deskPos.y, 44);
           ctx.beginPath();
@@ -1026,6 +1274,27 @@
       camera.zoom = Math.max(0.6, Math.min(2.5, camera.zoom * zoomFactor));
     });
 
+    // Touch Support for Mobile Dragging
+    let touchStartX = 0;
+    let touchStartY = 0;
+    canvas.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    });
+    canvas.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1) {
+        const dx = e.touches[0].clientX - touchStartX;
+        const dy = e.touches[0].clientY - touchStartY;
+        camera.angle += dx * 0.008;
+        camera.tilt = Math.max(0.2, Math.min(1.2, camera.tilt + dy * 0.006));
+        document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    });
+
     function adjustAngle(degrees) {
       camera.angle += degrees * (Math.PI / 180);
       document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
@@ -1049,19 +1318,27 @@
       const btnInside = document.getElementById('btn-view-inside');
 
       if (mode === 'tycoon') {
-        btnTycoon.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
-        btnInside.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition';
+        btnTycoon.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition active:scale-95';
+        btnInside.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition active:scale-95';
         camera.zoom = 1.15;
         camera.tilt = 0.52;
       } else {
-        btnInside.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition';
-        btnTycoon.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition';
+        btnInside.className = 'px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm font-semibold flex items-center gap-1.5 transition active:scale-95';
+        btnTycoon.className = 'px-3 py-1.5 rounded-xl text-slate-400 hover:text-white flex items-center gap-1.5 transition active:scale-95';
         camera.zoom = 1.85;
         camera.tilt = 0.35;
       }
     }
 
     function focusZone(zone) {
+      document.querySelectorAll('.room-tab').forEach(b => {
+        b.className = 'room-tab px-3.5 py-1.5 rounded-xl bg-slate-800/80 text-slate-300 border border-slate-700 hover:bg-slate-800 shadow-sm shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95';
+      });
+      const activeTab = document.getElementById(`tab-zone-${zone}`);
+      if (activeTab) {
+        activeTab.className = 'room-tab px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white border border-indigo-500 shadow-md shrink-0 flex items-center gap-1.5 transition hover:scale-105 active:scale-95';
+      }
+
       if (zone === 'all') resetCamera();
       else if (zone === 'floor1') { camera.angle = 0.4; camera.zoom = 1.5; }
       else if (zone === 'stairs') { camera.angle = 0.8; camera.zoom = 1.6; }
@@ -1074,6 +1351,7 @@
       if (ag) {
         camera.zoom = 1.7;
         camera.angle = (id === 5) ? 1.1 : 0.6;
+        document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
       }
     }
 
@@ -1112,6 +1390,15 @@
       }
     }
 
+    function copyAllLogs() {
+      const container = document.getElementById('activity-log-container');
+      if (!container) return;
+      const text = container.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showCopyNotification("✅ Seluruh log aktivitas berhasil disalin!");
+      });
+    }
+
     function updateAgentTeamCard(id, statusText, isWorking) {
       const badge = document.getElementById(`badge-agent-${id}`);
       if (badge) {
@@ -1128,6 +1415,9 @@
        SOCIAL MEDIA CAROUSEL POST DISPLAY & CONTROLS
        ======================================================================== */
     let currentSlide = 0;
+    let isLiked = false;
+    let likesCount = 2418;
+
     let slidesData = [
       {
         badge: "SLIDE 1 • HOOK UTAMA",
@@ -1184,18 +1474,56 @@
 
       const dotsContainer = document.getElementById('carousel-dots');
       dotsContainer.innerHTML = slidesData.map((_, i) => 
-        `<span class="${i === currentSlide ? 'w-2.5 h-2.5 bg-indigo-500' : 'w-1.5 h-1.5 bg-slate-700'} rounded-full transition-all"></span>`
+        `<button onclick="goToSlide(${i})" class="${i === currentSlide ? 'w-3 h-2 bg-indigo-400 rounded-full' : 'w-1.5 h-1.5 bg-slate-700 hover:bg-slate-500 rounded-full'} transition-all"></button>`
       ).join('');
     }
 
     function nextSlide() {
       currentSlide = (currentSlide + 1) % slidesData.length;
       updateSlideUI();
+      playChime(600, 'sine', 0.08);
     }
 
     function prevSlide() {
       currentSlide = (currentSlide - 1 + slidesData.length) % slidesData.length;
       updateSlideUI();
+      playChime(450, 'sine', 0.08);
+    }
+
+    function goToSlide(idx) {
+      currentSlide = idx;
+      updateSlideUI();
+      playChime(500, 'sine', 0.08);
+    }
+
+    function toggleLikePost() {
+      isLiked = !isLiked;
+      const heartEmoji = document.getElementById('heart-emoji');
+      const counter = document.getElementById('like-counter');
+      if (isLiked) {
+        likesCount++;
+        heartEmoji.textContent = '❤️';
+        heartEmoji.className = 'heart-pop inline-block';
+        counter.textContent = (likesCount / 1000).toFixed(1) + 'k';
+        playChime(680, 'triangle', 0.15);
+      } else {
+        likesCount--;
+        heartEmoji.textContent = '🤍';
+        heartEmoji.className = 'inline-block';
+        counter.textContent = (likesCount / 1000).toFixed(1) + 'k';
+      }
+    }
+
+    function sharePost() {
+      if (navigator.share) {
+        navigator.share({
+          title: document.getElementById('slide-title').textContent,
+          text: document.getElementById('caption-body').innerText,
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        copyCaption();
+      }
     }
 
     function copyCaption() {
@@ -1209,6 +1537,16 @@
       if (!slidesData || slidesData.length === 0) return;
       const s = slidesData[currentSlide];
       navigator.clipboard.writeText(s.prompt).then(() => {
+        const btnText = document.getElementById('copy-prompt-text');
+        const btnIcon = document.getElementById('copy-prompt-icon');
+        if (btnText && btnIcon) {
+          btnText.textContent = "Tersalin!";
+          btnIcon.textContent = "✓";
+          setTimeout(() => {
+            btnText.textContent = "Salin Prompt";
+            btnIcon.textContent = "📋";
+          }, 2000);
+        }
         showCopyNotification(`✅ Prompt Visual Slide ${currentSlide + 1} berhasil disalin!`);
       });
     }
@@ -1265,6 +1603,35 @@
       });
     }
 
+    function downloadMarkdownFile() {
+      if (!slidesData || slidesData.length === 0) return;
+      const topic = document.getElementById('topic-input') ? document.getElementById('topic-input').value : 'Edukasi Kesehatan';
+      const caption = document.getElementById('caption-body') ? document.getElementById('caption-body').innerText : '';
+      const hashtags = document.getElementById('caption-hashtags') ? document.getElementById('caption-hashtags').innerText : '';
+
+      let doc = `# 🏥 ${topic}\n\n`;
+      doc += `> Divalidasi oleh Health Agent Studio • Grounding Kemenkes RI & WHO\n\n`;
+      doc += `## 📱 Naskah Carousel Instagram\n\n`;
+
+      slidesData.forEach((s, idx) => {
+        doc += `### Slide ${idx + 1}: ${s.title}\n\n`;
+        doc += `${s.body}\n\n`;
+        doc += `*${s.source}*\n\n`;
+        doc += `**🎨 AI Visual Prompt (Midjourney / Flux):**\n\`\`\`\n${s.prompt}\n\`\`\`\n\n---\n\n`;
+      });
+
+      doc += `## 📝 Caption & Hashtags\n\n${caption}\n\n${hashtags}\n`;
+
+      const blob = new Blob([doc], { type: 'text/markdown;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `health_carousel_${Date.now()}.md`;
+      link.click();
+      URL.revokeObjectURL(url);
+      showCopyNotification("✅ File Markdown (.md) berhasil diunduh!");
+    }
+
     function showCopyNotification(msg) {
       const toast = document.getElementById('error-toast');
       const text = document.getElementById('error-toast-text');
@@ -1304,7 +1671,7 @@
                 ${s.title}
               </span>
             </div>
-            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700">
+            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700 active:scale-95">
               <span>📄</span> Salin Naskah
             </button>
           </div>
@@ -1321,7 +1688,7 @@
               <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
                 <span>🎨</span> AI Visual Prompt (Midjourney / Flux):
               </span>
-              <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm">
+              <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm active:scale-95">
                 <span>📋</span> Salin Prompt
               </button>
             </div>
@@ -1348,6 +1715,24 @@
       });
     }
 
+    const mythPool = [
+      "Mitos: Makan Telur Setiap Hari Bikin Kolesterol Meledak",
+      "Fakta: Apakah Benar Kita Wajib Tidur Tepat 8 Jam Tiap Malam?",
+      "Mitos: Makan Malam di Atas Jam 7 Pasti Bikin Cepat Gemuk",
+      "Fakta: Apakah Minum Kopi Hitam Bikin Tubuh Dehidrasi?",
+      "Mitos: Minum Air Es Bikin Perut Buncit dan Lemak Menggumpal",
+      "Mitos: Air Lemon Hangat di Pagi Hari Bisa Membakar Lemak Perut",
+      "Fakta: Apakah MSG Benar-Benar Bikin Bodoh dan Rusak Otak?",
+      "Mitos: Mandi Malam Hari Menyebabkan Rematik dan Paru-Paru Basah"
+    ];
+
+    function generateRandomTopic() {
+      const rand = mythPool[Math.floor(Math.random() * mythPool.length)];
+      document.getElementById('topic-input').value = rand;
+      playChime(620, 'triangle', 0.1);
+      startAutonomousPipeline();
+    }
+
     function setSampleTopic(type) {
       if (type === 'kolesterol') {
         document.getElementById('topic-input').value = "Mitos: Makan Telur Setiap Hari Bikin Kolesterol Meledak";
@@ -1357,6 +1742,8 @@
         document.getElementById('topic-input').value = "Mitos: Makan Malam di Atas Jam 7 Pasti Bikin Cepat Gemuk";
       } else if (type === 'kopi') {
         document.getElementById('topic-input').value = "Fakta: Apakah Minum Kopi Hitam Bikin Tubuh Dehidrasi?";
+      } else if (type === 'lemon') {
+        document.getElementById('topic-input').value = "Mitos: Air Lemon Hangat di Pagi Hari Bisa Membakar Lemak Perut";
       }
       startAutonomousPipeline();
     }
@@ -1370,6 +1757,9 @@
         alert("Silakan masukkan topik terlebih dahulu!");
         return;
       }
+
+      initAudio();
+      playChime(580, 'sine', 0.2);
 
       const btnRun = document.getElementById('btn-run-pipeline');
       btnRun.disabled = true;
@@ -1406,6 +1796,7 @@
             dossier.targetX = -160;
             dossier.targetY = -70;
             dossier.targetZ = 24;
+            playPassSound();
           } 
           else if (aid === 2) {
             agents[0].status = 'idle';
@@ -1419,6 +1810,7 @@
             dossier.targetX = -160;
             dossier.targetY = 50;
             dossier.targetZ = 24;
+            playPassSound();
           }
           else if (aid === 3) {
             agents[1].status = 'idle';
@@ -1432,6 +1824,7 @@
             dossier.targetX = -60;
             dossier.targetY = -70;
             dossier.targetZ = 24;
+            playPassSound();
           }
           else if (aid === 4) {
             agents[2].status = 'idle';
@@ -1445,6 +1838,7 @@
             dossier.targetX = -60;
             dossier.targetY = 50;
             dossier.targetZ = 24;
+            playPassSound();
           }
           else if (aid === 5) {
             agents[3].status = 'idle';
@@ -1460,6 +1854,7 @@
             dossier.targetX = 120;
             dossier.targetY = -60;
             dossier.targetZ = 118;
+            playStairsSound();
           }
         }
         else if (msg.type === 'agent_complete') {
@@ -1467,6 +1862,7 @@
             updateAgentTeamCard(5, '✅ Konsensus Disahkan', false);
             updatePhaseHUD('✅', 'Rapat Finalisasi Selesai: Konten Disetujui (Status: PUBLISHED)!');
             addActivityLog('🤝', `<strong>Rapat Finalisasi Selesai:</strong> Chief Budi dan dewan redaksi mencapai konsensus disetujui.`);
+            playSuccessFanfare();
           }
         }
         else if (msg.type === 'pipeline_finished') {
@@ -1540,10 +1936,21 @@
       if (toast) toast.classList.add('hidden');
     }
 
+    // Live Clock for Phone
+    function updatePhoneClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const clockEl = document.getElementById('phone-time');
+      if (clockEl) clockEl.textContent = `${h}:${m}`;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       resizeCanvas();
       updateSlideUI();
       render();
+      updatePhoneClock();
+      setInterval(updatePhoneClock, 30000);
     });
   </script>
 </body>

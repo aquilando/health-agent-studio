@@ -25,15 +25,18 @@ class HealthAgentsPipeline:
         self.client = genai.Client(api_key=api_key)
         
         # Model primer dan daftar model cadangan
-        self.primary_model = model_name or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
+        # Default diarahkan ke gemini-3.5-flash untuk kestabilan tinggi bebas antrean 503
+        self.primary_model = model_name or os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")
         
-        # Daftar urutan model fallback jika model primer mengalami 503 High Demand atau 404
+        # Urutan prioritas model aktif Gemini 3 / Gemini 2.5
         fallback_candidates = [
             self.primary_model,
+            "gemini-3.5-flash",
+            "gemini-3.5-flash-lite",
+            "gemini-3.8-flash",
+            "gemini-3.1-flash-lite",
             "gemini-2.5-flash",
-            "gemini-2.0-flash",
-            "gemini-1.5-flash",
-            "gemini-2.5-pro"
+            "gemini-2.0-flash"
         ]
         # Hapus duplikat sambil mempertahankan urutan prioritas
         self.model_candidates = list(dict.fromkeys(fallback_candidates))
@@ -44,13 +47,13 @@ class HealthAgentsPipeline:
         contents: str,
         config: types.GenerateContentConfig,
         task_name: str = "Agent Task",
-        max_retries_per_model: int = 3
+        max_retries_per_model: int = 2
     ) -> Any:
         """
-        Menjalankan permintaan generate_content dengan perlindungan terhadap:
-        - 503 UNAVAILABLE (Model experiencing high demand) -> Retry dengan backoff
-        - 429 RESOURCE_EXHAUSTED (Rate limit) -> Retry dengan backoff
-        - 404 NOT_FOUND (Model deprecated) -> Beralih ke model cadangan
+        Menjalankan permintaan generate_content dengan perlindungan multi-lapis:
+        - Jika 503 UNAVAILABLE / 429 (Spike trafik): Cepat coba ulang lalu beralih ke model berikutnya.
+        - Jika model tidak didukung (404/403): Langsung beralih ke model aktif berikutnya.
+        - Hanya melempar exception jika SEMUA model dalam daftar fallback gagal.
         """
         last_exception = None
 
@@ -68,28 +71,23 @@ class HealthAgentsPipeline:
                 except Exception as e:
                     err_str = str(e)
                     last_exception = e
-                    logger.warning(f"[{task_name}] Gagal pada model '{model}': {err_str}")
+                    logger.warning(f"[{task_name}] Kendala pada model '{model}': {err_str}")
 
-                    # Kasus 1: 503 UNAVAILABLE atau 429 (Trafik tinggi sementara)
+                    # Kasus 1: 503 UNAVAILABLE atau 429 (Trafik tinggi sementara pada model ini)
                     if "503" in err_str or "UNAVAILABLE" in err_str or "high demand" in err_str or "429" in err_str:
                         if attempt < max_retries_per_model:
-                            wait_time = (2 ** attempt) + 1  # 3 detik, 5 detik, dll.
-                            logger.info(f"[{task_name}] Server Google sibuk (503/429). Menunggu {wait_time} detik sebelum mencoba lagi...")
+                            wait_time = 1.5 * attempt
+                            logger.info(f"[{task_name}] Model '{model}' mengalami lonjakan trafik (503). Menunggu {wait_time}s...")
                             time.sleep(wait_time)
                             continue
                         else:
-                            # Jika sudah 3 kali retry di model ini masih 503, switch ke model cadangan berikutnya
-                            logger.info(f"[{task_name}] Model '{model}' terus sibuk. Beralih ke model cadangan...")
+                            # Segera beralih ke model cadangan berikutnya yang tidak overload
+                            logger.info(f"[{task_name}] Beralih dari '{model}' ke model cadangan berikutnya...")
                             break
-
-                    # Kasus 2: 404 NOT_FOUND (Model tidak tersedia di region ini)
-                    elif "404" in err_str or "NOT_FOUND" in err_str:
-                        logger.info(f"[{task_name}] Model '{model}' tidak ditemukan (404). Langsung coba model alternatif.")
-                        break
-
-                    # Kasus 3: Error lain (misal invalid argument / format)
                     else:
-                        raise e
+                        # Error lain (misal 404/403/kebijakan), langsung coba model cadangan berikutnya
+                        logger.info(f"[{task_name}] Model '{model}' dilewati ({err_str[:40]}...). Mencoba model cadangan...")
+                        break
 
         # Jika seluruh model dalam daftar fallback gagal
         raise last_exception

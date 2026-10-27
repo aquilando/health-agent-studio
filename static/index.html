@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Agency Isometric Multi-Agent Studio</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .badge-pop {
+      animation: bob 2.6s ease-in-out infinite;
+    }
+    .speech-bubble {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+</head>
+<body class="bg-[#10131a] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
+
+  <div class="max-w-5xl mx-auto space-y-4">
+    
+    <!-- Top Header Bar -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-xl">
+          🏢
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-white flex items-center gap-2">
+            Health Agency Virtual Office
+            <span class="text-[11px] font-normal px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              Gemini 2.5 Live Grounded
+            </span>
+          </h1>
+          <p class="text-xs text-slate-400">Ruang Kerja Isometrik Multi-Agen AI: Ideasi, Riset Aktual, Visual, Medis & Sidang Pleno</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span id="office-status" class="text-xs px-3 py-1.5 rounded-full bg-slate-950 border border-slate-800 text-slate-400 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Semua Agen Siaga di Meja
+        </span>
+      </div>
+    </header>
+
+    <!-- Isometric Office Viewport -->
+    <div class="relative bg-[#161a24] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[520px]">
+      
+      <!-- Canvas 2D Isometric Rendering -->
+      <canvas id="iso-canvas" width="960" height="540" class="block"></canvas>
+
+      <!-- HTML Floating Badges (Persis Seperti Screenshot Referensi) -->
+      <div id="badge-container" class="absolute inset-0 pointer-events-none">
+        
+        <!-- Ruang Rapat Badge -->
+        <div id="badge-rapat" class="absolute pointer-events-auto cursor-pointer" style="left: 310px; top: 110px;">
+          <div class="px-3 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 hover:scale-105 transition">
+            <span>RUANG RAPAT</span>
+            <span id="badge-rapat-status" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          </div>
+        </div>
+
+        <!-- Agen 1: Dr. Idea -->
+        <div id="badge-agent-1" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 170px; top: 270px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+            <span>💡 Dr. Idea</span>
+            <span id="count-1" class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">1</span>
+          </div>
+        </div>
+
+        <!-- Agen 2: Nexus (Researcher) -->
+        <div id="badge-agent-2" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 330px; top: 220px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+            <span>🌐 Nexus (Riset)</span>
+            <span id="count-2" class="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-400 font-bold">2</span>
+          </div>
+        </div>
+
+        <!-- Agen 3: Canvas (Creator) -->
+        <div id="badge-agent-3" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 510px; top: 260px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+            <span>🎨 Canvas (Kreatif)</span>
+            <span id="count-3" class="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-400 font-bold">1</span>
+          </div>
+        </div>
+
+        <!-- Agen 4: Dr. Verif (Medis) -->
+        <div id="badge-agent-4" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 680px; top: 320px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+            <span>🩺 Dr. Verif (Medis)</span>
+            <span id="count-4" class="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400 font-bold">0</span>
+          </div>
+        </div>
+
+        <!-- User / Kamu -->
+        <div id="badge-user" class="absolute pointer-events-auto cursor-pointer" style="left: 560px; top: 430px;">
+          <div class="px-3 py-1 rounded-lg bg-indigo-600/90 border border-indigo-400/80 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 hover:scale-105 transition">
+            <span>Ical (Kamu - Pimpinan)</span>
+          </div>
+        </div>
+
+        <!-- Meja Ical Label -->
+        <div class="absolute pointer-events-none" style="left: 810px; top: 430px;">
+          <div class="px-2.5 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-400 text-[11px] font-semibold">
+            MEJA ICAL
+          </div>
+        </div>
+
+        <!-- Dynamic Speech Bubble -->
+        <div id="active-speech" class="speech-bubble hidden z-30">
+          <div class="px-3 py-2 rounded-xl bg-slate-950/95 border border-blue-500 text-white text-xs shadow-2xl max-w-xs backdrop-blur-md">
+            <span id="speech-agent-name" class="font-bold text-blue-400 block mb-0.5">Dr. Idea:</span>
+            <p id="speech-text" class="text-slate-200 leading-snug"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Floating Control Box at Bottom of Office -->
+      <div class="absolute bottom-4 left-4 right-4 bg-slate-950/90 border border-slate-800/80 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
+        <input 
+          id="topic-input" 
+          type="text" 
+          placeholder="Ketik topik edukasi kesehatan (misal: Bahaya gula kemasan anak, ISPA polusi udara, garam & hipertensi)..."
+          class="flex-1 bg-slate-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 w-full"
+        />
+        <div class="flex items-center gap-2 w-full md:w-auto">
+          <button 
+            id="btn-run" 
+            onclick="startPipeline()" 
+            class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/30 whitespace-nowrap w-full md:w-auto">
+            <span>🚀 Mulai Bekerja & Rapat Pleno</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Final Result Presentation Section (Muncul setelah sidang pleno selesai) -->
+    <section id="result-section" class="hidden bg-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-2xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block mb-1">
+            ✓ KEPUTUSAN SIDANG PLENO TELAH DISAHKAN
+          </span>
+          <h2 id="res-topic" class="text-lg font-bold text-white">Judul Konten Final</h2>
+          <p id="res-audience" class="text-xs text-slate-400">Target Audiens: -</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block">Skor Medis</span>
+            <span id="score-medical" class="text-sm font-bold text-blue-400">98/100</span>
+          </div>
+          <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block">Virality</span>
+            <span id="score-virality" class="text-sm font-bold text-emerald-400">95/100</span>
+          </div>
+          <button onclick="copyFullContent()" class="ml-2 px-3.5 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-medium border border-blue-500/30 transition flex items-center gap-1.5">
+            📋 Salin Semua
+          </button>
+        </div>
+      </div>
+
+      <!-- Hook Box -->
+      <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/30 space-y-1">
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+          🎯 Hook 3 Detik Pertama:
+        </span>
+        <p id="res-hook" class="text-sm text-slate-100 font-medium"></p>
+      </div>
+
+      <!-- Carousel Slides Container -->
+      <div class="space-y-3">
+        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">
+          📱 Slide Carousel & Visual Prompts:
+        </h4>
+        <div id="slides-container" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      </div>
+
+      <!-- Caption & Citations Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-xs font-bold text-purple-400 block">📝 Caption Lengkap Media Sosial:</span>
+          <p id="res-caption" class="text-xs text-slate-300 whitespace-pre-line leading-relaxed"></p>
+          <div class="pt-2 text-xs text-slate-400">
+            <span class="font-semibold text-slate-300">Call to Action (CTA):</span> <span id="res-cta"></span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-xs font-bold text-cyan-400 block">📚 Sitasi Sumber Resmi (Kemenkes & WHO):</span>
+          <ul id="res-sources" class="text-xs text-slate-300 space-y-1 list-disc list-inside"></ul>
+
+          <div class="pt-4 border-t border-slate-900">
+            <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Konsensus Sidang Pleno:</span>
+            <p id="res-notes" class="text-[11px] text-slate-400 italic"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const canvas = document.getElementById('iso-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let eventSource = null;
+    let fullOutputMarkdown = "";
+
+    const state = {
+      activeAgent: null,
+      isMeeting: false,
+      meetingBoardText: "AGENDA: Edukasi Bebas Hoaks\n1. Angle Aktual\n2. Sitasi Kemenkes/WHO\n3. Verifikasi Medis",
+      characters: {
+        1: { name: "Dr. Idea", deskX: 2.2, deskY: 6.8, currX: 2.2, currY: 6.8, color: '#f59e0b', hair: '#332211', shirt: '#d97706' },
+        2: { name: "Nexus", deskX: 4.5, deskY: 5.2, currX: 4.5, currY: 5.2, color: '#06b6d4', hair: '#112233', shirt: '#0891b2' },
+        3: { name: "Canvas", deskX: 7.0, deskY: 6.5, currX: 7.0, currY: 6.5, color: '#a855f7', hair: '#221133', shirt: '#9333ea' },
+        4: { name: "Dr. Verif", deskX: 9.0, deskY: 8.0, currX: 9.0, currY: 8.0, color: '#f43f5e', hair: '#111111', shirt: '#e11d48' },
+        user: { name: "Ical", deskX: 7.5, deskY: 10.5, currX: 7.5, currY: 10.5, color: '#6366f1', hair: '#0f172a', shirt: '#4f46e5' }
+      }
+    };
+
+    const ORIGIN_X = 480;
+    const ORIGIN_Y = 140;
+    const TILE_W = 64;
+    const TILE_H = 32;
+
+    function toIso(x, y, z = 0) {
+      return {
+        x: ORIGIN_X + (x - y) * (TILE_W / 2),
+        y: ORIGIN_Y + (x + y) * (TILE_H / 2) - z
+      };
+    }
+
+    function drawFloor() {
+      const GRID_SIZE = 13;
+      for (let x = 0; x < GRID_SIZE; x++) {
+        for (let y = 0; y < GRID_SIZE; y++) {
+          const pt = toIso(x, y);
+          const isCenter = (x >= 2 && x <= 10 && y >= 3 && y <= 11);
+          const isMeetingRoom = (x <= 5 && y <= 4);
+
+          ctx.beginPath();
+          ctx.moveTo(pt.x, pt.y);
+          ctx.lineTo(pt.x + TILE_W/2, pt.y + TILE_H/2);
+          ctx.lineTo(pt.x, pt.y + TILE_H);
+          ctx.lineTo(pt.x - TILE_W/2, pt.y + TILE_H/2);
+          ctx.closePath();
+
+          if (isMeetingRoom) {
+            ctx.fillStyle = (x + y) % 2 === 0 ? '#1e293b' : '#1a2234';
+          } else if (isCenter) {
+            ctx.fillStyle = (x + y) % 2 === 0 ? '#f1f5f9' : '#e2e8f0';
+          } else {
+            ctx.fillStyle = (x + y) % 2 === 0 ? '#d97706' : '#b45309';
+          }
+          ctx.fill();
+          ctx.strokeStyle = '#0f172a22';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+
+    function drawWalls() {
+      const pTopLeft = toIso(0, 0, 160);
+      const pBotLeft = toIso(0, 0, 0);
+      const pCorner = toIso(13, 0, 0);
+      const pCornerTop = toIso(13, 0, 160);
+      
+      ctx.fillStyle = '#cbd5e1';
+      ctx.beginPath();
+      ctx.moveTo(pTopLeft.x, pTopLeft.y);
+      ctx.lineTo(pBotLeft.x, pBotLeft.y);
+      ctx.lineTo(pCorner.x, pCorner.y);
+      ctx.lineTo(pCornerTop.x, pCornerTop.y);
+      ctx.closePath();
+      ctx.fill();
+
+      // Jendela
+      const w1 = toIso(8, 0, 60);
+      ctx.fillStyle = '#bae6fd';
+      ctx.fillRect(w1.x - 40, w1.y - 40, 80, 50);
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(w1.x - 40, w1.y - 40, 80, 50);
+
+      // Board Papan Ruang Rapat
+      const bPos = toIso(2.5, 0, 70);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(bPos.x - 65, bPos.y - 40, 130, 70);
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(bPos.x - 65, bPos.y - 40, 130, 70);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 8px monospace';
+      ctx.fillText("RUANG RAPAT REDAKSI", bPos.x - 55, bPos.y - 25);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '7px sans-serif';
+      const lines = state.meetingBoardText.split('\n');
+      lines.forEach((line, idx) => {
+        ctx.fillText(line, bPos.x - 55, bPos.y - 12 + (idx * 11));
+      });
+
+      // Railing Kaca Ruang Rapat
+      ctx.strokeStyle = '#0284c788';
+      ctx.fillStyle = '#0284c722';
+      ctx.lineWidth = 2;
+      const r1 = toIso(0, 4.5, 0);
+      const r2 = toIso(5.5, 4.5, 0);
+      const r1Top = toIso(0, 4.5, 30);
+      const r2Top = toIso(5.5, 4.5, 30);
+
+      ctx.beginPath();
+      ctx.moveTo(r1.x, r1.y);
+      ctx.lineTo(r2.x, r2.y);
+      ctx.lineTo(r2Top.x, r2Top.y);
+      ctx.lineTo(r1Top.x, r1Top.y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawMeetingTable() {
+      const pos = toIso(2.5, 2.5);
+      ctx.fillStyle = '#78350f';
+      ctx.beginPath();
+      ctx.ellipse(pos.x, pos.y, 75, 32, -0.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#451a03';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      const chairAngles = [0, 0.9, 1.8, 2.7, 3.6, 4.5, 5.4];
+      chairAngles.forEach(ang => {
+        const cx = pos.x + Math.cos(ang) * 65;
+        const cy = pos.y + Math.sin(ang) * 28;
+        ctx.fillStyle = '#334155';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function drawDesk(x, y, isLampActive = false) {
+      const p = toIso(x, y);
+
+      ctx.fillStyle = '#00000015';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y + 6, 26, 14, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(p.x - 22, p.y - 10);
+      ctx.lineTo(p.x + 8, p.y - 25);
+      ctx.lineTo(p.x + 24, p.y - 12);
+      ctx.lineTo(p.x - 6, p.y + 3);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(p.x - 22, p.y - 10); ctx.lineTo(p.x - 22, p.y + 12);
+      ctx.moveTo(p.x + 24, p.y - 12); ctx.lineTo(p.x + 24, p.y + 10);
+      ctx.stroke();
+
+      // Monitor
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(p.x + 2, p.y - 32, 16, 12);
+      ctx.fillStyle = isLampActive ? '#38bdf8' : '#1e293b';
+      ctx.fillRect(p.x + 3, p.y - 31, 14, 10);
+
+      // Lampu Meja
+      ctx.fillStyle = isLampActive ? '#38bdf8' : '#94a3b8';
+      ctx.beginPath();
+      ctx.arc(p.x - 12, p.y - 12, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (isLampActive) {
+        ctx.fillStyle = '#38bdf833';
+        ctx.beginPath();
+        ctx.arc(p.x - 12, p.y - 12, 10, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawCharacter(c, isActive = false) {
+      const p = toIso(c.currX, c.currY);
+
+      ctx.fillStyle = '#00000022';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y + 14, 10, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y + 8, 9, 7, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = c.shirt;
+      ctx.beginPath();
+      ctx.roundRect(p.x - 7, p.y - 8, 14, 15, 4);
+      ctx.fill();
+
+      ctx.fillStyle = '#fbcfe8';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y - 15, 6.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = c.hair;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y - 18, 6.5, Math.PI, Math.PI * 2);
+      ctx.fill();
+
+      if (isActive) {
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(p.x + 10, p.y - 26, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function drawCat(x, y) {
+      const p = toIso(x, y);
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, 8, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(p.x + 6, p.y - 4, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#ea580c';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(p.x - 7, p.y);
+      ctx.quadraticCurveTo(p.x - 12, p.y - 6, p.x - 10, p.y - 10);
+      ctx.stroke();
+    }
+
+    function drawPlant(x, y) {
+      const p = toIso(x, y);
+      ctx.fillStyle = '#b45309';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, 7, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillRect(p.x - 5, p.y - 8, 10, 8);
+      ctx.fillStyle = '#16a34a';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y - 14, 9, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function renderOffice() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      drawFloor();
+      drawWalls();
+      drawMeetingTable();
+
+      drawPlant(0.5, 7);
+      drawPlant(12, 4);
+      drawPlant(11, 11);
+
+      drawDesk(2, 6.5, state.activeAgent === 1);
+      drawDesk(4.5, 5, state.activeAgent === 2);
+      drawDesk(7, 6.2, state.activeAgent === 3);
+      drawDesk(9, 7.8, state.activeAgent === 4);
+      drawDesk(7.5, 10, false);
+
+      Object.keys(state.characters).forEach(key => {
+        const c = state.characters[key];
+        const isAct = (key == state.activeAgent);
+        drawCharacter(c, isAct);
+      });
+
+      drawCat(8.5, 9.2);
+
+      requestAnimationFrame(renderOffice);
+    }
+
+    renderOffice();
+
+    function showSpeech(name, text, x, y) {
+      const bubble = document.getElementById('active-speech');
+      const nameEl = document.getElementById('speech-agent-name');
+      const textEl = document.getElementById('speech-text');
+
+      nameEl.innerText = name + ':';
+      textEl.innerText = text;
+
+      bubble.style.left = x + 'px';
+      bubble.style.top = y + 'px';
+      bubble.classList.remove('hidden');
+    }
+
+    function hideSpeech() {
+      document.getElementById('active-speech').classList.add('hidden');
+    }
+
+    function moveToMeetingRoom() {
+      state.isMeeting = true;
+      document.getElementById('badge-rapat-status').className = 'w-2 h-2 rounded-full bg-blue-500 animate-ping';
+      
+      state.characters[1].currX = 1.6; state.characters[1].currY = 2.0;
+      state.characters[2].currX = 2.4; state.characters[2].currY = 1.4;
+      state.characters[3].currX = 3.4; state.characters[3].currY = 2.0;
+      state.characters[4].currX = 3.0; state.characters[4].currY = 3.4;
+      state.characters.user.currX = 1.8; state.characters.user.currY = 3.2;
+
+      document.getElementById('badge-agent-1').style.left = '230px';
+      document.getElementById('badge-agent-1').style.top = '170px';
+
+      document.getElementById('badge-agent-2').style.left = '320px';
+      document.getElementById('badge-agent-2').style.top = '150px';
+
+      document.getElementById('badge-agent-3').style.left = '390px';
+      document.getElementById('badge-agent-3').style.top = '170px';
+
+      document.getElementById('badge-agent-4').style.left = '370px';
+      document.getElementById('badge-agent-4').style.top = '220px';
+    }
+
+    function returnToDesks() {
+      state.isMeeting = false;
+      document.getElementById('badge-rapat-status').className = 'w-2 h-2 rounded-full bg-emerald-400';
+
+      state.characters[1].currX = state.characters[1].deskX;
+      state.characters[1].currY = state.characters[1].deskY;
+      state.characters[2].currX = state.characters[2].deskX;
+      state.characters[2].currY = state.characters[2].deskY;
+      state.characters[3].currX = state.characters[3].deskX;
+      state.characters[3].currY = state.characters[3].deskY;
+      state.characters[4].currX = state.characters[4].deskX;
+      state.characters[4].currY = state.characters[4].deskY;
+
+      document.getElementById('badge-agent-1').style.left = '170px';
+      document.getElementById('badge-agent-1').style.top = '270px';
+
+      document.getElementById('badge-agent-2').style.left = '330px';
+      document.getElementById('badge-agent-2').style.top = '220px';
+
+      document.getElementById('badge-agent-3').style.left = '510px';
+      document.getElementById('badge-agent-3').style.top = '260px';
+
+      document.getElementById('badge-agent-4').style.left = '680px';
+      document.getElementById('badge-agent-4').style.top = '320px';
+    }
+
+    const agentCoords = {
+      1: { x: 230, y: 250 },
+      2: { x: 380, y: 200 },
+      3: { x: 550, y: 240 },
+      4: { x: 720, y: 300 }
+    };
+
+    function startPipeline() {
+      const topic = document.getElementById('topic-input').value.trim();
+      if (!topic) {
+        alert("Silakan masukkan ide atau topik konten terlebih dahulu!");
+        return;
+      }
+
+      returnToDesks();
+      hideSpeech();
+      document.getElementById('result-section').classList.add('hidden');
+      document.getElementById('office-status').innerHTML = '<span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span> Agen Sedang Bekerja...';
+
+      const btn = document.getElementById('btn-run');
+      btn.disabled = true;
+
+      const url = `/api/stream-pipeline?topic=${encodeURIComponent(topic)}`;
+      if (eventSource) eventSource.close();
+      eventSource = new EventSource(url);
+
+      eventSource.onmessage = function(event) {
+        const msg = JSON.parse(event.data);
+
+        if (msg.type === 'agent_start') {
+          state.activeAgent = msg.agent_id;
+          if (msg.agent_id === 5) {
+            moveToMeetingRoom();
+            state.meetingBoardText = "SIDANG PLENO:\nRapat Redaksi Dimulai...\nEvaluasi Skor Medis";
+            showSpeech("Rapat Pleno", msg.thought, 380, 100);
+          } else {
+            const coord = agentCoords[msg.agent_id];
+            showSpeech(msg.agent_name, msg.thought, coord.x, coord.y);
+          }
+        }
+        else if (msg.type === 'agent_complete') {
+          if (msg.agent_id < 5) {
+            const countEl = document.getElementById(`count-${msg.agent_id}`);
+            if (countEl) countEl.innerText = '✓';
+          }
+        }
+        else if (msg.type === 'pipeline_finished') {
+          eventSource.close();
+          btn.disabled = false;
+          state.activeAgent = null;
+
+          document.getElementById('office-status').innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Keputusan Pleno Disahkan ✓';
+          state.meetingBoardText = "SIDANG SELESAI:\nKonsensus Disetujui ✓\nSkor Medis: " + msg.data.pleno.medical_score + "/100";
+          showSpeech("Rapat Pleno", "Konsensus tercapai! Seluruh data terverifikasi dan naskah siap tayang.", 380, 100);
+
+          renderFinalResult(msg.data);
+        }
+        else if (msg.type === 'error') {
+          eventSource.close();
+          btn.disabled = false;
+          alert('Error: ' + msg.message);
+        }
+      };
+
+      eventSource.onerror = function() {
+        eventSource.close();
+        btn.disabled = false;
+      };
+    }
+
+    function renderFinalResult(data) {
+      const resSection = document.getElementById('result-section');
+      resSection.classList.remove('hidden');
+
+      document.getElementById('res-topic').innerText = data.idea.topic;
+      document.getElementById('res-audience').innerText = `Target Audiens: ${data.idea.target_audience} | Angle: ${data.idea.angle}`;
+      document.getElementById('score-medical').innerText = `${data.pleno.medical_score}/100`;
+      document.getElementById('score-virality').innerText = `${data.pleno.engagement_score}/100`;
+
+      const content = data.pleno.final_content || data.draft;
+      document.getElementById('res-hook').innerText = content.hook;
+      document.getElementById('res-caption').innerText = content.caption;
+      document.getElementById('res-cta').innerText = content.call_to_action;
+      document.getElementById('res-notes').innerText = data.pleno.editorial_consensus_notes;
+
+      const sourcesUl = document.getElementById('res-sources');
+      sourcesUl.innerHTML = '';
+      (data.audit.approved_citations || []).forEach(src => {
+        const li = document.createElement('li');
+        li.innerText = src;
+        sourcesUl.appendChild(li);
+      });
+
+      const slidesContainer = document.getElementById('slides-container');
+      slidesContainer.innerHTML = '';
+      (content.slides || []).forEach(s => {
+        const slideCard = document.createElement('div');
+        slideCard.className = 'p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5';
+        slideCard.innerHTML = `
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span class="font-bold text-white">Slide ${s.slide_number}: ${s.headline}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Carousel</span>
+          </div>
+          <p class="text-xs text-slate-300">${s.body_text}</p>
+          <div class="mt-2 pt-2 border-t border-slate-900 text-[11px] text-purple-300">
+            <span class="font-semibold text-purple-400">Prompt Visual AI:</span>
+            <p class="font-mono text-slate-400 text-[10px] mt-0.5">${s.image_prompt}</p>
+          </div>
+        `;
+        slidesContainer.appendChild(slideCard);
+      });
+
+      fullOutputMarkdown = `# ${data.idea.topic}\n\n**Hook:** ${content.hook}\n\n## Slide Content:\n` +
+        content.slides.map(s => `### Slide ${s.slide_number}: ${s.headline}\n${s.body_text}\n*Prompt:* ${s.image_prompt}`).join('\n\n') +
+        `\n\n## Caption:\n${content.caption}\n\n**CTA:** ${content.call_to_action}\n\n## Sumber:\n` +
+        data.audit.approved_citations.map(c => `- ${c}`).join('\n');
+
+      resSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyFullContent() {
+      if (!fullOutputMarkdown) return;
+      navigator.clipboard.writeText(fullOutputMarkdown).then(() => {
+        alert("✓ Seluruh paket konten berhasil disalin ke clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>

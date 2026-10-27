@@ -6,7 +6,7 @@ from google.genai import types
 from models import IdeaOutput, ResearchOutput, ContentDraft, FactCheckAudit, PlenoDecision
 
 class HealthAgentsPipeline:
-    def __init__(self, api_key: Optional[str] = None, model_name: str = "gemini-2.5-flash"):
+    def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
         """
         Inisialisasi pipeline agen edukasi kesehatan menggunakan Google Gemini API.
         """
@@ -16,7 +16,7 @@ class HealthAgentsPipeline:
                 "GEMINI_API_KEY tidak ditemukan! Set env variable GEMINI_API_KEY atau masukkan saat inisialisasi."
             )
         self.client = genai.Client(api_key=api_key)
-        self.model_name = model_name
+        self.model_name = model_name or os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 
     def run_ideator(self, raw_input: str) -> IdeaOutput:
         """Agen 1: Merumuskan gagasan pokok, angle unik, dan target audiens."""

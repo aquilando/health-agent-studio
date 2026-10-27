@@ -39,7 +39,7 @@ def main():
 
     if HAS_RICH:
         console.rule("[bold green]🏥 Health Content Multi-Agent Studio[/bold green]")
-        console.print("[dim]Didukung oleh Google Gemini 2.5 & Google Search Grounding[/dim]\n")
+        console.print("[dim]Didukung oleh Google Gemini 3.8 & Google Search Grounding[/dim]\n")
     else:
         print("="*60)
         print("🏥 Health Content Multi-Agent Studio (Gemini)")

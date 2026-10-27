@@ -19,6 +19,10 @@
       50% { transform: scale(1.4); }
       100% { transform: scale(1); }
     }
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .animate-float {
       animation: floatBob 3s ease-in-out infinite;
     }
@@ -27,6 +31,9 @@
     }
     .heart-pop {
       animation: heartPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .animate-spin-slow {
+      animation: spinSlow 8s linear infinite;
     }
     .glass-card {
       background: rgba(18, 24, 38, 0.78);
@@ -83,9 +90,12 @@
               <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
                 Grounding Kemenkes & WHO
               </span>
+              <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                <span>📸</span> Output Slide Jadi Siap Unduh
+              </span>
             </div>
             <p class="text-xs md:text-sm text-slate-400 font-medium mt-0.5">
-              Kantor 3D 2 lantai. Geser untuk memutar, scroll untuk zoom. Agen estafet laporan, lalu naik tangga untuk rapat finalisasi.
+              Kantor 3D 2 lantai. Agen kolaborasi estafet berkas riset, rapat pleno, dan langsung menghasilkan **5 slide gambar jadi 1080x1080** yang siap diunduh!
             </p>
           </div>
         </div>
@@ -246,7 +256,7 @@
 
       </div>
 
-      <!-- Right: Phone Carousel Simulator & Copy Export (4 cols) -->
+      <!-- Right: Phone Carousel Simulator & Direct Download Studio (4 cols) -->
       <div id="phone-container" class="lg:col-span-4 flex flex-col gap-3">
         
         <!-- Smartphone Chassis (Titanium iPhone 16 Pro Edition) -->
@@ -266,7 +276,7 @@
             </div>
           </div>
 
-          <!-- Social Header -->
+          <!-- Social Header & View Mode Switcher -->
           <div class="flex items-center justify-between py-2 border-b border-slate-800/90 text-xs mt-1">
             <div class="flex items-center gap-2.5">
               <div class="relative w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-indigo-500 p-0.5 shrink-0">
@@ -277,62 +287,79 @@
               <div>
                 <div class="font-bold flex items-center gap-1 text-[11px] leading-tight text-white">
                   klinik.edukasi.ai
-                  <svg class="w-3.5 h-3.5 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <svg class="w-3.5 h-3.5 text-cyan-400 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                 </div>
-                <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI • 128k Followers</div>
+                <div class="text-[9px] text-slate-400">Verifikasi Kemenkes RI • Siap Tayang</div>
               </div>
             </div>
-            <span class="text-[10px] text-indigo-400 font-semibold bg-indigo-950/80 px-2.5 py-0.5 rounded-full border border-indigo-800/80">
-              Mengikuti
-            </span>
+
+            <!-- Display Style Switcher Pill -->
+            <div class="flex items-center gap-1 bg-slate-900/90 p-0.5 rounded-xl border border-slate-800 text-[10px]">
+              <button onclick="setSlideDisplayMode('full')" id="btn-mode-full" class="px-2 py-0.5 rounded-lg bg-indigo-600 text-white font-semibold transition">
+                Post Lengkap
+              </button>
+              <button onclick="setSlideDisplayMode('art')" id="btn-mode-art" class="px-2 py-0.5 rounded-lg text-slate-400 hover:text-white font-semibold transition">
+                Gambar AI
+              </button>
+            </div>
           </div>
 
-          <!-- Carousel Slide Card Display (1:1 Ratio) -->
-          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 transition-all duration-300 ring-1 ring-white/10" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
+          <!-- Carousel Slide Card Display (1:1 Ratio with AI Image + Clean Typography) -->
+          <div class="relative w-full aspect-square my-2.5 rounded-2xl overflow-hidden shadow-2xl flex flex-col justify-between p-3.5 transition-all duration-300 ring-1 ring-white/10 group" id="slide-background" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);">
             
-            <!-- Top Slide Badge -->
-            <div class="flex items-center justify-between z-10">
-              <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 uppercase tracking-wider">
+            <!-- Real Rendered AI Image Layer -->
+            <img id="slide-img-element" crossorigin="anonymous" src="" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-0" alt="Visual Edukasi Kesehatan">
+            
+            <!-- Dark Contrast Vignette Scrim for Text Readability -->
+            <div id="slide-scrim" class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/65 to-black/35 z-1 transition-opacity"></div>
+
+            <!-- Loading Spinner Placeholder for AI Image -->
+            <div id="slide-img-loader" class="hidden absolute inset-0 z-2 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center gap-2">
+              <div class="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin"></div>
+              <span class="text-[10px] text-indigo-300 font-mono font-medium">🎨 Merender Gambar AI...</span>
+            </div>
+
+            <!-- Top Slide Badge & Page Indicator -->
+            <div id="slide-top-bar" class="flex items-center justify-between z-10">
+              <span id="slide-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-black/60 backdrop-blur-md text-white border border-white/20 uppercase tracking-wider shadow-sm">
                 SLIDE 1 • HOOK UTAMA
               </span>
-              <span id="slide-index-counter" class="text-[10px] font-mono bg-black/50 px-2 py-0.5 rounded-full text-slate-200">
+              <span id="slide-index-counter" class="text-[10px] font-mono bg-black/60 backdrop-blur-md px-2 py-0.5 rounded-full text-slate-200 border border-white/20 shadow-sm">
                 1 / 5
               </span>
             </div>
 
-            <!-- Slide Main Text -->
-            <div class="my-auto z-10 space-y-2">
-              <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-tight drop-shadow-md">
+            <!-- Slide Main Text Box (Overlay) -->
+            <div id="slide-text-box" class="my-auto z-10 space-y-2 py-1">
+              <h2 id="slide-title" class="text-base sm:text-lg font-black text-white leading-tight drop-shadow-lg">
                 Bener Nggak Sih Minum Air Es Bikin Lemak Perut Menggumpal? 🧊
               </h2>
-              <p id="slide-body" class="text-xs text-indigo-100 font-medium leading-relaxed drop-shadow">
+              <p id="slide-body" class="text-xs text-slate-200 font-medium leading-relaxed drop-shadow bg-black/40 backdrop-blur-sm p-2 rounded-xl border border-white/10">
                 Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!
               </p>
-              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/40 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-500/25">
+              <div id="slide-source-tag" class="inline-block text-[10px] font-mono bg-black/60 text-cyan-300 px-2.5 py-0.5 rounded-md border border-cyan-500/30 backdrop-blur-sm">
                 🔍 Sumber: Kemenkes RI & Clinical Endocrinology
               </div>
             </div>
 
-            <!-- Bottom Prompt Box -->
-            <div class="z-10 bg-black/60 backdrop-blur-md rounded-xl p-2.5 border border-white/10 text-[9px] text-slate-300 space-y-1">
-              <div class="flex items-center justify-between">
-                <span class="text-amber-400 font-bold flex items-center gap-1">
-                  <span>🎨</span> AI Image Prompt (Leo):
+            <!-- Bottom Prompt & Direct Action Bar Inside Slide -->
+            <div id="slide-bottom-bar" class="z-10 bg-black/70 backdrop-blur-md rounded-xl p-2 border border-white/15 text-[9px] text-slate-300 flex items-center justify-between gap-2 shadow-lg">
+              <div class="flex items-center gap-1.5 truncate">
+                <span class="text-amber-400 font-bold shrink-0">🎨 AI:</span>
+                <span id="slide-prompt-preview" class="italic truncate text-slate-200 font-mono text-[9px]">
+                  "Ultra-realistic 3D medical visual of human stomach digesting iced water..."
                 </span>
-                <button id="btn-copy-prompt-card" onclick="copyCurrentPrompt()" title="Salin Prompt Gambar untuk Slide ini" class="px-2 py-0.5 rounded bg-amber-500/25 hover:bg-amber-500/40 text-amber-300 font-bold border border-amber-500/40 transition flex items-center gap-1 active:scale-95">
-                  <span id="copy-prompt-icon">📋</span> <span id="copy-prompt-text">Salin Prompt</span>
-                </button>
               </div>
-              <p id="slide-prompt" class="italic line-clamp-2 text-slate-200 font-mono">
-                "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render."
-              </p>
+              <button onclick="downloadCurrentSlidePNG()" title="Unduh Slide Ini Sebagai Gambar PNG 1080x1080 Siap Pakai" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition flex items-center gap-1 shadow-sm shrink-0 active:scale-95">
+                <span>📥</span> Unduh PNG
+              </button>
             </div>
 
             <!-- Slide Nav Arrows -->
-            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90">
+            <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 text-white flex items-center justify-center text-sm backdrop-blur-sm z-20 transition border border-white/20 active:scale-90 shadow-md">
               ‹
             </button>
-            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center text-xs backdrop-blur-sm z-20 transition border border-white/10 active:scale-90">
+            <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 text-white flex items-center justify-center text-sm backdrop-blur-sm z-20 transition border border-white/20 active:scale-90 shadow-md">
               ›
             </button>
           </div>
@@ -351,8 +378,8 @@
               </button>
             </div>
             <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
-              <button onclick="copyCurrentSlideText()" title="Salin Judul & Teks Slide Ini Saja" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
-                📄 Teks Slide
+              <button onclick="downloadRawAIImage(currentSlide)" title="Unduh Hanya Gambar AI Mentah (HD)" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
+                🖼️ Gambar Mentah
               </button>
               <button onclick="copyCaption()" title="Salin Teks Caption & Hashtag" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-indigo-300 font-semibold flex items-center gap-1 border border-slate-700 transition active:scale-95">
                 📋 Caption
@@ -366,7 +393,7 @@
           </div>
 
           <!-- Caption Preview -->
-          <div class="text-[11px] text-slate-300 space-y-1 bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800/80 max-h-36 overflow-y-auto">
+          <div class="text-[11px] text-slate-300 space-y-1 bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800/80 max-h-32 overflow-y-auto">
             <p>
               <strong class="text-white">klinik.edukasi.ai</strong>
               <span id="caption-body">
@@ -380,20 +407,27 @@
 
         </div>
 
-        <!-- Quick Copy Action Buttons -->
+        <!-- Quick Download & Export Action Hub -->
         <div class="space-y-2">
-          <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white font-bold text-xs shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 transition active:scale-95">
-            <span>📦</span> Salin Paket Lengkap (5 Slide + Prompt AI)
+          
+          <!-- Primary: 1-Click Download All 5 Slides Finished PNG -->
+          <button onclick="downloadAllSlidesPNG()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-600 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-xl shadow-emerald-600/25 flex items-center justify-center gap-2 transition active:scale-95">
+            <span>📥</span> Unduh Semua 5 Slide Jadi (Batch PNG 1080x1080)
           </button>
           
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <button onclick="copyAllPromptsOnly()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-400 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
-              <span>🎨</span> Salin Semua Prompt
+            <button onclick="openExportModal()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-indigo-500/30 text-indigo-300 font-bold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+              <span>📑</span> Galeri & Unduh Per Slide
             </button>
-            <button onclick="openExportModal()" class="py-2 px-2.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
-              <span>📑</span> Buka Daftar Slide
+            <button onclick="downloadAllRawImages()" class="py-2.5 px-3 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-amber-300 font-semibold transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+              <span>🎨</span> Unduh Semua Gambar AI
             </button>
           </div>
+
+          <button onclick="copyAllSlidesAndPrompts()" class="w-full py-2 px-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition active:scale-95">
+            <span>📦</span> Salin Paket Teks & Prompts (Markdown)
+          </button>
+
         </div>
 
       </div>
@@ -574,28 +608,28 @@
 
   </div>
 
-  <!-- Fullscreen Modal: Daftar Naskah Slide & Semua Prompt AI -->
-  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-    <div class="relative w-full max-w-3xl bg-[#121622] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[90vh]">
+  <!-- Fullscreen Modal: Galeri Slide Lengkap & Download Center -->
+  <div id="export-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 md:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-[#121622] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
       
       <!-- Modal Header -->
-      <div class="p-4 md:p-5 border-b border-slate-800 flex items-center justify-between gap-3 bg-[#0e121c]">
+      <div class="p-4 md:p-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0e121c]">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xl font-bold border border-indigo-500/30">
             📑
           </div>
           <div>
-            <h2 class="text-sm md:text-base font-bold text-white">Daftar Naskah Carousel & AI Visual Prompts</h2>
-            <p class="text-xs text-slate-400">Salin naskah per slide atau unduh seluruh naskah Markdown</p>
+            <h2 class="text-sm md:text-base font-bold text-white">Galeri Slide Edukasi & Pusat Unduh PNG</h2>
+            <p class="text-xs text-slate-400">Semua slide sudah dilengkapi gambar visual AI dan siap diunduh langsung (1080x1080)</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
-          <button onclick="downloadMarkdownFile()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
-            <span>💾</span> Unduh .MD
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="downloadAllSlidesPNG()" class="px-3.5 py-1.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
+            <span>📥</span> Unduh Semua (5 Slide)
           </button>
-          <button onclick="copyAllSlidesAndPrompts()" class="px-3.5 py-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-600 hover:to-violet-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md active:scale-95">
-            <span>📦</span> Salin Semua
+          <button onclick="downloadMarkdownFile()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition flex items-center gap-1 border border-slate-700 active:scale-95">
+            <span>💾</span> Unduh .MD
           </button>
           <button onclick="closeExportModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center transition text-sm">
             ✕
@@ -603,16 +637,16 @@
         </div>
       </div>
 
-      <!-- Modal Body (List of Slides & Prompts) -->
+      <!-- Modal Body (Grid of Visual Slide Cards) -->
       <div id="modal-slides-list" class="p-4 md:p-6 space-y-4 overflow-y-auto">
         <!-- Rendered dynamically -->
       </div>
 
       <!-- Modal Footer -->
       <div class="p-4 border-t border-slate-800 bg-[#0e121c] flex items-center justify-between text-xs">
-        <span class="text-slate-400 font-mono">Format Instagram & Midjourney / Flux Ready</span>
+        <span class="text-slate-400 font-mono">Format 1080x1080 Standar Instagram & TikTok Carousel</span>
         <button onclick="closeExportModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-semibold text-slate-200 transition">
-          Tutup
+          Tutup Galeri
         </button>
       </div>
 
@@ -794,7 +828,7 @@
         currentPos: { x: -60, y: -70, z: 0 },
         status: "idle",
         walkPhase: 0,
-        thought: "✍️ Tulis carousel & prompt AI..."
+        thought: "✍️ Tulis naskah & render gambar..."
       },
       {
         id: 4,
@@ -825,7 +859,7 @@
         currentPos: { x: 120, y: -110, z: 95 },
         status: "idle",
         walkPhase: 3,
-        thought: "⚖️ Sidang Pleno siap dibuka..."
+        thought: "⚖️ Pengesahan slide final..."
       }
     ];
 
@@ -900,10 +934,7 @@
         document.getElementById('angle-display').textContent = `${Math.round(camera.angle * (180 / Math.PI)) % 360}°`;
       }
 
-      // ==========================================
-      // 1. LANTAI 1 (WORKSTATIONS & LAB RISET)
-      // ==========================================
-      // Alas Lantai 1 dengan shadow halus
+      // 1. Lantai 1 (Workstations)
       draw3DBox(-40, 0, -20, 420, 300, 20, '#f8fafc', '#cbd5e1', '#94a3b8');
 
       // Grid Tiles Lantai 1
@@ -921,12 +952,12 @@
       // Meja Kerja Lantai 1
       const deskColor = '#ffffff';
       const deskSide = '#e2e8f0';
-      draw3DBox(-160, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1'); // Meja Dr. Idea
-      draw3DBox(-160, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');  // Meja Nexus
-      draw3DBox(-60, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');  // Meja Canvas
-      draw3DBox(-60, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');   // Meja Dr. Verif
+      draw3DBox(-160, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-160, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-60, -70, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');
+      draw3DBox(-60, 50, 0, 52, 42, 22, deskColor, deskSide, '#cbd5e1');
 
-      // Dual Curved Monitor dengan Layar Bercahaya
+      // Dual Monitors
       function drawMonitor(dx, dy, dz, glowColor, label) {
         draw3DBox(dx, dy - 12, dz + 22, 24, 4, 16, '#334155', '#1e293b', '#0f172a');
         const screenPt = project(dx, dy - 10, dz + 30);
@@ -942,7 +973,7 @@
       drawMonitor(-60, -70, 0, '#c084fc', 'DRAW');
       drawMonitor(-60, 50, 0, '#fb7185', 'AUDIT');
 
-      // Water Dispenser & Coffee Station di Pojok Lantai 1
+      // Water Dispenser & Coffee Station di Pojok
       draw3DBox(-210, 80, 0, 20, 20, 36, '#0284c7', '#0369a1', '#075985');
       draw3DBox(-210, 80, 36, 14, 14, 18, 'rgba(56, 189, 248, 0.7)', '#38bdf8', '#0284c7');
       const mugPt = project(-200, 75, 38);
@@ -951,7 +982,7 @@
       ctx.fillStyle = '#f59e0b';
       ctx.fill();
 
-      // Tanaman Monstera di Lantai 1
+      // Tanaman Monstera
       function drawPlant(px, py, pz) {
         draw3DBox(px, py, pz, 16, 16, 14, '#b45309', '#92400e', '#78350f');
         const leafPt = project(px, py, pz + 24);
@@ -963,18 +994,10 @@
       drawPlant(-210, -120, 0);
       drawPlant(-210, 120, 0);
 
-      // Whiteboard Riset Lantai 1
+      // Whiteboard Riset
       draw3DBox(-230, 0, 0, 8, 80, 50, '#f1f5f9', '#e2e8f0', '#cbd5e1');
-      const post1 = project(-226, -20, 32);
-      ctx.fillStyle = '#f59e0b';
-      ctx.fillRect(post1.x - 3, post1.y - 3, 6, 6);
-      const post2 = project(-226, 10, 25);
-      ctx.fillStyle = '#06b6d4';
-      ctx.fillRect(post2.x - 3, post2.y - 3, 6, 6);
 
-      // ==========================================
-      // 2. TANGGA PENGHUBUNG (LANTAI 1 KE LANTAI 2)
-      // ==========================================
+      // 2. Tangga Penghubung
       const numSteps = 10;
       for (let s = 0; s < numSteps; s++) {
         const stepZ = (s / numSteps) * 95;
@@ -982,7 +1005,7 @@
         const stepY = 90 - s * 12;
         draw3DBox(stepX, stepY, stepZ, 46, 14, 8, '#e2e8f0', '#cbd5e1', '#94a3b8');
 
-        // Cyan LED Step Guide Light
+        // Cyan LED Guide Light
         const ledPt = project(stepX, stepY + 5, stepZ + 8);
         ctx.beginPath();
         ctx.arc(ledPt.x, ledPt.y, 2 * camera.zoom, 0, Math.PI * 2);
@@ -990,7 +1013,7 @@
         ctx.fill();
       }
 
-      // Pegangan Tangga (Silver Blue Handrail)
+      // Handrail
       const rBottom = project(68, 95, 15);
       const rTop = project(68, -30, 115);
       ctx.beginPath();
@@ -1000,13 +1023,10 @@
       ctx.lineWidth = 3.5;
       ctx.stroke();
 
-      // ==========================================
-      // 3. LANTAI 2 (RUANG RAPAT FINALISASI / MEZZANINE)
-      // ==========================================
-      // Lantai Kayu Walnut Mezanin
+      // 3. Lantai 2 (Mezzanine)
       draw3DBox(120, -60, 95 - 16, 230, 190, 16, '#fbf7ee', '#d4a373', '#b45309');
 
-      // Karpet Ruang Rapat Lantai 2
+      // Karpet Rapat
       draw3DQuad(
         { x: 30, y: -130, z: 95.5 },
         { x: 210, y: -130, z: 95.5 },
@@ -1016,11 +1036,11 @@
         'rgba(129, 140, 248, 0.4)'
       );
 
-      // Meja Konferensi Besar di Lantai 2 (Mahogany)
+      // Meja Konferensi
       draw3DBox(120, -60, 95, 96, 66, 22, '#92400e', '#78350f', '#451a03');
-      draw3DBox(120, -60, 95 + 22, 20, 12, 3, '#1e293b', '#0f172a', '#020617'); // Laptop Pimpinan
+      draw3DBox(120, -60, 95 + 22, 20, 12, 3, '#1e293b', '#0f172a', '#020617');
 
-      // Lampu Gantung Mezanin (Executive Pendant Light)
+      // Lampu Gantung Spotlight
       const lampPt = project(120, -60, 95 + 60);
       const lampCordPt = project(120, -60, 95 + 110);
       ctx.beginPath();
@@ -1029,13 +1049,11 @@
       ctx.strokeStyle = '#94a3b8';
       ctx.lineWidth = 1.2;
       ctx.stroke();
-
       ctx.beginPath();
       ctx.arc(lampPt.x, lampPt.y, 8 * camera.zoom, 0, Math.PI);
       ctx.fillStyle = '#f59e0b';
       ctx.fill();
 
-      // Warm Table Spotlight Glow
       const tableGlow = project(120, -60, 95 + 23);
       const grad = ctx.createRadialGradient(tableGlow.x, tableGlow.y, 2, tableGlow.x, tableGlow.y, 38 * camera.zoom);
       grad.addColorStop(0, 'rgba(251, 191, 36, 0.35)');
@@ -1045,17 +1063,10 @@
       ctx.ellipse(tableGlow.x, tableGlow.y, 38 * camera.zoom, 22 * camera.zoom, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Whiteboard Pengesahan Lantai 2
+      // Whiteboard Pleno
       draw3DBox(220, -60, 95, 6, 70, 55, '#ffffff', '#e2e8f0', '#cbd5e1');
-      const wbPt = project(215, -60, 95 + 32);
-      ctx.fillStyle = '#10b981';
-      ctx.fillRect(wbPt.x - 10, wbPt.y - 8, 5, 16);
-      ctx.fillStyle = '#6366f1';
-      ctx.fillRect(wbPt.x - 2, wbPt.y - 14, 5, 22);
-      ctx.fillStyle = '#f43f5e';
-      ctx.fillRect(wbPt.x + 6, wbPt.y - 20, 5, 28);
 
-      // Dinding Kaca Balustrade Lantai 2
+      // Balustrade Glass
       const gEdge1 = project(15, -145, 95);
       const gEdge2 = project(15, 25, 95);
       const gEdge1Top = project(15, -145, 95 + 24);
@@ -1072,17 +1083,13 @@
       ctx.fill();
       ctx.stroke();
 
-      // ==========================================
-      // 4. ANIMASI ESTAFET BERKAS LAPORAN (DOSSIER)
-      // ==========================================
+      // 4. Estafet Dossier
       dossier.x += (dossier.targetX - dossier.x) * 0.08;
       dossier.y += (dossier.targetY - dossier.y) * 0.08;
       dossier.z += (dossier.targetZ - dossier.z) * 0.08;
 
-      // Particle Trail
       dossier.history.push({ x: dossier.x, y: dossier.y, z: dossier.z });
       if (dossier.history.length > 7) dossier.history.shift();
-
       dossier.history.forEach((h, idx) => {
         const hp = project(h.x, h.y, h.z);
         ctx.beginPath();
@@ -1103,12 +1110,9 @@
       ctx.font = 'bold 9px monospace';
       ctx.fillText('📜', dPt.x - 5, dPt.y + 3);
 
-      // ==========================================
-      // 5. UPDATE POSISI AGEN & NAIK TANGGA
-      // ==========================================
+      // 5. Update Posisi Agen & Thought Bubbles
       agents.forEach((agent) => {
         let target;
-
         if (!isMeetingPhase && agent.id < 5) {
           target = agent.deskPos;
           agent.walkPhase = 0;
@@ -1141,13 +1145,11 @@
         const basePt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z);
         const headPt = project(agent.currentPos.x, agent.currentPos.y, agent.currentPos.z + 32 + bob);
 
-        // Bayangan Kaki
         ctx.beginPath();
         ctx.ellipse(basePt.x, basePt.y, 8 * camera.zoom, 4 * camera.zoom, 0, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
         ctx.fill();
 
-        // Badan / Kemeja
         const bodyHeight = 15 * camera.zoom;
         const bodyWidth = 10 * camera.zoom;
         ctx.beginPath();
@@ -1158,7 +1160,6 @@
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Kepala
         const headRadius = 7.5 * camera.zoom;
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 4 * camera.zoom, headRadius, 0, Math.PI * 2);
@@ -1166,13 +1167,11 @@
         ctx.fill();
         ctx.stroke();
 
-        // Rambut
         ctx.beginPath();
         ctx.arc(headPt.x, headPt.y + 2 * camera.zoom, headRadius * 1.05, Math.PI, Math.PI * 2);
         ctx.fillStyle = agent.hairColor;
         ctx.fill();
 
-        // Aksesori
         if (agent.accessory === 'stethoscope') {
           ctx.beginPath();
           ctx.arc(headPt.x, headPt.y + 14 * camera.zoom, 4 * camera.zoom, 0, Math.PI);
@@ -1181,7 +1180,6 @@
           ctx.stroke();
         }
 
-        // Tag Nama di Atas Kepala
         const tagY = headPt.y - 18 * camera.zoom;
         const pillText = `${agent.name}`;
         ctx.font = 'bold 10px monospace';
@@ -1201,7 +1199,6 @@
         ctx.textBaseline = 'middle';
         ctx.fillText(pillText, headPt.x, tagY);
 
-        // Dynamic Speech / Thought Bubbles saat Aktif
         if (agent.status === 'working' || (isMeetingPhase && agent.id === 5)) {
           const bubbleText = agent.thought;
           const bubbleY = headPt.y - 36 * camera.zoom;
@@ -1227,16 +1224,11 @@
           ctx.fillText(bubbleText, headPt.x, bubbleY);
         }
 
-        // Indikator Meja Menyala
         if (agent.status === 'working' && agent.id < 5) {
           const deskLightPt = project(agent.deskPos.x, agent.deskPos.y, 44);
           ctx.beginPath();
           ctx.arc(deskLightPt.x, deskLightPt.y, 5 * camera.zoom, 0, Math.PI * 2);
           ctx.fillStyle = '#22c55e';
-          ctx.fill();
-          ctx.beginPath();
-          ctx.arc(deskLightPt.x, deskLightPt.y, 12 * camera.zoom, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(34, 197, 94, 0.3)';
           ctx.fill();
         }
       });
@@ -1274,7 +1266,6 @@
       camera.zoom = Math.max(0.6, Math.min(2.5, camera.zoom * zoomFactor));
     });
 
-    // Touch Support for Mobile Dragging
     let touchStartX = 0;
     let touchStartY = 0;
     canvas.addEventListener('touchstart', (e) => {
@@ -1412,11 +1403,12 @@
     }
 
     /* ========================================================================
-       SOCIAL MEDIA CAROUSEL POST DISPLAY & CONTROLS
+       SOCIAL MEDIA CAROUSEL POST DISPLAY & COMPLETE DOWNLOAD ENGINE
        ======================================================================== */
     let currentSlide = 0;
     let isLiked = false;
     let likesCount = 2418;
+    let currentDisplayMode = 'full'; // 'full' or 'art'
 
     let slidesData = [
       {
@@ -1425,6 +1417,7 @@
         body: "Banyak orang takut minum es saat diet karena dipercaya membekukan sisa lemak makanan di lambung. Simak penjelasan fakta medis berdasarkan fisiologi tubuh manusia!",
         source: "🔍 Sumber: Kemenkes RI & Clinical Endocrinology",
         prompt: "Ultra-realistic 3D medical visual of human stomach digesting iced water, thermogenesis thermal color gradient, soft studio lighting, 8k octane render.",
+        imageUrl: "https://image.pollinations.ai/prompt/3d%20glass%20of%20water%20with%20crystal%20clear%20ice%20cubes%20and%20floating%20lemon%20slice%2C%20hyperrealistic%20studio%20lighting%2C%20clean%20aesthetic%2C%208k?width=1080&height=1080&nologo=true&seed=101",
         bg: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)"
       },
       {
@@ -1433,6 +1426,7 @@
         body: "Mitos ini mengklaim lemak yang membeku akan menempel di usus dan memicu kanker atau perut buncit. Ini mitos keliru yang tidak memiliki dasar biokimia!",
         source: "❌ Ditepis oleh IDAI & Perhimpunan Dokter Spesialis Penyakit Dalam",
         prompt: "Cross-section 3D glass cup filled with ice cubes melting instantly into body temperature water, clean scientific laboratory aesthetic.",
+        imageUrl: "https://image.pollinations.ai/prompt/solid%20glowing%20ice%20cube%20melting%20into%20clear%20warm%20water%2C%20laboratory%20beaker%2C%20scientific%20dramatic%20red%20and%20blue%20lighting%2C%208k?width=1080&height=1080&nologo=true&seed=202",
         bg: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)"
       },
       {
@@ -1441,6 +1435,7 @@
         body: "Air es apapun yang diminum langsung dihangatkan oleh pembuluh darah di kerongkongan & lambung dalam hitungan detik. Lemak dicerna oleh enzim Lipase & Empedu, bukan oleh suhu air!",
         source: "✅ Validasi Ilmiah: Pedoman Gizi Seimbang Kemenkes RI",
         prompt: "Infographic 3D human body silhouette glowing with warm 37C internal core temperature, scientific biological homeostasis diagram.",
+        imageUrl: "https://image.pollinations.ai/prompt/human%20body%20silhouette%20glowing%20warm%20golden%2037%20degrees%20celsius%20core%20temperature%2C%20homeostasis%20biology%2C%20futuristic%20hologram%2C%208k?width=1080&height=1080&nologo=true&seed=303",
         bg: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)"
       },
       {
@@ -1449,6 +1444,7 @@
         body: "1. Yang bikin gemuk bukan suhu es-nya, melainkan sirup/gula tambahannya!\n2. Hindari air es berlebihan jika sedang migrain aktif atau radang tenggorokan akut.\n3. Air putih dingin 0 kalori aman untuk metabolisme.",
         source: "💡 Rekomendasi Ahli Gizi Klinis",
         prompt: "Modern minimal healthy hydration lifestyle flatlay, clean tumbler, sliced lemon, fresh mint, pastel aesthetic lighting.",
+        imageUrl: "https://image.pollinations.ai/prompt/aesthetic%20modern%20pastel%20tumbler%20with%20clean%20ice%20water%2C%20fresh%20mint%20leaves%20and%20sliced%20citrus%2C%20soft%20morning%20sunlight%2C%208k?width=1080&height=1080&nologo=true&seed=404",
         bg: "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)"
       },
       {
@@ -1457,20 +1453,62 @@
         body: "Jadi jangan takut minum air putih dingin saat cuaca terik. Simpan & share postingan ini ke grup keluarga yang masih sering sebar mitos air es! 💬",
         source: "🏥 Divalidasi oleh Tim Editorial Health Agent Studio",
         prompt: "High aesthetic bookmark save and share ribbon icon, 3D clay pastel badge, verified medical tick symbol.",
+        imageUrl: "https://image.pollinations.ai/prompt/3d%20pastel%20medical%20verified%20shield%20badge%20with%20heart%20and%20stethoscope%2C%20golden%20ribbon%2C%20claymorphism%20clean%20render%2C%208k?width=1080&height=1080&nologo=true&seed=505",
         bg: "linear-gradient(135deg, #31104b 0%, #581c87 50%, #7e22ce 100%)"
       }
     ];
 
+    function setSlideDisplayMode(mode) {
+      currentDisplayMode = mode;
+      const btnFull = document.getElementById('btn-mode-full');
+      const btnArt = document.getElementById('btn-mode-art');
+      const textBox = document.getElementById('slide-text-box');
+      const scrim = document.getElementById('slide-scrim');
+      const bottomBar = document.getElementById('slide-bottom-bar');
+
+      if (mode === 'full') {
+        btnFull.className = 'px-2 py-0.5 rounded-lg bg-indigo-600 text-white font-semibold transition';
+        btnArt.className = 'px-2 py-0.5 rounded-lg text-slate-400 hover:text-white font-semibold transition';
+        if (textBox) textBox.classList.remove('hidden');
+        if (scrim) scrim.classList.remove('opacity-0');
+        if (bottomBar) bottomBar.classList.remove('hidden');
+      } else {
+        btnArt.className = 'px-2 py-0.5 rounded-lg bg-indigo-600 text-white font-semibold transition';
+        btnFull.className = 'px-2 py-0.5 rounded-lg text-slate-400 hover:text-white font-semibold transition';
+        if (textBox) textBox.classList.add('hidden');
+        if (scrim) scrim.classList.add('opacity-0');
+        if (bottomBar) bottomBar.classList.add('hidden');
+      }
+    }
+
     function updateSlideUI() {
       if (!slidesData || slidesData.length === 0) return;
       const s = slidesData[currentSlide];
+
       document.getElementById('slide-badge').textContent = s.badge || `SLIDE ${currentSlide + 1}`;
       document.getElementById('slide-index-counter').textContent = `${currentSlide + 1} / ${slidesData.length}`;
       document.getElementById('slide-title').textContent = s.title;
       document.getElementById('slide-body').textContent = s.body;
       document.getElementById('slide-source-tag').textContent = s.source;
-      document.getElementById('slide-prompt').textContent = `"${s.prompt}"`;
+      document.getElementById('slide-prompt-preview').textContent = `"${s.prompt}"`;
       document.getElementById('slide-background').style.background = s.bg || 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)';
+
+      // Load AI Image
+      const imgEl = document.getElementById('slide-img-element');
+      const loader = document.getElementById('slide-img-loader');
+      if (imgEl && s.imageUrl) {
+        if (loader) loader.classList.remove('hidden');
+        imgEl.style.opacity = '0';
+        imgEl.onload = () => {
+          imgEl.style.opacity = '1';
+          if (loader) loader.classList.add('hidden');
+        };
+        imgEl.onerror = () => {
+          imgEl.style.opacity = '0';
+          if (loader) loader.classList.add('hidden');
+        };
+        imgEl.src = s.imageUrl;
+      }
 
       const dotsContainer = document.getElementById('carousel-dots');
       dotsContainer.innerHTML = slidesData.map((_, i) => 
@@ -1533,42 +1571,273 @@
       });
     }
 
-    function copyCurrentPrompt() {
-      if (!slidesData || slidesData.length === 0) return;
-      const s = slidesData[currentSlide];
-      navigator.clipboard.writeText(s.prompt).then(() => {
-        const btnText = document.getElementById('copy-prompt-text');
-        const btnIcon = document.getElementById('copy-prompt-icon');
-        if (btnText && btnIcon) {
-          btnText.textContent = "Tersalin!";
-          btnIcon.textContent = "✓";
-          setTimeout(() => {
-            btnText.textContent = "Salin Prompt";
-            btnIcon.textContent = "📋";
-          }, 2000);
+    /* ========================================================================
+       1080x1080 INSTAGRAM GRAPHIC RENDERER & DIRECT PNG DOWNLOADER
+       ======================================================================== */
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let curY = y;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line, x, curY);
+          line = words[n] + ' ';
+          curY += lineHeight;
+        } else {
+          line = testLine;
         }
-        showCopyNotification(`✅ Prompt Visual Slide ${currentSlide + 1} berhasil disalin!`);
-      });
+      }
+      ctx.fillText(line, x, curY);
+      return curY;
     }
 
-    function copyCurrentSlideText() {
-      if (!slidesData || slidesData.length === 0) return;
-      const s = slidesData[currentSlide];
-      const text = `${s.title}\n\n${s.body}\n\nSumber: ${s.source}`;
-      navigator.clipboard.writeText(text).then(() => {
-        showCopyNotification(`✅ Teks Slide ${currentSlide + 1} berhasil disalin!`);
-      });
+    async function renderSlideToCanvas(slideIndex) {
+      const s = slidesData[slideIndex];
+      const c = document.createElement('canvas');
+      c.width = 1080;
+      c.height = 1080;
+      const ctx = c.getContext('2d');
+
+      // 1. Draw base gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, 1080, 1080);
+      if (slideIndex === 0) {
+        bgGrad.addColorStop(0, '#1e1b4b');
+        bgGrad.addColorStop(0.5, '#312e81');
+        bgGrad.addColorStop(1, '#4338ca');
+      } else if (slideIndex === 1) {
+        bgGrad.addColorStop(0, '#450a0a');
+        bgGrad.addColorStop(0.5, '#7f1d1d');
+        bgGrad.addColorStop(1, '#991b1b');
+      } else if (slideIndex === 2) {
+        bgGrad.addColorStop(0, '#064e3b');
+        bgGrad.addColorStop(0.5, '#065f46');
+        bgGrad.addColorStop(1, '#047857');
+      } else if (slideIndex === 3) {
+        bgGrad.addColorStop(0, '#1e293b');
+        bgGrad.addColorStop(0.5, '#334155');
+        bgGrad.addColorStop(1, '#475569');
+      } else {
+        bgGrad.addColorStop(0, '#31104b');
+        bgGrad.addColorStop(0.5, '#581c87');
+        bgGrad.addColorStop(1, '#7e22ce');
+      }
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      // 2. Draw AI image if available
+      if (s.imageUrl) {
+        try {
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          await new Promise((resolve) => {
+            img.onload = resolve;
+            img.onerror = resolve;
+            img.src = s.imageUrl;
+          });
+          if (img.naturalWidth > 0) {
+            ctx.drawImage(img, 0, 0, 1080, 1080);
+            
+            // Dark gradient overlay for text readability
+            const overlay = ctx.createLinearGradient(0, 0, 0, 1080);
+            overlay.addColorStop(0, 'rgba(11, 15, 25, 0.40)');
+            overlay.addColorStop(0.35, 'rgba(11, 15, 25, 0.65)');
+            overlay.addColorStop(0.7, 'rgba(11, 15, 25, 0.88)');
+            overlay.addColorStop(1, 'rgba(11, 15, 25, 0.96)');
+            ctx.fillStyle = overlay;
+            ctx.fillRect(0, 0, 1080, 1080);
+          }
+        } catch (e) {}
+      }
+
+      // 3. Draw Header (Logo, Name, Verified Tick, Slide Counter)
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(95, 95, 32, 0, Math.PI * 2);
+      ctx.fillStyle = '#4f46e5';
+      ctx.fill();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.font = '32px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🩺', 95, 97);
+      ctx.restore();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 32px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('klinik.edukasi.ai', 145, 85);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 20px monospace';
+      ctx.fillText('✓ Terverifikasi Kemenkes RI', 145, 118);
+
+      // Top Right: Slide Counter
+      ctx.save();
+      const counterText = `SLIDE ${slideIndex + 1} / ${slidesData.length}`;
+      ctx.font = 'bold 22px monospace';
+      const cWidth = ctx.measureText(counterText).width + 36;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.55)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect(1080 - 65 - cWidth, 72, cWidth, 46, 23);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(counterText, 1080 - 65 - cWidth/2, 95);
+      ctx.restore();
+
+      // 4. Center Content Box (Glassmorphic)
+      ctx.save();
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.78)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(55, 180, 970, 750, 36);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // Badge Category Pill
+      const badgeText = s.badge || `SLIDE ${slideIndex + 1}`;
+      ctx.save();
+      ctx.font = 'bold 22px monospace';
+      const bWidth = ctx.measureText(badgeText).width + 32;
+      ctx.fillStyle = (slideIndex === 1) ? '#ef4444' : (slideIndex === 2) ? '#10b981' : '#6366f1';
+      ctx.beginPath();
+      ctx.roundRect(95, 220, bWidth, 44, 22);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(badgeText, 95 + bWidth/2, 242);
+      ctx.restore();
+
+      // Headline
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 50px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+      ctx.shadowBlur = 10;
+      const headEndY = wrapCanvasText(ctx, s.title, 95, 295, 890, 64);
+      ctx.restore();
+
+      // Divider Line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(95, headEndY + 20);
+      ctx.lineTo(985, headEndY + 20);
+      ctx.stroke();
+
+      // Body Text
+      ctx.save();
+      ctx.fillStyle = '#f1f5f9';
+      ctx.font = '31px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      wrapCanvasText(ctx, s.body, 95, headEndY + 45, 890, 48);
+      ctx.restore();
+
+      // Citation Box at bottom of container
+      ctx.save();
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect(95, 855, 890, 52, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#67e8f9';
+      ctx.font = 'bold 22px monospace';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(s.source || '🔍 Sumber: Kemenkes RI & WHO', 115, 881);
+      ctx.restore();
+
+      // 5. Footer Branding & Swipe Hint
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '22px sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Health Agent Studio • Edukasi Resmi', 65, 1010);
+
+      ctx.fillStyle = '#a5b4fc';
+      ctx.font = 'bold 24px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('Geser untuk lanjut ➔', 1015, 1010);
+
+      return c;
     }
 
-    function copyAllPromptsOnly() {
-      if (!slidesData || slidesData.length === 0) return;
-      const output = slidesData.map((s, idx) => 
-        `// SLIDE ${idx + 1}: ${s.title}\n${s.prompt}`
-      ).join('\n\n');
+    async function downloadCurrentSlidePNG() {
+      showCopyNotification(`⏳ Merender Slide ${currentSlide + 1} (PNG 1080x1080)...`);
+      const c = await renderSlideToCanvas(currentSlide);
+      c.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const safeTitle = slidesData[currentSlide].title.substring(0, 24).replace(/[^a-zA-Z0-9]/g, '_');
+        a.href = url;
+        a.download = `Slide_${currentSlide + 1}_${safeTitle}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+        playSuccessFanfare();
+        showCopyNotification(`✅ Slide ${currentSlide + 1} berhasil diunduh (1080x1080 PNG)!`);
+      }, 'image/png');
+    }
 
-      navigator.clipboard.writeText(output).then(() => {
-        showCopyNotification("✅ Semua prompt visual AI (5 Slide) berhasil disalin!");
-      });
+    async function downloadAllSlidesPNG() {
+      showCopyNotification("⏳ Sedang memproses dan mengunduh semua 5 slide jadi...");
+      for (let i = 0; i < slidesData.length; i++) {
+        const c = await renderSlideToCanvas(i);
+        await new Promise((resolve) => {
+          c.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `Slide_${i + 1}_Instagram_Post.png`;
+              a.click();
+              URL.revokeObjectURL(url);
+            }
+            resolve();
+          }, 'image/png');
+        });
+        await new Promise(r => setTimeout(r, 600)); // Delay between downloads
+      }
+      playSuccessFanfare();
+      showCopyNotification("🎉 Semua 5 slide berhasil diunduh (5 file PNG 1080x1080 siap tayang)!");
+    }
+
+    function downloadRawAIImage(slideIndex) {
+      const s = slidesData[slideIndex];
+      if (!s.imageUrl) return;
+      showCopyNotification(`⏳ Mengunduh gambar AI mentah Slide ${slideIndex + 1}...`);
+      
+      const a = document.createElement('a');
+      a.href = s.imageUrl;
+      a.target = '_blank';
+      a.download = `Gambar_AI_Slide_${slideIndex + 1}.jpg`;
+      a.click();
+    }
+
+    async function downloadAllRawImages() {
+      showCopyNotification("⏳ Mengunduh 5 gambar AI mentah...");
+      for (let i = 0; i < slidesData.length; i++) {
+        downloadRawAIImage(i);
+        await new Promise(r => setTimeout(r, 500));
+      }
+      showCopyNotification("✅ Semua gambar AI mentah telah diunduh!");
     }
 
     function copyAllSlidesAndPrompts() {
@@ -1641,7 +1910,7 @@
         toast.classList.remove('hidden');
         setTimeout(() => {
           toast.classList.add('hidden');
-        }, 3000);
+        }, 3200);
       } else {
         alert(msg);
       }
@@ -1661,43 +1930,66 @@
       if (!container) return;
 
       container.innerHTML = slidesData.map((s, idx) => `
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3">
-          <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-600 text-white font-mono">
-                SLIDE ${idx + 1}
-              </span>
-              <span class="text-xs font-bold text-slate-100 truncate max-w-xs sm:max-w-md">
-                ${s.title}
-              </span>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4">
+          <!-- Thumbnail Image Preview -->
+          <div class="relative w-36 h-36 rounded-xl overflow-hidden shrink-0 border border-slate-700 bg-slate-950 shadow-md">
+            <img src="${s.imageUrl}" class="w-full h-full object-cover" alt="Slide ${idx + 1}" onerror="this.style.display='none'">
+            <div class="absolute bottom-1 right-1 bg-black/70 px-1.5 py-0.5 rounded text-[9px] font-mono text-white">
+              ${idx + 1}/5
             </div>
-            <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-semibold text-slate-200 transition flex items-center gap-1 border border-slate-700 active:scale-95">
-              <span>📄</span> Salin Naskah
-            </button>
           </div>
 
-          <p class="text-xs text-slate-300 leading-relaxed">
-            ${s.body}
-          </p>
-          <div class="text-[10px] text-cyan-400 font-mono">
-            ${s.source}
-          </div>
+          <!-- Slide Content & Action -->
+          <div class="flex-1 space-y-2 w-full">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-600 text-white font-mono">
+                  SLIDE ${idx + 1}
+                </span>
+                <span class="text-xs sm:text-sm font-bold text-slate-100 line-clamp-1">
+                  ${s.title}
+                </span>
+              </div>
+            </div>
 
-          <div class="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 space-y-1.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
-                <span>🎨</span> AI Visual Prompt (Midjourney / Flux):
-              </span>
-              <button onclick="copySinglePrompt(${idx})" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-[10px] transition flex items-center gap-1 shadow-sm active:scale-95">
-                <span>📋</span> Salin Prompt
+            <p class="text-xs text-slate-300 leading-relaxed line-clamp-2">
+              ${s.body}
+            </p>
+            <div class="text-[10px] text-cyan-400 font-mono">
+              ${s.source}
+            </div>
+
+            <!-- Action Buttons for Slide -->
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <button onclick="downloadSingleSlideDirect(${idx})" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition flex items-center gap-1 shadow-sm active:scale-95">
+                <span>📥</span> Unduh PNG (1080x1080)
+              </button>
+              <button onclick="downloadRawAIImage(${idx})" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs transition flex items-center gap-1 border border-slate-700 active:scale-95">
+                <span>🎨</span> Gambar Mentah
+              </button>
+              <button onclick="copySingleSlide(${idx})" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition flex items-center gap-1 border border-slate-700 active:scale-95">
+                <span>📄</span> Salin Naskah
               </button>
             </div>
-            <p class="text-xs italic text-amber-200/90 font-mono">
-              "${s.prompt}"
-            </p>
           </div>
         </div>
       `).join('');
+    }
+
+    async function downloadSingleSlideDirect(idx) {
+      showCopyNotification(`⏳ Menyiapkan Slide ${idx + 1}...`);
+      const c = await renderSlideToCanvas(idx);
+      c.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Slide_${idx + 1}_Instagram_Post.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+        playSuccessFanfare();
+        showCopyNotification(`✅ Slide ${idx + 1} berhasil diunduh!`);
+      }, 'image/png');
     }
 
     function copySingleSlide(idx) {
@@ -1705,13 +1997,6 @@
       const text = `[SLIDE ${idx + 1}]\n${s.title}\n\n${s.body}\n\nSumber: ${s.source}`;
       navigator.clipboard.writeText(text).then(() => {
         showCopyNotification(`✅ Naskah Slide ${idx + 1} disalin!`);
-      });
-    }
-
-    function copySinglePrompt(idx) {
-      const s = slidesData[idx];
-      navigator.clipboard.writeText(s.prompt).then(() => {
-        showCopyNotification(`✅ Prompt visual Slide ${idx + 1} disalin!`);
       });
     }
 
@@ -1820,7 +2105,7 @@
             focusAgent(3);
             updatePhaseHUD('📜➔✍️', 'Estafet #2: Berkas riset diserahkan ke Canvas Creator...');
             addActivityLog('📜', `<strong>Estafet #2:</strong> Nexus menyerahkan Rujukan Valid ke meja Canvas Creator.`);
-            addActivityLog('✍️', `<strong>Canvas (Creator):</strong> Menulis hook 3 detik, naskah 5 slide & prompt Midjourney 8K.`);
+            addActivityLog('✍️', `<strong>Canvas (Creator):</strong> Menulis hook 3 detik, naskah 5 slide & merender visual AI 8K.`);
             dossier.targetX = -60;
             dossier.targetY = -70;
             dossier.targetZ = 24;
@@ -1860,8 +2145,8 @@
         else if (msg.type === 'agent_complete') {
           if (msg.agent_id === 5) {
             updateAgentTeamCard(5, '✅ Konsensus Disahkan', false);
-            updatePhaseHUD('✅', 'Rapat Finalisasi Selesai: Konten Disetujui (Status: PUBLISHED)!');
-            addActivityLog('🤝', `<strong>Rapat Finalisasi Selesai:</strong> Chief Budi dan dewan redaksi mencapai konsensus disetujui.`);
+            updatePhaseHUD('✅', 'Rapat Finalisasi Selesai: 5 Slide Gambar Jadi Siap Diunduh!');
+            addActivityLog('🤝', `<strong>Rapat Finalisasi Selesai:</strong> Chief Budi mengesahkan seluruh slide konten dan gambar visual.`);
             playSuccessFanfare();
           }
         }
@@ -1869,7 +2154,7 @@
           eventSource.close();
           btnRun.disabled = false;
           btnRun.innerHTML = '<span>🚀</span> Jalankan Pipeline';
-          addActivityLog('🎉', `<strong>Pipeline Sukses:</strong> Naskah carousel 5 slide dan seluruh prompt visual siap digunakan!`);
+          addActivityLog('🎉', `<strong>Pipeline Sukses:</strong> Seluruh 5 slide lengkap dengan gambar sudah jadi dan siap diunduh!`);
           
           populateGeneratedContent(msg.data);
         }
@@ -1899,18 +2184,26 @@
       const slides = content.slides || [];
 
       if (slides.length > 0) {
-        slidesData = slides.map((s, idx) => ({
-          badge: `SLIDE ${s.slide_number} • ${idx === 0 ? 'HOOK UTAMA' : idx === 1 ? 'MITOS' : idx === 2 ? 'FAKTA MEDIS' : idx === 3 ? 'TIPS' : 'KESIMPULAN'}`,
-          title: s.headline,
-          body: s.body_text,
-          source: (data.audit.approved_citations && data.audit.approved_citations[0]) ? `🔍 ${data.audit.approved_citations[0]}` : '🔍 Validasi Kemenkes RI',
-          prompt: s.image_prompt,
-          bg: idx === 0 ? "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)" :
-              idx === 1 ? "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)" :
-              idx === 2 ? "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)" :
-              idx === 3 ? "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)" :
-                          "linear-gradient(135deg, #31104b 0%, #581c87 50%, #7e22ce 100%)"
-        }));
+        slidesData = slides.map((s, idx) => {
+          const cleanPrompt = (s.image_prompt || `${s.headline} 3d medical illustration aesthetic`).replace(/["']/g, '').trim();
+          const seed = Math.floor(Math.random() * 800000) + 10000 + idx;
+          const encodedPrompt = encodeURIComponent(`${cleanPrompt}, clean 3d medical editorial aesthetic, hyperrealistic octane render, soft studio lighting, 8k resolution`);
+          const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1080&height=1080&nologo=true&seed=${seed}`;
+
+          return {
+            badge: `SLIDE ${s.slide_number} • ${idx === 0 ? 'HOOK UTAMA' : idx === 1 ? 'MITOS' : idx === 2 ? 'FAKTA MEDIS' : idx === 3 ? 'TIPS PRAKTIS' : 'KESIMPULAN'}`,
+            title: s.headline,
+            body: s.body_text,
+            source: (data.audit.approved_citations && data.audit.approved_citations[0]) ? `🔍 ${data.audit.approved_citations[0]}` : '🔍 Validasi Kemenkes RI',
+            prompt: s.image_prompt,
+            imageUrl: imageUrl,
+            bg: idx === 0 ? "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)" :
+                idx === 1 ? "linear-gradient(135deg, #450a0a 0%, #7f1d1d 50%, #991b1b 100%)" :
+                idx === 2 ? "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)" :
+                idx === 3 ? "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)" :
+                            "linear-gradient(135deg, #31104b 0%, #581c87 50%, #7e22ce 100%)"
+          };
+        });
       }
 
       document.getElementById('caption-body').innerText = content.caption;
@@ -1936,7 +2229,6 @@
       if (toast) toast.classList.add('hidden');
     }
 
-    // Live Clock for Phone
     function updatePhoneClock() {
       const now = new Date();
       const h = String(now.getHours()).padStart(2, '0');

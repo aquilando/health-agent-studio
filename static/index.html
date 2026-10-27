@@ -3,57 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Health Agency Isometric Multi-Agent Studio</title>
+  <title>Health Agency Multi-Agent Studio</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     @keyframes bob {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes pulse-halo {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 0.15; }
+      100% { transform: scale(0.95); opacity: 0.8; }
     }
     .badge-pop {
-      animation: bob 2.6s ease-in-out infinite;
+      animation: bob 2.8s ease-in-out infinite;
     }
     .speech-bubble {
       position: absolute;
       transform: translate(-50%, -100%);
       pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s;
+    }
+    .phone-mockup {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 10px #1e293b;
     }
   </style>
 </head>
-<body class="bg-[#10131a] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
+<body class="bg-[#0b0e14] text-slate-100 min-h-screen antialiased select-none font-sans p-3 md:p-6">
 
-  <div class="max-w-5xl mx-auto space-y-4">
+  <div class="max-w-6xl mx-auto space-y-5">
     
     <!-- Top Header Bar -->
     <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-xl">
-          🏢
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20">
+          🏥
         </div>
         <div>
           <h1 class="text-base font-bold text-white flex items-center gap-2">
-            Health Agency Virtual Office
+            Health Agency Virtual Studio
             <span class="text-[11px] font-normal px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              Gemini 3.8 Live Grounded
+              Gemini 3.8 Active
             </span>
           </h1>
-          <p class="text-xs text-slate-400">Ruang Kerja Isometrik Multi-Agen AI: Ideasi, Riset Aktual, Visual, Medis & Sidang Pleno</p>
+          <p class="text-xs text-slate-400">Kantor Isometrik 3D: Karakter Berjalan, Mengetik, Rapat Pleno & Preview Post Medsos</p>
         </div>
       </div>
 
       <div class="flex items-center gap-2">
         <span id="office-status" class="text-xs px-3 py-1.5 rounded-full bg-slate-950 border border-slate-800 text-slate-400 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Semua Agen Siaga di Meja
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Semua Agen di Meja Kerja
         </span>
       </div>
     </header>
 
-    <!-- Isometric Office Viewport -->
-    <div class="relative bg-[#161a24] border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[520px]">
+    <!-- Isometric Office Viewport Container -->
+    <div class="relative bg-[#131722] border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center min-h-[560px]">
       
-      <!-- Canvas 2D Isometric Rendering -->
-      <canvas id="iso-canvas" width="960" height="540" class="block"></canvas>
+      <!-- Canvas 2D Animated Isometric Rendering -->
+      <canvas id="iso-canvas" width="980" height="560" class="block"></canvas>
 
       <!-- HTML Floating Badges (Persis Seperti Screenshot Referensi) -->
       <div id="badge-container" class="absolute inset-0 pointer-events-none">
@@ -67,39 +75,39 @@
         </div>
 
         <!-- Agen 1: Dr. Idea -->
-        <div id="badge-agent-1" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 170px; top: 270px;">
-          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+        <div id="badge-agent-1" class="absolute pointer-events-auto cursor-pointer badge-pop transition-all duration-700" style="left: 170px; top: 270px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-amber-500/40 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
             <span>💡 Dr. Idea</span>
             <span id="count-1" class="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-400 font-bold">1</span>
           </div>
         </div>
 
         <!-- Agen 2: Nexus (Researcher) -->
-        <div id="badge-agent-2" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 330px; top: 220px;">
-          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+        <div id="badge-agent-2" class="absolute pointer-events-auto cursor-pointer badge-pop transition-all duration-700" style="left: 330px; top: 220px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-cyan-500/40 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
             <span>🌐 Nexus (Riset)</span>
             <span id="count-2" class="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-400 font-bold">2</span>
           </div>
         </div>
 
         <!-- Agen 3: Canvas (Creator) -->
-        <div id="badge-agent-3" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 510px; top: 260px;">
-          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+        <div id="badge-agent-3" class="absolute pointer-events-auto cursor-pointer badge-pop transition-all duration-700" style="left: 510px; top: 260px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-purple-500/40 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
             <span>🎨 Canvas (Kreatif)</span>
             <span id="count-3" class="text-[10px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-400 font-bold">1</span>
           </div>
         </div>
 
         <!-- Agen 4: Dr. Verif (Medis) -->
-        <div id="badge-agent-4" class="absolute pointer-events-auto cursor-pointer badge-pop" style="left: 680px; top: 320px;">
-          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700/80 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
+        <div id="badge-agent-4" class="absolute pointer-events-auto cursor-pointer badge-pop transition-all duration-700" style="left: 680px; top: 320px;">
+          <div class="px-2.5 py-1 rounded-lg bg-slate-950/90 border border-rose-500/40 text-white text-xs font-medium shadow-lg flex items-center gap-1.5 hover:scale-105 transition">
             <span>🩺 Dr. Verif (Medis)</span>
             <span id="count-4" class="text-[10px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-400 font-bold">0</span>
           </div>
         </div>
 
         <!-- User / Kamu -->
-        <div id="badge-user" class="absolute pointer-events-auto cursor-pointer" style="left: 560px; top: 430px;">
+        <div id="badge-user" class="absolute pointer-events-auto cursor-pointer transition-all duration-700" style="left: 560px; top: 430px;">
           <div class="px-3 py-1 rounded-lg bg-indigo-600/90 border border-indigo-400/80 text-white text-xs font-bold shadow-xl flex items-center gap-1.5 hover:scale-105 transition">
             <span>Ical (Kamu - Pimpinan)</span>
           </div>
@@ -114,7 +122,7 @@
 
         <!-- Dynamic Speech Bubble -->
         <div id="active-speech" class="speech-bubble hidden z-30">
-          <div class="px-3 py-2 rounded-xl bg-slate-950/95 border border-blue-500 text-white text-xs shadow-2xl max-w-xs backdrop-blur-md">
+          <div class="px-3.5 py-2.5 rounded-xl bg-slate-950/95 border border-blue-500 text-white text-xs shadow-2xl max-w-xs backdrop-blur-md">
             <span id="speech-agent-name" class="font-bold text-blue-400 block mb-0.5">Dr. Idea:</span>
             <p id="speech-text" class="text-slate-200 leading-snug"></p>
           </div>
@@ -123,7 +131,7 @@
       </div>
 
       <!-- Quick Floating Control Box at Bottom of Office -->
-      <div class="absolute bottom-4 left-4 right-4 bg-slate-950/90 border border-slate-800/80 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
+      <div class="absolute bottom-4 left-4 right-4 bg-slate-950/95 border border-slate-800/90 rounded-2xl p-3 shadow-2xl backdrop-blur-md flex flex-col md:flex-row items-center gap-2.5">
         <input 
           id="topic-input" 
           type="text" 
@@ -134,75 +142,136 @@
           <button 
             id="btn-run" 
             onclick="startPipeline()" 
-            class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/30 whitespace-nowrap w-full md:w-auto">
-            <span>🚀 Mulai Bekerja & Rapat Pleno</span>
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold px-6 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-lg shadow-blue-600/30 whitespace-nowrap w-full md:w-auto">
+            <span>🚀 Rapat Pleno & Produksi</span>
           </button>
         </div>
       </div>
 
     </div>
 
-    <!-- Final Result Presentation Section (Muncul setelah sidang pleno selesai) -->
-    <section id="result-section" class="hidden bg-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-2xl space-y-5">
+    <!-- Final Result Interactive Presentation Section -->
+    <section id="result-section" class="hidden bg-slate-900 border border-emerald-500/30 rounded-3xl p-6 shadow-2xl space-y-6">
+      
+      <!-- Top Pleno Approval Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <span class="text-xs font-semibold px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block mb-1">
-            ✓ KEPUTUSAN SIDANG PLENO TELAH DISAHKAN
+          <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-flex items-center gap-1.5 mb-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            HASIL SIDANG PLENO TELAH DISAHKAN & SIAP TAYANG
           </span>
-          <h2 id="res-topic" class="text-lg font-bold text-white">Judul Konten Final</h2>
+          <h2 id="res-topic" class="text-xl font-bold text-white mt-1">Judul Konten Final</h2>
           <p id="res-audience" class="text-xs text-slate-400">Target Audiens: -</p>
         </div>
         <div class="flex items-center gap-2">
-          <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
-            <span class="text-[10px] text-slate-400 block">Skor Medis</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block font-medium">Uji Medis</span>
             <span id="score-medical" class="text-sm font-bold text-blue-400">98/100</span>
           </div>
-          <div class="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
-            <span class="text-[10px] text-slate-400 block">Virality</span>
+          <div class="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 block font-medium">Virality Score</span>
             <span id="score-virality" class="text-sm font-bold text-emerald-400">95/100</span>
           </div>
-          <button onclick="copyFullContent()" class="ml-2 px-3.5 py-2 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-medium border border-blue-500/30 transition flex items-center gap-1.5">
-            📋 Salin Semua
+          <button onclick="copyFullContent()" class="ml-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-lg shadow-blue-600/20">
+            📋 Salin Naskah
           </button>
         </div>
       </div>
 
-      <!-- Hook Box -->
-      <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/30 space-y-1">
-        <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-          🎯 Hook 3 Detik Pertama:
-        </span>
-        <p id="res-hook" class="text-sm text-slate-100 font-medium"></p>
-      </div>
+      <!-- 2-Column Presentation: Live Instagram Phone Mockup vs Full Details -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Column: Interactive Phone Carousel Simulator (4 Cols) -->
+        <div class="lg:col-span-5 flex flex-col items-center">
+          <div class="text-xs font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
+            📱 Preview Postingan Instagram (Carousel):
+          </div>
 
-      <!-- Carousel Slides Container -->
-      <div class="space-y-3">
-        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">
-          📱 Slide Carousel & Visual Prompts:
-        </h4>
-        <div id="slides-container" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-      </div>
+          <!-- Smartphone Mockup Frame -->
+          <div class="w-[300px] h-[520px] bg-slate-950 border-4 border-slate-800 rounded-[38px] p-3 flex flex-col justify-between phone-mockup relative overflow-hidden">
+            
+            <!-- Phone Speaker & Camera Notch -->
+            <div class="w-24 h-4 bg-slate-800 rounded-full mx-auto mb-2"></div>
 
-      <!-- Caption & Citations Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-          <span class="text-xs font-bold text-purple-400 block">📝 Caption Lengkap Media Sosial:</span>
-          <p id="res-caption" class="text-xs text-slate-300 whitespace-pre-line leading-relaxed"></p>
-          <div class="pt-2 text-xs text-slate-400">
-            <span class="font-semibold text-slate-300">Call to Action (CTA):</span> <span id="res-cta"></span>
+            <!-- Feed Header -->
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800/80">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center text-[11px] font-bold">🩺</div>
+                <div>
+                  <span class="text-[11px] font-bold text-white block leading-none">kemenkes.edukasi</span>
+                  <span class="text-[9px] text-slate-400">Official Health Post</span>
+                </div>
+              </div>
+              <span id="carousel-indicator" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">
+                1 / 4
+              </span>
+            </div>
+
+            <!-- Carousel Slide Screen -->
+            <div id="phone-slide-body" class="flex-1 my-2 rounded-2xl bg-gradient-to-br from-slate-900 to-blue-950 border border-slate-800 p-4 flex flex-col justify-center text-center space-y-2 relative">
+              <div id="phone-slide-icon" class="text-3xl">🍭</div>
+              <h4 id="phone-slide-title" class="text-xs font-bold text-white">Headline Slide</h4>
+              <p id="phone-slide-text" class="text-[11px] text-slate-300 leading-relaxed"></p>
+              
+              <!-- Slide Prompt Tag -->
+              <div class="mt-2 pt-2 border-t border-slate-800/60 text-[9px] text-purple-300 font-mono italic text-left">
+                🎨 Prompt: <span id="phone-slide-prompt"></span>
+              </div>
+            </div>
+
+            <!-- Carousel Slide Controls -->
+            <div class="flex items-center justify-between pt-1">
+              <button onclick="prevSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
+                ◀ Prev
+              </button>
+              <div id="dots-container" class="flex gap-1.5"></div>
+              <button onclick="nextSlide()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition">
+                Next ▶
+              </button>
+            </div>
+
+            <!-- Home Bar Indicator -->
+            <div class="w-28 h-1 bg-slate-700 rounded-full mx-auto mt-2"></div>
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-          <span class="text-xs font-bold text-cyan-400 block">📚 Sitasi Sumber Resmi (Kemenkes & WHO):</span>
-          <ul id="res-sources" class="text-xs text-slate-300 space-y-1 list-disc list-inside"></ul>
-
-          <div class="pt-4 border-t border-slate-900">
-            <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Konsensus Sidang Pleno:</span>
-            <p id="res-notes" class="text-[11px] text-slate-400 italic"></p>
+        <!-- Right Column: Full Script, Captions, Citations, & Visual AI Prompts (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4 text-xs">
+          
+          <!-- Hook Box -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-1">
+            <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+              🎯 Hook 3 Detik Pertama (Membongkar Mitos):
+            </span>
+            <p id="res-hook" class="text-sm text-slate-100 font-medium leading-relaxed"></p>
           </div>
+
+          <!-- Caption Box -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+            <span class="text-xs font-bold text-purple-400 block">📝 Caption Naskah Medsos:</span>
+            <p id="res-caption" class="text-slate-300 whitespace-pre-line leading-relaxed font-sans"></p>
+            <div class="pt-2 text-slate-400 border-t border-slate-900">
+              <span class="font-semibold text-slate-200">Call to Action (CTA):</span> <span id="res-cta"></span>
+            </div>
+          </div>
+
+          <!-- Sources & Editorial Consensus -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+            <div>
+              <span class="text-xs font-bold text-cyan-400 block mb-1">📚 Sitasi Ilmiah Resmi (Kemenkes & WHO):</span>
+              <ul id="res-sources" class="text-slate-300 space-y-1 list-disc list-inside"></ul>
+            </div>
+
+            <div class="pt-3 border-t border-slate-900">
+              <span class="text-[11px] font-bold text-emerald-400 block">🏛️ Catatan Konsensus Dewan Pleno:</span>
+              <p id="res-notes" class="text-slate-400 italic text-[11px]"></p>
+            </div>
+          </div>
+
         </div>
+
       </div>
+
     </section>
 
   </div>
@@ -213,21 +282,33 @@
 
     let eventSource = null;
     let fullOutputMarkdown = "";
+    let carouselSlides = [];
+    let currentSlideIdx = 0;
 
+    // State karakter dan animasi hidup di kantor
     const state = {
       activeAgent: null,
       isMeeting: false,
       meetingBoardText: "AGENDA: Edukasi Bebas Hoaks\n1. Angle Aktual\n2. Sitasi Kemenkes/WHO\n3. Verifikasi Medis",
+      time: 0,
       characters: {
-        1: { name: "Dr. Idea", deskX: 2.2, deskY: 6.8, currX: 2.2, currY: 6.8, color: '#f59e0b', hair: '#332211', shirt: '#d97706' },
-        2: { name: "Nexus", deskX: 4.5, deskY: 5.2, currX: 4.5, currY: 5.2, color: '#06b6d4', hair: '#112233', shirt: '#0891b2' },
-        3: { name: "Canvas", deskX: 7.0, deskY: 6.5, currX: 7.0, currY: 6.5, color: '#a855f7', hair: '#221133', shirt: '#9333ea' },
-        4: { name: "Dr. Verif", deskX: 9.0, deskY: 8.0, currX: 9.0, currY: 8.0, color: '#f43f5e', hair: '#111111', shirt: '#e11d48' },
-        user: { name: "Ical", deskX: 7.5, deskY: 10.5, currX: 7.5, currY: 10.5, color: '#6366f1', hair: '#0f172a', shirt: '#4f46e5' }
-      }
+        1: { name: "Dr. Idea", deskX: 2.2, deskY: 6.8, currX: 2.2, currY: 6.8, targetX: null, targetY: null, isWalking: false, walkCycle: 0, isTyping: false, color: '#f59e0b', hair: '#2d1810', shirt: '#d97706' },
+        2: { name: "Nexus", deskX: 4.5, deskY: 5.2, currX: 4.5, currY: 5.2, targetX: null, targetY: null, isWalking: false, walkCycle: 0, isTyping: false, color: '#06b6d4', hair: '#0f172a', shirt: '#0891b2' },
+        3: { name: "Canvas", deskX: 7.0, deskY: 6.5, currX: 7.0, currY: 6.5, targetX: null, targetY: null, isWalking: false, walkCycle: 0, isTyping: false, color: '#a855f7', hair: '#1e1b4b', shirt: '#9333ea' },
+        4: { name: "Dr. Verif", deskX: 9.0, deskY: 8.0, currX: 9.0, currY: 8.0, targetX: null, targetY: null, isWalking: false, walkCycle: 0, isTyping: false, color: '#f43f5e', hair: '#000000', shirt: '#e11d48' },
+        user: { name: "Ical", deskX: 7.5, deskY: 10.5, currX: 7.5, currY: 10.5, targetX: null, targetY: null, isWalking: false, walkCycle: 0, isTyping: false, color: '#6366f1', hair: '#0f172a', shirt: '#4f46e5' }
+      },
+      cat: {
+        x: 8.5, y: 9.2, targetX: 8.5, targetY: 9.2, isWalking: false, walkCycle: 0, tailAngle: 0
+      },
+      steamParticles: [
+        { x: 2.3, y: 6.3, z: 12, alpha: 0.8 },
+        { x: 4.7, y: 4.8, z: 12, alpha: 0.5 },
+        { x: 7.8, y: 10.2, z: 12, alpha: 0.7 }
+      ]
     };
 
-    const ORIGIN_X = 480;
+    const ORIGIN_X = 490;
     const ORIGIN_Y = 140;
     const TILE_W = 64;
     const TILE_H = 32;
@@ -255,14 +336,14 @@
           ctx.closePath();
 
           if (isMeetingRoom) {
-            ctx.fillStyle = (x + y) % 2 === 0 ? '#1e293b' : '#1a2234';
+            ctx.fillStyle = (x + y) % 2 === 0 ? '#1e293b' : '#172033';
           } else if (isCenter) {
-            ctx.fillStyle = (x + y) % 2 === 0 ? '#f1f5f9' : '#e2e8f0';
+            ctx.fillStyle = (x + y) % 2 === 0 ? '#f8fafc' : '#e2e8f0';
           } else {
             ctx.fillStyle = (x + y) % 2 === 0 ? '#d97706' : '#b45309';
           }
           ctx.fill();
-          ctx.strokeStyle = '#0f172a22';
+          ctx.strokeStyle = '#0f172a15';
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -275,6 +356,7 @@
       const pCorner = toIso(13, 0, 0);
       const pCornerTop = toIso(13, 0, 160);
       
+      // Dinding Belakang
       ctx.fillStyle = '#cbd5e1';
       ctx.beginPath();
       ctx.moveTo(pTopLeft.x, pTopLeft.y);
@@ -284,35 +366,35 @@
       ctx.closePath();
       ctx.fill();
 
-      // Jendela
+      // Jendela Kanan
       const w1 = toIso(8, 0, 60);
-      ctx.fillStyle = '#bae6fd';
-      ctx.fillRect(w1.x - 40, w1.y - 40, 80, 50);
-      ctx.strokeStyle = '#64748b';
+      ctx.fillStyle = '#7dd3fc';
+      ctx.fillRect(w1.x - 45, w1.y - 45, 90, 55);
+      ctx.strokeStyle = '#475569';
       ctx.lineWidth = 3;
-      ctx.strokeRect(w1.x - 40, w1.y - 40, 80, 50);
+      ctx.strokeRect(w1.x - 45, w1.y - 45, 90, 55);
 
-      // Board Papan Ruang Rapat
+      // Papan Ruang Rapat
       const bPos = toIso(2.5, 0, 70);
       ctx.fillStyle = '#0f172a';
-      ctx.fillRect(bPos.x - 65, bPos.y - 40, 130, 70);
-      ctx.strokeStyle = '#334155';
+      ctx.fillRect(bPos.x - 70, bPos.y - 42, 140, 74);
+      ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2;
-      ctx.strokeRect(bPos.x - 65, bPos.y - 40, 130, 70);
+      ctx.strokeRect(bPos.x - 70, bPos.y - 42, 140, 74);
 
       ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 8px monospace';
-      ctx.fillText("RUANG RAPAT REDAKSI", bPos.x - 55, bPos.y - 25);
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '7px sans-serif';
+      ctx.font = 'bold 9px monospace';
+      ctx.fillText("RUANG RAPAT REDAKSI", bPos.x - 60, bPos.y - 25);
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = '8px sans-serif';
       const lines = state.meetingBoardText.split('\n');
       lines.forEach((line, idx) => {
-        ctx.fillText(line, bPos.x - 55, bPos.y - 12 + (idx * 11));
+        ctx.fillText(line, bPos.x - 60, bPos.y - 10 + (idx * 13));
       });
 
-      // Railing Kaca Ruang Rapat
-      ctx.strokeStyle = '#0284c788';
-      ctx.fillStyle = '#0284c722';
+      // Railing Kaca Partisi Ruang Rapat
+      ctx.strokeStyle = '#38bdf888';
+      ctx.fillStyle = '#38bdf818';
       ctx.lineWidth = 2;
       const r1 = toIso(0, 4.5, 0);
       const r2 = toIso(5.5, 4.5, 0);
@@ -333,19 +415,19 @@
       const pos = toIso(2.5, 2.5);
       ctx.fillStyle = '#78350f';
       ctx.beginPath();
-      ctx.ellipse(pos.x, pos.y, 75, 32, -0.4, 0, Math.PI * 2);
+      ctx.ellipse(pos.x, pos.y, 80, 34, -0.35, 0, Math.PI * 2);
       ctx.fill();
       ctx.strokeStyle = '#451a03';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.stroke();
 
       const chairAngles = [0, 0.9, 1.8, 2.7, 3.6, 4.5, 5.4];
       chairAngles.forEach(ang => {
-        const cx = pos.x + Math.cos(ang) * 65;
-        const cy = pos.y + Math.sin(ang) * 28;
+        const cx = pos.x + Math.cos(ang) * 70;
+        const cy = pos.y + Math.sin(ang) * 30;
         ctx.fillStyle = '#334155';
         ctx.beginPath();
-        ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        ctx.arc(cx, cy, 6.5, 0, Math.PI * 2);
         ctx.fill();
       });
     }
@@ -353,11 +435,13 @@
     function drawDesk(x, y, isLampActive = false) {
       const p = toIso(x, y);
 
-      ctx.fillStyle = '#00000015';
+      // Bayangan Meja
+      ctx.fillStyle = '#00000018';
       ctx.beginPath();
-      ctx.ellipse(p.x, p.y + 6, 26, 14, 0, 0, Math.PI * 2);
+      ctx.ellipse(p.x, p.y + 6, 28, 15, 0, 0, Math.PI * 2);
       ctx.fill();
 
+      // Meja Putih
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
       ctx.moveTo(p.x - 22, p.y - 10);
@@ -370,6 +454,7 @@
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
+      // Kaki Meja
       ctx.strokeStyle = '#94a3b8';
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -377,7 +462,7 @@
       ctx.moveTo(p.x + 24, p.y - 12); ctx.lineTo(p.x + 24, p.y + 10);
       ctx.stroke();
 
-      // Monitor
+      // Monitor Komputer
       ctx.fillStyle = '#0f172a';
       ctx.fillRect(p.x + 2, p.y - 32, 16, 12);
       ctx.fillStyle = isLampActive ? '#38bdf8' : '#1e293b';
@@ -386,46 +471,83 @@
       // Lampu Meja
       ctx.fillStyle = isLampActive ? '#38bdf8' : '#94a3b8';
       ctx.beginPath();
-      ctx.arc(p.x - 12, p.y - 12, 3.5, 0, Math.PI * 2);
+      ctx.arc(p.x - 12, p.y - 12, 4, 0, Math.PI * 2);
       ctx.fill();
 
+      // Efek Glow Lampu Aktif
       if (isLampActive) {
-        ctx.fillStyle = '#38bdf833';
+        const glowRadius = 14 + Math.sin(state.time * 6) * 3;
+        const grad = ctx.createRadialGradient(p.x - 12, p.y - 12, 2, p.x - 12, p.y - 12, glowRadius);
+        grad.addColorStop(0, 'rgba(56, 189, 248, 0.7)');
+        grad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(p.x - 12, p.y - 12, 10, 0, Math.PI * 2);
+        ctx.arc(p.x - 12, p.y - 12, glowRadius, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    function drawCharacter(c, isActive = false) {
-      const p = toIso(c.currX, c.currY);
+    // Menggambar Karakter Beranimasi Hidup (Bernafas, Mengetik, Berjalan)
+    function drawCharacter(c, isAct = false) {
+      // Bounce saat berjalan
+      const walkBounce = c.isWalking ? Math.abs(Math.sin(c.walkCycle)) * 5 : 0;
+      // Napas saat diam
+      const idleBreath = !c.isWalking ? Math.sin(state.time * 3) * 1.2 : 0;
 
-      ctx.fillStyle = '#00000022';
+      const p = toIso(c.currX, c.currY, walkBounce - idleBreath);
+
+      // Bayangan Karakter
+      ctx.fillStyle = '#00000028';
       ctx.beginPath();
-      ctx.ellipse(p.x, p.y + 14, 10, 5, 0, 0, Math.PI * 2);
+      ctx.ellipse(p.x, p.y + 14 + walkBounce, 11, 5.5, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = '#1e293b';
-      ctx.beginPath();
-      ctx.ellipse(p.x, p.y + 8, 9, 7, 0, 0, Math.PI * 2);
-      ctx.fill();
+      // Kursi (hanya jika sedang di meja kerja)
+      if (!c.isWalking && !state.isMeeting) {
+        ctx.fillStyle = '#1e293b';
+        ctx.beginPath();
+        ctx.ellipse(p.x, p.y + 8, 9, 7, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
+      // Kaki saat berjalan (kiri/kanan bergantian)
+      if (c.isWalking) {
+        const legOffset = Math.sin(c.walkCycle) * 4;
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(p.x - 4, p.y + 6 + legOffset, 3, 7);
+        ctx.fillRect(p.x + 1, p.y + 6 - legOffset, 3, 7);
+      }
+
+      // Badan Baju
       ctx.fillStyle = c.shirt;
       ctx.beginPath();
-      ctx.roundRect(p.x - 7, p.y - 8, 14, 15, 4);
+      ctx.roundRect(p.x - 7.5, p.y - 8, 15, 16, 4);
       ctx.fill();
 
+      // Tangan mengetik jika sedang aktif
+      if (c.isTyping && !c.isWalking) {
+        const typeOffset = Math.sin(state.time * 20) * 2;
+        ctx.fillStyle = '#fbcfe8';
+        ctx.beginPath();
+        ctx.arc(p.x - 4, p.y + 3 + typeOffset, 2.5, 0, Math.PI * 2);
+        ctx.arc(p.x + 4, p.y + 3 - typeOffset, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Kepala
       ctx.fillStyle = '#fbcfe8';
       ctx.beginPath();
-      ctx.arc(p.x, p.y - 15, 6.5, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y - 15, 7, 0, Math.PI * 2);
       ctx.fill();
 
+      // Rambut
       ctx.fillStyle = c.hair;
       ctx.beginPath();
-      ctx.arc(p.x, p.y - 18, 6.5, Math.PI, Math.PI * 2);
+      ctx.arc(p.x, p.y - 18, 7, Math.PI, Math.PI * 2);
       ctx.fill();
 
-      if (isActive) {
+      // Partikel Berpikir / Balon Ikon Saat Aktif
+      if (isAct) {
         ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
         ctx.arc(p.x + 10, p.y - 26, 3.5, 0, Math.PI * 2);
@@ -433,20 +555,24 @@
       }
     }
 
-    function drawCat(x, y) {
-      const p = toIso(x, y);
+    // Menggambar Kucing Oranye Bergerak (Tail wagging)
+    function drawCat(cat) {
+      const p = toIso(cat.x, cat.y);
       ctx.fillStyle = '#ea580c';
       ctx.beginPath();
-      ctx.ellipse(p.x, p.y, 8, 5, 0, 0, Math.PI * 2);
+      ctx.ellipse(p.x, p.y, 8.5, 5, 0, 0, Math.PI * 2);
       ctx.fill();
+      // Kepala
       ctx.beginPath();
-      ctx.arc(p.x + 6, p.y - 4, 4, 0, Math.PI * 2);
+      ctx.arc(p.x + 6, p.y - 4, 4.5, 0, Math.PI * 2);
       ctx.fill();
+      // Ekor berayun
+      cat.tailAngle = Math.sin(state.time * 4) * 0.5;
       ctx.strokeStyle = '#ea580c';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(p.x - 7, p.y);
-      ctx.quadraticCurveTo(p.x - 12, p.y - 6, p.x - 10, p.y - 10);
+      ctx.quadraticCurveTo(p.x - 12 + cat.tailAngle * 6, p.y - 6, p.x - 10, p.y - 10);
       ctx.stroke();
     }
 
@@ -463,7 +589,42 @@
       ctx.fill();
     }
 
-    function renderOffice() {
+    // Update Fisika Pergerakan Karakter (Lerp Smooth Walk)
+    function updatePhysics(dt) {
+      state.time += dt;
+
+      Object.keys(state.characters).forEach(key => {
+        const c = state.characters[key];
+        if (c.targetX !== null && c.targetY !== null) {
+          const dx = c.targetX - c.currX;
+          const dy = c.targetY - c.currY;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist > 0.08) {
+            c.currX += (dx / dist) * 2.6 * dt;
+            c.currY += (dy / dist) * 2.6 * dt;
+            c.walkCycle += dt * 14;
+            c.isWalking = true;
+          } else {
+            c.currX = c.targetX;
+            c.currY = c.targetY;
+            c.isWalking = false;
+            c.targetX = null;
+            c.targetY = null;
+          }
+        }
+      });
+    }
+
+    // Main 60 FPS Animation Loop
+    let lastTime = performance.now();
+    function animate() {
+      const now = performance.now();
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      updatePhysics(dt);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       drawFloor();
@@ -480,19 +641,21 @@
       drawDesk(9, 7.8, state.activeAgent === 4);
       drawDesk(7.5, 10, false);
 
+      // Gambar Karakter
       Object.keys(state.characters).forEach(key => {
         const c = state.characters[key];
         const isAct = (key == state.activeAgent);
         drawCharacter(c, isAct);
       });
 
-      drawCat(8.5, 9.2);
+      drawCat(state.cat);
 
-      requestAnimationFrame(renderOffice);
+      requestAnimationFrame(animate);
     }
 
-    renderOffice();
+    animate();
 
+    // Dialog & Thought bubble trigger
     function showSpeech(name, text, x, y) {
       const bubble = document.getElementById('active-speech');
       const nameEl = document.getElementById('speech-agent-name');
@@ -510,16 +673,19 @@
       document.getElementById('active-speech').classList.add('hidden');
     }
 
+    // Pindah Fisik Karakter ke Ruang Rapat
     function moveToMeetingRoom() {
       state.isMeeting = true;
       document.getElementById('badge-rapat-status').className = 'w-2 h-2 rounded-full bg-blue-500 animate-ping';
       
-      state.characters[1].currX = 1.6; state.characters[1].currY = 2.0;
-      state.characters[2].currX = 2.4; state.characters[2].currY = 1.4;
-      state.characters[3].currX = 3.4; state.characters[3].currY = 2.0;
-      state.characters[4].currX = 3.0; state.characters[4].currY = 3.4;
-      state.characters.user.currX = 1.8; state.characters.user.currY = 3.2;
+      // Target koordinat duduk di Ruang Rapat
+      state.characters[1].targetX = 1.6; state.characters[1].targetY = 2.0; state.characters[1].isTyping = false;
+      state.characters[2].targetX = 2.4; state.characters[2].targetY = 1.4; state.characters[2].isTyping = false;
+      state.characters[3].targetX = 3.4; state.characters[3].targetY = 2.0; state.characters[3].isTyping = false;
+      state.characters[4].targetX = 3.0; state.characters[4].targetY = 3.4; state.characters[4].isTyping = false;
+      state.characters.user.targetX = 1.8; state.characters.user.targetY = 3.2;
 
+      // Update posisi badge
       document.getElementById('badge-agent-1').style.left = '230px';
       document.getElementById('badge-agent-1').style.top = '170px';
 
@@ -537,14 +703,14 @@
       state.isMeeting = false;
       document.getElementById('badge-rapat-status').className = 'w-2 h-2 rounded-full bg-emerald-400';
 
-      state.characters[1].currX = state.characters[1].deskX;
-      state.characters[1].currY = state.characters[1].deskY;
-      state.characters[2].currX = state.characters[2].deskX;
-      state.characters[2].currY = state.characters[2].deskY;
-      state.characters[3].currX = state.characters[3].deskX;
-      state.characters[3].currY = state.characters[3].deskY;
-      state.characters[4].currX = state.characters[4].deskX;
-      state.characters[4].currY = state.characters[4].deskY;
+      state.characters[1].targetX = state.characters[1].deskX;
+      state.characters[1].targetY = state.characters[1].deskY;
+      state.characters[2].targetX = state.characters[2].deskX;
+      state.characters[2].targetY = state.characters[2].deskY;
+      state.characters[3].targetX = state.characters[3].deskX;
+      state.characters[3].targetY = state.characters[3].deskY;
+      state.characters[4].targetX = state.characters[4].deskX;
+      state.characters[4].targetY = state.characters[4].deskY;
 
       document.getElementById('badge-agent-1').style.left = '170px';
       document.getElementById('badge-agent-1').style.top = '270px';
@@ -590,17 +756,20 @@
 
         if (msg.type === 'agent_start') {
           state.activeAgent = msg.agent_id;
+          
           if (msg.agent_id === 5) {
             moveToMeetingRoom();
             state.meetingBoardText = "SIDANG PLENO:\nRapat Redaksi Dimulai...\nEvaluasi Skor Medis";
             showSpeech("Rapat Pleno", msg.thought, 380, 100);
           } else {
+            state.characters[msg.agent_id].isTyping = true;
             const coord = agentCoords[msg.agent_id];
             showSpeech(msg.agent_name, msg.thought, coord.x, coord.y);
           }
         }
         else if (msg.type === 'agent_complete') {
           if (msg.agent_id < 5) {
+            state.characters[msg.agent_id].isTyping = false;
             const countEl = document.getElementById(`count-${msg.agent_id}`);
             if (countEl) countEl.innerText = '✓';
           }
@@ -644,6 +813,7 @@
       document.getElementById('res-cta').innerText = content.call_to_action;
       document.getElementById('res-notes').innerText = data.pleno.editorial_consensus_notes;
 
+      // Render Sumber
       const sourcesUl = document.getElementById('res-sources');
       sourcesUl.innerHTML = '';
       (data.audit.approved_citations || []).forEach(src => {
@@ -652,37 +822,61 @@
         sourcesUl.appendChild(li);
       });
 
-      const slidesContainer = document.getElementById('slides-container');
-      slidesContainer.innerHTML = '';
-      (content.slides || []).forEach(s => {
-        const slideCard = document.createElement('div');
-        slideCard.className = 'p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5';
-        slideCard.innerHTML = `
-          <div class="flex items-center justify-between text-xs text-slate-400">
-            <span class="font-bold text-white">Slide ${s.slide_number}: ${s.headline}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Carousel</span>
-          </div>
-          <p class="text-xs text-slate-300">${s.body_text}</p>
-          <div class="mt-2 pt-2 border-t border-slate-900 text-[11px] text-purple-300">
-            <span class="font-semibold text-purple-400">Prompt Visual AI:</span>
-            <p class="font-mono text-slate-400 text-[10px] mt-0.5">${s.image_prompt}</p>
-          </div>
-        `;
-        slidesContainer.appendChild(slideCard);
-      });
+      // Simpan data slides ke state carousel mockup ponsel
+      carouselSlides = content.slides || [];
+      currentSlideIdx = 0;
+      updatePhoneCarousel();
 
+      // Siapkan export markdown
       fullOutputMarkdown = `# ${data.idea.topic}\n\n**Hook:** ${content.hook}\n\n## Slide Content:\n` +
-        content.slides.map(s => `### Slide ${s.slide_number}: ${s.headline}\n${s.body_text}\n*Prompt:* ${s.image_prompt}`).join('\n\n') +
+        carouselSlides.map(s => `### Slide ${s.slide_number}: ${s.headline}\n${s.body_text}\n*Prompt Visual:* ${s.image_prompt}`).join('\n\n') +
         `\n\n## Caption:\n${content.caption}\n\n**CTA:** ${content.call_to_action}\n\n## Sumber:\n` +
         data.audit.approved_citations.map(c => `- ${c}`).join('\n');
 
       resSection.scrollIntoView({ behavior: 'smooth' });
     }
 
+    // Logika Interaktif Smartphone Mockup Carousel
+    function updatePhoneCarousel() {
+      if (!carouselSlides || carouselSlides.length === 0) return;
+      const s = carouselSlides[currentSlideIdx];
+
+      document.getElementById('carousel-indicator').innerText = `${currentSlideIdx + 1} / ${carouselSlides.length}`;
+      document.getElementById('phone-slide-title').innerText = s.headline;
+      document.getElementById('phone-slide-text').innerText = s.body_text;
+      document.getElementById('phone-slide-prompt').innerText = s.image_prompt;
+
+      const icons = ['🍭', '📊', '⚠️', '🩺', '💡', '🛡️'];
+      document.getElementById('phone-slide-icon').innerText = icons[currentSlideIdx % icons.length];
+
+      // Render dots
+      const dotsContainer = document.getElementById('dots-container');
+      dotsContainer.innerHTML = '';
+      carouselSlides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = `w-1.5 h-1.5 rounded-full transition-all ${idx === currentSlideIdx ? 'bg-blue-400 w-3' : 'bg-slate-700'}`;
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function prevSlide() {
+      if (currentSlideIdx > 0) {
+        currentSlideIdx--;
+        updatePhoneCarousel();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIdx < carouselSlides.length - 1) {
+        currentSlideIdx++;
+        updatePhoneCarousel();
+      }
+    }
+
     function copyFullContent() {
       if (!fullOutputMarkdown) return;
       navigator.clipboard.writeText(fullOutputMarkdown).then(() => {
-        alert("✓ Seluruh paket konten berhasil disalin ke clipboard!");
+        alert("✓ Paket naskah carousel lengkap berhasil disalin ke clipboard!");
       });
     }
   </script>

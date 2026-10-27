@@ -163,9 +163,9 @@ class HealthAgentsPipeline:
             return ResearchOutput.model_validate_json(response.text)
 
     def run_creator(self, idea: IdeaOutput, research: ResearchOutput) -> ContentDraft:
-        """Agen 3: Meracik copywriting medsos (hook, slide carousel) & prompt visual AI (Midjourney/Flux)."""
+        """Agen 3: Meracik copywriting medsos (hook, slide carousel) & prompt visual sinematik standar Google Flow & Google Imagen 3."""
         prompt = f"""
-        Anda adalah Canvas, seorang Creative Director Medsos & Visual Prompt Engineer.
+        Anda adalah Canvas, seorang Creative Director Medsos & Visual Prompt Engineer berstandar Google Flow & Google Imagen 3.
         
         Gagasan:
         - Topik: {idea.topic}
@@ -180,8 +180,9 @@ class HealthAgentsPipeline:
         
         Tugas Anda:
         1. Buat Hook 3 detik pertama yang sangat memikat tanpa nada murahan.
-        2. Rancang 3-5 slide carousel informatif.
-        3. Buat prompt visual AI spesifik (estetika medis 3D/ilustrasi profesional) untuk setiap slide.
+        2. Rancang 3-5 slide carousel informatif (urutan naratif: Hook -> Mitos -> Fakta Medis -> Tips Solutif -> Kesimpulan).
+        3. Buat prompt visual AI sinematik (Google Flow Scene / Imagen 3 Ready) untuk setiap slide.
+           - Detail prompt: Subjek medis konkret, pencahayaan studio klinis, estetika 3D fotorealistik atau close-up mikroskopis, palet warna elegan, 8k octane render, komposisi rasio 1:1, tanpa cacat teks.
         4. Tulis caption ramah pembaca dan Call-to-Action (CTA).
         """
         config = types.GenerateContentConfig(

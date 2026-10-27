@@ -29,6 +29,64 @@ async def serve_index():
             return f.read()
     return "<h1>File index.html tidak ditemukan di folder static</h1>"
 
+@app.post("/api/generate-imagen")
+async def generate_imagen(payload: dict):
+    """
+    Generate visual resolusi tinggi menggunakan model Google Imagen 3 (imagen-3.0-generate-002)
+    melalui Google GenAI SDK resmi.
+    """
+    prompt = payload.get("prompt", "")
+    if not prompt:
+        return {"success": False, "error": "Prompt tidak boleh kosong"}
+    
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        return {
+            "success": False,
+            "error": "GEMINI_API_KEY belum disetel di server.",
+            "hint": "Gunakan Google Flow di flow.google dengan akun Google Anda."
+        }
+    
+    try:
+        from google import genai
+        client = genai.Client(api_key=api_key)
+        full_prompt = (
+            f"Cinematic medical 3D photorealism, scientific accuracy, clean clinical studio lighting, "
+            f"subsurface scattering, 8k resolution, crisp detail, no text artifacts, 1:1 square: {prompt}"
+        )
+        loop = asyncio.get_event_loop()
+        
+        def _call_imagen():
+            return client.models.generate_images(
+                model='imagen-3.0-generate-002',
+                prompt=full_prompt,
+                config=dict(number_of_images=1, aspect_ratio="1:1")
+            )
+        
+        result = await loop.run_in_executor(None, _call_imagen)
+        if result and result.generated_images and len(result.generated_images) > 0:
+            import base64
+            img_bytes = result.generated_images[0].image.image_bytes
+            b64_str = base64.b64encode(img_bytes).decode("utf-8")
+            return {
+                "success": True,
+                "image_data": f"data:image/jpeg;base64,{b64_str}",
+                "model": "Google Imagen 3 (imagen-3.0-generate-002)"
+            }
+        else:
+            return {
+                "success": False,
+                "error": "Google Imagen 3 tidak mengembalikan gambar.",
+                "hint": "Gunakan Google Flow di flow.google untuk generate langsung."
+            }
+    except Exception as e:
+        err_msg = str(e)
+        return {
+            "success": False,
+            "error": err_msg,
+            "hint": "Jika API key belum memiliki izin/kuota Imagen 3 di Google AI Studio, gunakan tombol 'Buka Google Flow' (flow.google) untuk generate visual sinematik gratis langsung di Google Labs!"
+        }
+
 @app.get("/api/stream-pipeline")
 async def stream_pipeline(topic: str = Query(..., description="Topik konten kesehatan")):
     """
